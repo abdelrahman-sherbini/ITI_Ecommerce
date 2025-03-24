@@ -32,6 +32,34 @@ CREATE TABLE user (
     state VARCHAR(100)
 );
 
+-- User Table
+CREATE TABLE user (
+    userid INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(45) UNIQUE,
+    password VARCHAR(45),
+    phone VARCHAR(20),
+    gender VARCHAR(20),
+    registerdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+);
+
+-- User Address
+CREATE TABLE user_address (
+    addressid INT AUTO_INCREMENT PRIMARY KEY,
+    userid VARCHAR(100),
+    fname VARCHAR(100),
+    lname VARCHAR(100),
+    phone VARCHAR(20),
+    street TEXT,
+    address_type VARCHAR(100),
+    is_default TINYINT(1),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    pincode VARCHAR(10)
+    FOREIGN KEY (userid) REFERENCES user(userid) ON DELETE CASCADE
+);
+
 -- Product Table
 CREATE TABLE product (
     pid INT AUTO_INCREMENT PRIMARY KEY,
