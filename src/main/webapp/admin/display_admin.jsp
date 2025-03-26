@@ -1,15 +1,13 @@
-<%@page import="com.eazydeals.dao.AdminDao"%>
+<%@page import="gov.iti.Model.AdminDao"%>
+<%@ page import="gov.iti.Dtos.Admin" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="java.util.List" %>
 <%@page errorPage="error_exception.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-if (activeAdmin == null) {
-	Message message = new Message("You are not logged in! Login first!!", "error", "alert-danger");
-	session.setAttribute("message", message);
-	response.sendRedirect("adminlogin.jsp");
-	return;
-}
+
 AdminDao adminDao = new AdminDao(ConnectionProvider.getConnection());
 List<Admin> adminList = adminDao.getAllAdmin();
 %>
