@@ -6,6 +6,7 @@
     <welcome-file-list>
         <welcome-file>customer/index.jsp</welcome-file>
     </welcome-file-list>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecureUpload</web-resource-name>

@@ -22,7 +22,7 @@
 
 	<div class="container">
 		<a class="navbar-brand" href="admin.jsp"><i
-			class="fa-sharp fa-solid fa-house" style="color: #ffffff;"></i>&ensp;EazyDeals</a>
+			class="fa-sharp fa-solid fa-house" style="color: #ffffff;"></i>&ensp;Shopfy</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
