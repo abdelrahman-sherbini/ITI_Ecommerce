@@ -1,4 +1,4 @@
-<%@page import="com.eazydeals.entities.Message"%>
+<%@page import="gov.iti.Dtos.Message"%>
 <%
 Message messg = (Message) session.getAttribute("message");
 if (messg != null) {
