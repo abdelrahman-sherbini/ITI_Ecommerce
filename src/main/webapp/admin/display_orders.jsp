@@ -1,14 +1,18 @@
-<%@page import="com.eazydeals.entities.Message"%>
-<%@page import="com.eazydeals.dao.UserDao"%>
+
 <%@page errorPage="error_exception.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="com.eazydeals.entities.OrderedProduct"%>
-<%@page import="com.eazydeals.entities.Order"%>
+
 <%@page import="java.util.List"%>
-<%@page import="com.eazydeals.dao.OrderedProductDao"%>
-<%@page import="com.eazydeals.dao.OrderDao"%>
-<%@page import="com.eazydeals.helper.ConnectionProvider"%>
+<%@ page import="gov.iti.Dtos.Admin" %>
+<%@ page import="gov.iti.Dtos.Message" %>
+<%@ page import="gov.iti.Model.OrderDao" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Model.OrderedProductDao" %>
+<%@ page import="gov.iti.Dtos.Order" %>
+<%@ page import="gov.iti.Model.UserDao" %>
+<%@ page import="gov.iti.Dtos.OrderedProduct" %>
+
 
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
