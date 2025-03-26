@@ -1,115 +1,123 @@
 CREATE DATABASE shop;
 USE shop;
 
--- Admin Table
-CREATE TABLE admin (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(50),
-    phone VARCHAR(20)
+CREATE TABLE `wishlist`(
+    `wishlist_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT UNSIGNED NOT NULL,
+    `product_id` BIGINT UNSIGNED NOT NULL
 );
-
--- Category Table
-CREATE TABLE category (
-    cid INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    image VARCHAR(100)
+ALTER TABLE
+    `wishlist` ADD INDEX `wishlist_user_id_index`(`user_id`);
+CREATE TABLE `order`(
+    `order_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `payment_id` BIGINT UNSIGNED NOT NULL,
+    `user_id` BIGINT NULL,
+    `status` VARCHAR(100) NOT NULL,
+    `date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP());
+ALTER TABLE
+    `order` ADD INDEX `order_user_id_index`(`user_id`);
+ALTER TABLE
+    `order` ADD INDEX `order_status_index`(`status`);
+CREATE TABLE `ordered_product`(
+    `order_product_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `product_id` BIGINT UNSIGNED NOT NULL,
+    `quantity` INT UNSIGNED NOT NULL,
+    `order_id` BIGINT UNSIGNED NOT NULL
 );
-
--- User Table
-CREATE TABLE user (
-    userid INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(45) UNIQUE,
-    password VARCHAR(45),
-    phone VARCHAR(20),
-    gender VARCHAR(20),
-    registerdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    address VARCHAR(250),
-    city VARCHAR(100),
-    pincode VARCHAR(10),
-    state VARCHAR(100)
+ALTER TABLE
+    `ordered_product` ADD INDEX `ordered_product_order_id_index`(`order_id`);
+CREATE TABLE `cart`(
+    `cart_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT UNSIGNED NULL,
+    `product_id` BIGINT UNSIGNED NULL,
+    `quantity` INT UNSIGNED NULL
 );
-
--- User Table
-CREATE TABLE user (
-    userid INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(45) UNIQUE,
-    password VARCHAR(45),
-    phone VARCHAR(20),
-    gender VARCHAR(20),
-    registerdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
+ALTER TABLE
+    `cart` ADD INDEX `cart_user_id_index`(`user_id`);
+CREATE TABLE `category`(
+    `category_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `image` VARCHAR(100) NULL
 );
-
--- User Address
-CREATE TABLE user_address (
-    addressid INT AUTO_INCREMENT PRIMARY KEY,
-    userid VARCHAR(100),
-    fname VARCHAR(100),
-    lname VARCHAR(100),
-    phone VARCHAR(20),
-    street TEXT,
-    address_type VARCHAR(100),
-    is_default TINYINT(1),
-    city VARCHAR(100),
-    state VARCHAR(100),
-    pincode VARCHAR(10)
-    FOREIGN KEY (userid) REFERENCES user(userid) ON DELETE CASCADE
+CREATE TABLE `product`(
+    `product_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(250) NOT NULL,
+    `description` VARCHAR(500) NULL,
+    `price` FLOAT(53) NOT NULL,
+    `quantity` INT UNSIGNED NOT NULL DEFAULT '0',
+    `discount` INT NOT NULL DEFAULT '0',
+    `image` VARCHAR(100) NULL,
+    `category_id` BIGINT NULL
 );
-
--- Product Table
-CREATE TABLE product (
-    pid INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(250),
-    description VARCHAR(500),
-    price VARCHAR(20),
-    quantity INT,
-    discount INT,
-    image VARCHAR(100),
-    cid INT,
-    FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE CASCADE
+ALTER TABLE
+    `product` ADD INDEX `product_category_id_index`(`category_id`);
+CREATE TABLE `payment`(
+    `payment_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT UNSIGNED NOT NULL,
+    `method` VARCHAR(255) NOT NULL,
+    `ammount` FLOAT(53) NOT NULL,
+    `status` VARCHAR(255) NOT NULL
 );
-
--- Cart Table
-CREATE TABLE cart (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    uid INT,
-    pid INT,
-    quantity INT,
-    FOREIGN KEY (uid) REFERENCES user(userid) ON DELETE CASCADE,
-    FOREIGN KEY (pid) REFERENCES product(pid) ON DELETE CASCADE
+ALTER TABLE
+    `payment` ADD INDEX `payment_user_id_index`(`user_id`);
+CREATE TABLE `user_address`(
+    `address_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT NOT NULL,
+    `type` VARCHAR(255) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
+    `city` VARCHAR(255) NOT NULL,
+    `country` BIGINT NOT NULL,
+    `is_default` TINYINT NOT NULL,
+    `pin_code` VARCHAR(255) NULL
 );
-
--- Wishlist Table
-CREATE TABLE wishlist (
-    idwishlist INT AUTO_INCREMENT PRIMARY KEY,
-    iduser INT,
-    idproduct INT,
-    FOREIGN KEY (iduser) REFERENCES user(userid) ON DELETE CASCADE,
-    FOREIGN KEY (idproduct) REFERENCES product(pid) ON DELETE CASCADE
+ALTER TABLE
+    `user_address` ADD INDEX `user_address_user_id_index`(`user_id`);
+CREATE TABLE `user`(
+    `user_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(45) NOT NULL,
+    `phone` VARCHAR(20) NOT NULL,
+    `gender` VARCHAR(255) NULL,
+    `register_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(), `job` VARCHAR(100) NULL);
+ALTER TABLE
+    `user` ADD INDEX `user_email_index`(`email`);
+ALTER TABLE
+    `user` ADD INDEX `user_phone_index`(`phone`);
+ALTER TABLE
+    `user` ADD UNIQUE `user_email_unique`(`email`);
+ALTER TABLE
+    `user` ADD UNIQUE `user_phone_unique`(`phone`);
+CREATE TABLE `admin`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(50) NOT NULL,
+    `phone` VARCHAR(20) NULL
 );
-
--- Order Table
-CREATE TABLE `order` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    orderid VARCHAR(100) UNIQUE,
-    status VARCHAR(100),
-    paymentType VARCHAR(100),
-    userId INT,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userId) REFERENCES user(userid) ON DELETE CASCADE
-);
-
--- Ordered Product Table
-CREATE TABLE ordered_product (
-    oid INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    quantity INT,
-    price VARCHAR(45),
-    image VARCHAR(100),
-    orderid INT,
-    FOREIGN KEY (orderid) REFERENCES `order`(id) ON DELETE CASCADE
-);
+ALTER TABLE
+    `admin` ADD INDEX `admin_email_index`(`email`);
+ALTER TABLE
+    `admin` ADD UNIQUE `admin_email_unique`(`email`);
+ALTER TABLE
+    `ordered_product` ADD CONSTRAINT `ordered_product_product_id_foreign` FOREIGN KEY(`product_id`) REFERENCES `product`(`product_id`);
+ALTER TABLE
+    `wishlist` ADD CONSTRAINT `wishlist_product_id_foreign` FOREIGN KEY(`product_id`) REFERENCES `product`(`product_id`);
+ALTER TABLE
+    `cart` ADD CONSTRAINT `cart_product_id_foreign` FOREIGN KEY(`product_id`) REFERENCES `product`(`product_id`);
+ALTER TABLE
+    `order` ADD CONSTRAINT `order_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
+ALTER TABLE
+    `ordered_product` ADD CONSTRAINT `ordered_product_order_id_foreign` FOREIGN KEY(`order_id`) REFERENCES `order`(`order_id`);
+ALTER TABLE
+    `wishlist` ADD CONSTRAINT `wishlist_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
+ALTER TABLE
+    `order` ADD CONSTRAINT `order_payment_id_foreign` FOREIGN KEY(`payment_id`) REFERENCES `payment`(`payment_id`);
+ALTER TABLE
+    `user_address` ADD CONSTRAINT `user_address_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
+ALTER TABLE
+    `cart` ADD CONSTRAINT `cart_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
+ALTER TABLE
+    `product` ADD CONSTRAINT `product_category_id_foreign` FOREIGN KEY(`category_id`) REFERENCES `category`(`category_id`);
+ALTER TABLE
+    `payment` ADD CONSTRAINT `payment_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
