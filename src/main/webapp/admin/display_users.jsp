@@ -43,9 +43,9 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 				<td><%=u.getUserEmail()%></td>
 				<td><%=u.getUserPhone()%></td>
 				<td><%=u.getUserGender()%></td>
-				<td><%=userDao.getUserAddress(u.getUserId())%></td>
-				<td><%=u.getDateTime()%></td>
-				<td><a href="UpdateUserServlet?operation=deleteUser&uid=<%=u.getUserId()%>" role="button" class="btn btn-danger">Remove</a></td>
+				<td><%=u.getJob()%></td>
+				<td><%=u.getRegisterDate()%></td>
+<%--				<td><a href="UpdateUserServlet?operation=deleteUser&uid=<%=u.getUserId()%>" role="button" class="btn btn-danger">Remove</a></td>--%>
 			</tr>
 			<%
 			}
