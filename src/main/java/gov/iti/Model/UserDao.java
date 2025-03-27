@@ -32,7 +32,12 @@ public class UserDao {
 			psmt.setString(5, user.getUserGender());
 			psmt.setTimestamp(6,user.getRegisterDate());
 			psmt.setString(7, user.getJob());
-			psmt.setInt(8,user.getDefaultAddress());
+			if (user.getDefaultAddress() == 0) {
+				psmt.setNull(8, java.sql.Types.INTEGER);
+			} else {
+				psmt.setInt(8, user.getDefaultAddress());
+			}
+			// psmt.setInt(8,user.getDefaultAddress());
 
 			psmt.executeUpdate();
 			flag = true;
