@@ -141,7 +141,12 @@ public class UserDao {
 			psmt.setString(2, user.getUserEmail());
 			psmt.setString(3, user.getUserPhone());
 			psmt.setString(4, user.getUserGender());
-			psmt.setInt(5,user.getDefaultAddress());
+			if (user.getDefaultAddress() == 0) {
+				psmt.setNull(5, java.sql.Types.INTEGER);
+			} else {
+				psmt.setInt(5, user.getDefaultAddress());
+			}
+			// psmt.setInt(5,user.getDefaultAddress());
 			psmt.setString(6, user.getJob());
 			psmt.setInt(7, user.getUserId());
 
