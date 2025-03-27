@@ -78,7 +78,7 @@ aria-labelledby="addProductModalLabel" aria-hidden="true">
                     </div>
                     <div class="col-md-6 mb-2">
                         <label class="form-label"><b>Discount Percentage</b></label> <input
-                            type="number" name="discount" onblur="validate()"
+                            type="number" name="discount" min="0" max="100" onblur="validate(this)"
                             placeholder="Enter discount if any!" class="form-control">
                     </div>
                 </div>
@@ -121,3 +121,13 @@ aria-labelledby="addProductModalLabel" aria-hidden="true">
 </div>
 </div>
 <!-- end of modal -->
+<script>
+    function validate(input) {
+        let value = parseInt(input.value, 10);
+
+        if (isNaN(value) || value < 0 || value > 100) {
+            alert("Please enter a discount between 0 and 100.");
+            input.value = ""; // Clear invalid input
+        }
+    }
+</script>
