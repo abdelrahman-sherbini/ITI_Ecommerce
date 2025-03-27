@@ -19,11 +19,11 @@ public class ProductDao {
 	public boolean saveProduct(Product product) {
 		boolean flag = false;
 		try {
-			String query = "insert into product(name, description, price, quantity, discount, image, cid) values(?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into product(name, description, price, quantity, discount, image, category_id) values(?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
-			psmt.setFloat(3, product.getProductPrice());
+			psmt.setDouble(3, product.getProductPrice());
 			psmt.setInt(4, product.getProductQunatity());
 			psmt.setInt(5, product.getProductDiscount());
 			psmt.setString(6, product.getProductImages());
@@ -47,14 +47,14 @@ public class ProductDao {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Product product = new Product();
-				product.setProductId(rs.getInt("pid"));
+				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getFloat("price"));
+				product.setProductPrice(rs.getDouble("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
-				product.setCategoryId(rs.getInt("cid"));
+				product.setCategoryId(rs.getInt("category_id"));
 
 				list.add(product);
 			}
@@ -67,20 +67,20 @@ public class ProductDao {
 	public List<Product> getAllLatestProducts() {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product order by pid desc";
+			String query = "select * from product order by product_id desc";
 			Statement statement = this.con.createStatement();
 
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Product product = new Product();
-				product.setProductId(rs.getInt("pid"));
+				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getFloat("price"));
+				product.setProductPrice(rs.getDouble("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
-				product.setCategoryId(rs.getInt("cid"));
+				product.setCategoryId(rs.getInt("category_id"));
 
 				list.add(product);
 			}
@@ -90,23 +90,23 @@ public class ProductDao {
 		return list;
 	}
 
-	public Product getProductsByProductId(int pid) {
+	public Product getProductsByProductId(int product_id) {
 		Product product = new Product();
 		try {
-			String query = "select * from product where pid = ?";
+			String query = "select * from product where product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, pid);
+			psmt.setInt(1, product_id);
 			ResultSet rs = psmt.executeQuery();
 			rs.next();
 
-			product.setProductId(rs.getInt("pid"));
+			product.setProductId(rs.getInt("product_id"));
 			product.setProductName(rs.getString("name"));
 			product.setProductDescription(rs.getString("description"));
-			product.setProductPrice(rs.getFloat("price"));
+			product.setProductPrice(rs.getDouble("price"));
 			product.setProductQunatity(rs.getInt("quantity"));
 			product.setProductDiscount(rs.getInt("discount"));
 			product.setProductImages(rs.getString("image"));
-			product.setCategoryId(rs.getInt("cid"));
+			product.setCategoryId(rs.getInt("category_id"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -117,20 +117,20 @@ public class ProductDao {
 	public List<Product> getAllProductsByCategoryId(int catId) {
 		List<Product> list = new ArrayList<Product>();
 		try {
-			String query = "select * from product where cid = ?";
+			String query = "select * from product where category_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, catId);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				Product product = new Product();
-				product.setProductId(rs.getInt("pid"));
+				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getFloat("price"));
+				product.setProductPrice(rs.getDouble("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
-				product.setCategoryId(rs.getInt("cid"));
+				product.setCategoryId(rs.getInt("category_id"));
 
 				list.add(product);
 			}
@@ -152,14 +152,14 @@ public class ProductDao {
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				Product product = new Product();
-				product.setProductId(rs.getInt("pid"));
+				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getFloat("price"));
+				product.setProductPrice(rs.getDouble("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
-				product.setCategoryId(rs.getInt("cid"));
+				product.setCategoryId(rs.getInt("category_id"));
 
 				list.add(product);
 			}
@@ -177,14 +177,14 @@ public class ProductDao {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Product product = new Product();
-				product.setProductId(rs.getInt("pid"));
+				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getFloat("price"));
+				product.setProductPrice(rs.getDouble("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
-				product.setCategoryId(rs.getInt("cid"));
+				product.setCategoryId(rs.getInt("category_id"));
 
 				list.add(product);
 			}
@@ -197,15 +197,16 @@ public class ProductDao {
 	public void updateProduct(Product product) {
 		try {
 
-			String query = "update product set name=?, description=?, price=?, quantity=?, discount=?, image=? where pid=?";
+			String query = "update product set name=?, description=?, price=?, quantity=?, discount=?, image=?,category_id=? where product_id=?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
-			psmt.setFloat(3, product.getProductPrice());
+			psmt.setDouble(3, product.getProductPrice());
 			psmt.setInt(4, product.getProductQunatity());
 			psmt.setInt(5, product.getProductDiscount());
 			psmt.setString(6, product.getProductImages());
-			psmt.setInt(7, product.getProductId());
+			psmt.setInt(7, product.getCategoryId());
+			psmt.setInt(8, product.getProductId());
 
 			psmt.executeUpdate();
 		} catch (Exception e) {
@@ -216,7 +217,7 @@ public class ProductDao {
 
 	public void updateQuantity(int id, int qty) {
 		try {
-			String query = "update product set quantity = ? where pid = ?";
+			String query = "update product set quantity = ? where product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, qty);
 			psmt.setInt(2, id);
@@ -228,11 +229,11 @@ public class ProductDao {
 		}
 	}
 
-	public void deleteProduct(int pid) {
+	public void deleteProduct(int product_id) {
 		try {
-			String query = "delete from product where pid = ?";
+			String query = "delete from product where product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, pid);
+			psmt.setInt(1, product_id);
 			psmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -254,30 +255,30 @@ public class ProductDao {
 		return count;
 	}
 
-	public float getProductPriceById(int pid) {
-		float price = 0;
+	public double getProductPriceById(int product_id) {
+		double price = 0;
 		try {
-			String query = "select price, discount from product where pid = ?";
+			String query = "select price, discount from product where product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, pid);
+			psmt.setInt(1, product_id);
 			ResultSet rs = psmt.executeQuery();
 			rs.next();
-			float orgPrice = rs.getInt(1);
+			double orgPrice = rs.getInt(1);
 			int discount = rs.getInt(2);
 
-			float discountPrice = (int) ((discount / 100.0) * orgPrice);
+			double discountPrice = (int) ((discount / 100.0) * orgPrice);
 			price = orgPrice - discountPrice;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return price;
 	}
-	public int getProductQuantityById(int pid) {
+	public int getProductQuantityById(int product_id) {
 		int qty = 0;
 		try {
-			String query = "select quantity from product where pid = ?";
+			String query = "select quantity from product where product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, pid);
+			psmt.setInt(1, product_id);
 			ResultSet rs = psmt.executeQuery();
 			rs.next();
 			qty = rs.getInt(1);

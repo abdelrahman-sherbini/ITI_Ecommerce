@@ -1,4 +1,4 @@
-package gov.iti.Controllers;
+package gov.iti.Controllers.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

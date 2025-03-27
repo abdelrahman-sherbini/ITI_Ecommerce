@@ -3,23 +3,31 @@ package gov.iti.Dtos;
 public class OrderedProduct {
 	
 	private int id;
-	private String name;
+
+
+	private int price;
+	private int product_id;
 	private int quantity;
-	private float price;
-	private String image;
 	private int orderId;
-	
+
 	public OrderedProduct() {
 		super();
 	}
 
-	public OrderedProduct(String name, int quantity, float price, String image, int orderId) {
+	public OrderedProduct(int product_id, int price, int quantity, int orderId) {
 		super();
-		this.name = name;
-		this.quantity = quantity;
 		this.price = price;
-		this.image = image;
+		this.product_id = product_id;
+		this.quantity = quantity;
 		this.orderId = orderId;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public int getId() {
@@ -30,13 +38,14 @@ public class OrderedProduct {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public int getProduct_id() {
+		return product_id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
 	}
+
 
 	public int getQuantity() {
 		return quantity;
@@ -46,21 +55,6 @@ public class OrderedProduct {
 		this.quantity = quantity;
 	}
 
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	public int getOrderId() {
 		return orderId;

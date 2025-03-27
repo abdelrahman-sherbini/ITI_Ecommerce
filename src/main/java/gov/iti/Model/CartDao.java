@@ -20,7 +20,7 @@ public class CartDao {
 	public boolean addToCart(Cart cart) {
 		boolean flag = false;
 		try {
-			String query = "insert into cart(uid, pid, quantity) values(?,?,?)";
+			String query = "insert into cart(user_id, product_id, quantity) values(?,?,?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, cart.getUserId());
 			psmt.setInt(2, cart.getProductId());
@@ -38,7 +38,7 @@ public class CartDao {
 	public List<Cart> getCartListByUserId(int uid) {
 		List<Cart> list = new ArrayList<Cart>();
 		try {
-			String query = "select * from cart where uid = ?";
+			String query = "select * from cart where user_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 

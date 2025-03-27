@@ -54,8 +54,8 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 				<td>&#8377;<%=prod.getProductPriceAfterDiscount()%></td>
 				<td><%=prod.getProductQunatity()%></td>
 				<td><%=prod.getProductDiscount()%>%</td>
-				<td><a href="update_product.jsp?pid=<%=prod.getProductId()%>" role="button" class="btn btn-secondary">Update</a>&emsp;<a
-					href="AddOperationServlet?pid=<%=prod.getProductId()%>&operation=deleteProduct"
+				<td><a href="update_product.jsp?product_id=<%=prod.getProductId()%>" role="button" class="btn btn-secondary">Update</a>&emsp;<a
+					href="AddOperationServlet?product_id=<%=prod.getProductId()%>&operation=deleteProduct"
 					class="btn btn-danger" role="button">Delete</a></td>
 			</tr>
 			<%

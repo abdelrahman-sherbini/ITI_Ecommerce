@@ -23,8 +23,8 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 
 	<!-- update category -->
 	<%
-	int cid = Integer.parseInt(request.getParameter("cid"));
-	Category category = catDao.getCategoryById(cid);
+	int category_id = Integer.parseInt(request.getParameter("category_id"));
+	Category category = catDao.getCategoryById(category_id);
 	%>
 	<div class="container mt-5">
 		<div class="row row-cols-1 row-cols-md-1 offset-md-2">
@@ -33,7 +33,7 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 					<div class="card-header text-center">
 						<h3>Edit Category</h3>
 					</div>
-					<form action="AddOperationServlet?cid=<%=cid%>" method="post"
+					<form action="AddOperationServlet?category_id=<%=category_id%>" method="post"
 						enctype="multipart/form-data">
 						<div class="card-body">
 							<input type="hidden" name="operation" value="updateCategory">

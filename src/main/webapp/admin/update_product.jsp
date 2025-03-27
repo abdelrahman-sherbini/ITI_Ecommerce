@@ -26,9 +26,9 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 
 	<!-- update product -->
 	<%
-	int pid = Integer.parseInt(request.getParameter("pid"));
+	int product_id = Integer.parseInt(request.getParameter("product_id"));
 	ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
-	Product product = productDao.getProductsByProductId(pid);
+	Product product = productDao.getProductsByProductId(product_id);
 	%>
 	<div class="container mt-3">
 		<div class="row ">
@@ -37,7 +37,7 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 					<div class="card-header text-center">
 						<h3>Edit Product</h3>
 					</div>
-					<form action="AddOperationServlet?pid=<%=pid%>" method="post"
+					<form action="AddOperationServlet?product_id=<%=product_id%>" method="post"
 						name="updateProductForm" enctype="multipart/form-data">
 						<div class="card-body">
 							<input type="hidden" name="operation" value="updateProduct">
@@ -75,7 +75,8 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 										class="form-control" type="file" name="product_img">
 								</div>
 								<div class="col-md-6 mb-2">
-									<label class="form-label"><b>Select Category Type</b></label> <select
+									<label class="form-label"><b>Select Category Type</b></label>
+									<select
 										name="categoryType" class="form-control">
 										<option value="0">--Select Category--</option>
 										<%
@@ -86,7 +87,8 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 										<%
 										}
 										%>
-									</select> <input type="hidden" name="category"
+									</select>
+									<input type="hidden" name="category"
 										value="<%=product.getCategoryId()%>">
 								</div>
 							</div>

@@ -5,30 +5,36 @@ import java.sql.Timestamp;
 public class Order {
 	
 	private int id;
-	private String orderId;
+
+
+	private String address;
+	private String city;
+	private int country;
+	private int paymentId;
 	private String status;
 	private Timestamp date;
-	private String payementType;
 	private int userId;
-	
+
 	public Order() {
 		super();
 	}
 
-	public Order(String orderId, String status, Timestamp date, String payementType, int userId) {
+	public Order(String address,String city,int country,int paymentId, String status, Timestamp date, int userId) {
 		super();
-		this.orderId = orderId;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.paymentId = paymentId;
 		this.status = status;
 		this.date = date;
-		this.payementType = payementType;
 		this.userId = userId;
 	}
 
-	public Order(String orderId, String status, String payementType, int userId) {
+	public Order(int paymentId, String status, int userId) {
 		super();
-		this.orderId = orderId;
+		this.paymentId =  paymentId;
 		this.status = status;
-		this.payementType = payementType;
+
 		this.userId = userId;
 	}
 
@@ -40,12 +46,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getOrderId() {
-		return orderId;
+	public int getPaymentId() {
+		return paymentId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
 	}
 
 	public String getStatus() {
@@ -64,12 +70,28 @@ public class Order {
 		this.date = date;
 	}
 
-	public String getPayementType() {
-		return payementType;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setPayementType(String payementType) {
-		this.payementType = payementType;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getCountry() {
+		return country;
+	}
+
+	public void setCountry(int country) {
+		this.country = country;
 	}
 
 	public int getUserId() {
