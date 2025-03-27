@@ -14,7 +14,7 @@ public class User {
 
 	private Timestamp registerDate;
 	private String job;
-	private int defaultAddress;
+	private Integer defaultAddress;
 
 	public User() {
 
@@ -75,7 +75,7 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public int getDefaultAddress() {
+	public Integer getDefaultAddress() {
 		return defaultAddress;
 	}
 
