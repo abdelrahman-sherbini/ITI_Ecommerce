@@ -50,7 +50,7 @@ a {
 				<img src="Images/admin.png" style="max-width: 180px;"
 					class="img-fluid">
 				<h3>
-					Welcome ""
+					Welcome "<%= activeAdmin.getName()%>"
 				</h3>
 			</div>
 		</div>
