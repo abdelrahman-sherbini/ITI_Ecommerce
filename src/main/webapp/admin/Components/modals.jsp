@@ -1,3 +1,11 @@
+<%@ page import="gov.iti.Model.CategoryDao" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.Category" %>
+<%@ page import="java.util.List" %><%
+
+    CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
+    List<Category> categoryList = catDao.getAllCategories();
+%>
 <!-- add category modal-->
 <div class="modal fade" id="add-category" tabindex="-1"
 aria-labelledby="addCategoryModalLabel" aria-hidden="true">
@@ -84,13 +92,22 @@ aria-labelledby="addProductModalLabel" aria-hidden="true">
                         <label class="form-label"><b>Select Category Type</b></label> <select
                             name="categoryType" class="form-control">
                             <option value="0">--Select Category--</option>
-
+                            <%
+                                for (Category c : categoryList) {
+                            %>
+                            <option value="<%=c.getCategoryId()%>">
+                                <%=c.getCategoryName()%></option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
                 </div>
                 <div class="mb-2">
                     <label class="form-label"><b>Product Image</b></label> <input
                         type="file" name="photo" class="form-control" required>
+
+
                 </div>
             </div>
             <div class="modal-footer">

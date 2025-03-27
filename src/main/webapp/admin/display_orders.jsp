@@ -4,24 +4,18 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@page import="java.util.List"%>
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Dtos.Message" %>
 <%@ page import="gov.iti.Model.OrderDao" %>
 <%@ page import="gov.iti.Helper.ConnectionProvider" %>
 <%@ page import="gov.iti.Model.OrderedProductDao" %>
-<%@ page import="gov.iti.Dtos.Order" %>
 <%@ page import="gov.iti.Model.UserDao" %>
-<%@ page import="gov.iti.Dtos.OrderedProduct" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.ProductDao" %>
 
 
 <%
 Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-if (activeAdmin == null) {
-	Message message = new Message("You are not logged in! Login first!!", "error", "alert-danger");
-	session.setAttribute("message", message);
-	response.sendRedirect("adminlogin.jsp");
-	return;
-}
+
+	ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 OrderDao orderDao = new OrderDao(ConnectionProvider.getConnection());
 OrderedProductDao ordProdDao = new OrderedProductDao(ConnectionProvider.getConnection());
 List<Order> orderList = orderDao.getAllOrder();
@@ -68,19 +62,21 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 				for (Order order : orderList) {
 					List<OrderedProduct> ordProdList = ordProdDao.getAllOrderedProduct(order.getId());
 					for (OrderedProduct orderProduct : ordProdList) {
+						Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
+
 				%>
 				<form action="UpdateOrderServlet?oid=<%=order.getId()%>"
 					method="post">
 				<tr>
 					<td class="text-center"><img
-						src="Product_imgs\<%=orderProduct.getImage()%>"
+						src="Product_imgs\<%=prod.getProductImages()%>"
 						style="width: 50px; height: 50px; width: auto;"></td>
-					<td><%=order.getOrderId()%></td>
-					<td><%=orderProduct.getName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
+					<td><%=order.getId()%></td>
+					<td><%=prod.getProductName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
 						Price: &#8377;<%=orderProduct.getPrice() * orderProduct.getQuantity()%></td>
-					<td><%=userDao.getUserName(order.getUserId())%><br>Mobile No. <%=userDao.getUserPhone(order.getUserId())%><br><%=userDao.getUserAddress(order.getUserId())%></td>
+					<td><%=userDao.getUserName(order.getUserId())%><br>Mobile No. <%=userDao.getUserPhone(order.getUserId())%><br><%=order.getAddress() +" "+order.getCity()%></td>
 					<td><%=order.getDate()%></td>
-					<td><%=order.getPayementType()%></td>
+					<td><%= "COD"%></td>
 					<td><%=order.getStatus()%></td>
 					<td><select id="operation" name="status" class="form-select">
 							<option>--Select Operation--</option>

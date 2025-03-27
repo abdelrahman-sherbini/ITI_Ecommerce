@@ -46,7 +46,7 @@ public class CategoryDao {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Category category = new Category();
-				category.setCategoryId(rs.getInt("cid"));
+				category.setCategoryId(rs.getInt("category_id"));
 				category.setCategoryName(rs.getString("name"));
 				category.setCategoryImage(rs.getString("image"));
 
@@ -58,15 +58,15 @@ public class CategoryDao {
 
 		return list;
 	}
-	public Category getCategoryById(int cid) {
+	public Category getCategoryById(int category_id) {
 		Category category = new Category();
 		try {
-			String query = "select * from category where cid = ?";
+			String query = "select * from category where category_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, cid);
+			psmt.setInt(1, category_id);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
-				category.setCategoryId(rs.getInt("cid"));
+				category.setCategoryId(rs.getInt("category_id"));
 				category.setCategoryName(rs.getString("name"));
 				category.setCategoryImage(rs.getString("image"));
 			}
@@ -78,7 +78,7 @@ public class CategoryDao {
 	public String getCategoryName(int catId) {
 		String category = "";
 		try {
-			String query = "select * from category where cid = ?";
+			String query = "select * from category where category_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, catId);
 			ResultSet rs = psmt.executeQuery();
@@ -94,7 +94,7 @@ public class CategoryDao {
 	
 	public void updateCategory(Category cat) {
 		try {
-			String query = "update category set name=?, image=? where cid=?";
+			String query = "update category set name=?, image=? where category_id=?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, cat.getCategoryName());
 			psmt.setString(2, cat.getCategoryImage());
@@ -106,11 +106,11 @@ public class CategoryDao {
 		}
 	}
 	
-	public void deleteCategory(int cid) {
+	public void deleteCategory(int category_id) {
 		try {
-			String query = "delete from category where cid = ?";
+			String query = "delete from category where category_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setInt(1, cid);
+			psmt.setInt(1, category_id);
 			
 			psmt.executeUpdate();
 			

@@ -10,56 +10,46 @@ public class User {
 	private String userPassword;
 	private String userPhone;
 	private String userGender;
-	private Timestamp dateTime;
-	private String userAddress;
-	private String userCity;
-	private String userPincode;
-	private String userState;
-	
+
+
+	private Timestamp registerDate;
+	private String job;
+	private int defaultAddress;
+
 	public User() {
-		
+
 	}
 
-	public User(String userName, String userEmail, String userPassword, String userPhone, String userGender,
-			String userAddress, String userCity, String userPincode, String userState) {
+	public User(String userName, String userEmail, String userPassword, String userPhone, String userGender) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.userPhone = userPhone;
 		this.userGender = userGender;
-		this.userAddress = userAddress;
-		this.userCity = userCity;
-		this.userPincode = userPincode;
-		this.userState = userState;
+
 	}
 
 	public User(String userName, String userEmail, String userPassword, String userPhone, String userGender,
-			Timestamp dateTime, String userAddress, String userCity, String userPincode, String userState) {
+			Timestamp registerDate, int defaultAddress) {
 		super();
+		this.defaultAddress = defaultAddress;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.userPhone = userPhone;
 		this.userGender = userGender;
-		this.dateTime = dateTime;
-		this.userAddress = userAddress;
-		this.userCity = userCity;
-		this.userPincode = userPincode;
-		this.userState = userState;
+		this.registerDate = registerDate;
+
 	}
-	
-	public User(String userName, String userEmail, String userPhone, String userGender, String userAddress,
-			String userCity, String userPincode, String userState) {
+
+	public User(String userName, String userEmail, String userPhone, String userGender) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.userGender = userGender;
-		this.userAddress = userAddress;
-		this.userCity = userCity;
-		this.userPincode = userPincode;
-		this.userState = userState;
+
 	}
 
 	public int getUserId() {
@@ -85,6 +75,21 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+	public int getDefaultAddress() {
+		return defaultAddress;
+	}
+
+	public void setDefaultAddress(int defaultAddress) {
+		this.defaultAddress = defaultAddress;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
 
 	public String getUserPassword() {
 		return userPassword;
@@ -94,6 +99,13 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
+	public Timestamp getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Timestamp registerDate) {
+		this.registerDate = registerDate;
+	}
 	public String getUserPhone() {
 		return userPhone;
 	}
@@ -110,44 +122,6 @@ public class User {
 		this.userGender = userGender;
 	}
 
-	public Timestamp getDateTime() {
-		return dateTime;
-	}
 
-	public void setDateTime(Timestamp dateTime) {
-		this.dateTime = dateTime;
-	}
-
-	public String getUserAddress() {
-		return userAddress;
-	}
-
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
-	}
-
-	public String getUserCity() {
-		return userCity;
-	}
-
-	public void setUserCity(String userCity) {
-		this.userCity = userCity;
-	}
-
-	public String getUserPincode() {
-		return userPincode;
-	}
-
-	public void setUserPincode(String userPincode) {
-		this.userPincode = userPincode;
-	}
-
-	public String getUserState() {
-		return userState;
-	}
-
-	public void setUserState(String userState) {
-		this.userState = userState;
-	}
 	
 }

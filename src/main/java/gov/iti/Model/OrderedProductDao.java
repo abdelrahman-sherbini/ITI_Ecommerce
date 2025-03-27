@@ -19,13 +19,13 @@ public class OrderedProductDao {
 	
 	public void insertOrderedProduct(OrderedProduct ordProduct) {
 		try {
-			String query = "insert into ordered_product(name, quantity, price, image, orderid) values(?, ?, ?, ?, ?)";
+			String query = "insert into ordered_product(product_id, quantity, price,  order_id) values( ?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setString(1, ordProduct.getName());
+			psmt.setInt(1, ordProduct.getProduct_id());
 			psmt.setInt(2, ordProduct.getQuantity());
-			psmt.setFloat(3,ordProduct.getPrice());
-			psmt.setString(4, ordProduct.getImage());
-			psmt.setInt(5, ordProduct.getOrderId());
+			psmt.setInt(3,ordProduct.getPrice());
+			psmt.setInt(4,ordProduct.getOrderId());
+
 
 			psmt.executeUpdate();
 
@@ -36,16 +36,16 @@ public class OrderedProductDao {
 	public List<OrderedProduct> getAllOrderedProduct(int oid){
 		List<OrderedProduct> list = new ArrayList<OrderedProduct>();
 		try {
-			String query = "select * from ordered_product where orderid = ?";
+			String query = "select * from ordered_product where order_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, oid);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				OrderedProduct orderProd = new OrderedProduct();
-				orderProd.setName(rs.getString("name"));
+				orderProd.setId(rs.getInt("order_product_id"));
+				orderProd.setPrice(rs.getInt("price"));
 				orderProd.setQuantity(rs.getInt("quantity"));
-				orderProd.setPrice(rs.getFloat("price"));
-				orderProd.setImage(rs.getString("image"));
+				orderProd.setProduct_id(rs.getInt("product_id"));
 				orderProd.setOrderId(oid);
 
 				list.add(orderProd);
@@ -54,5 +54,21 @@ public class OrderedProductDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public boolean isOrdered(int pid){
+
+		try {
+			String query = "select * from ordered_product where product_id = ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, pid);
+			ResultSet rs = psmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

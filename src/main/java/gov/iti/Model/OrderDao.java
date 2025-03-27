@@ -1,10 +1,6 @@
 package gov.iti.Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +17,22 @@ public class OrderDao {
 	public int insertOrder(Order order) {
 		int id = 0;
 		try {
-			String query = "insert into `order`(orderid, status, paymentType, userId) values(?, ?, ?, ?)";
+			String query = "insert into `order`(payment_id, user_id,address,city,country, status, date) values(?,?,?,?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
-			psmt.setString(1, order.getOrderId());
-			psmt.setString(2, order.getStatus());
-			psmt.setString(3, order.getPayementType());
-			psmt.setInt(4, order.getUserId());
-			
+			psmt.setInt(1, order.getPaymentId());
+			psmt.setInt(2, order.getUserId());
+			psmt.setString(3, order.getAddress());
+			psmt.setString(4, order.getCity());
+			psmt.setInt(5, order.getCountry());
+			psmt.setString(6, order.getStatus());
+			if (order.getDate() != null) {
+
+			psmt.setTimestamp(7, order.getDate());
+			}else{
+				psmt.setTimestamp(7,new Timestamp(System.currentTimeMillis()));
+			}
+
 			int affectedRows = psmt.executeUpdate();
 
 	        if (affectedRows == 0) {
@@ -50,17 +54,19 @@ public class OrderDao {
 	public List<Order> getAllOrderByUserId(int uid){
 		List<Order> list = new ArrayList<Order>();
 		try {
-			String query = "select * from `order` where userId = ?";
+			String query = "select * from `order` where user_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				Order order = new Order();
-				order.setId(rs.getInt("id"));
-				order.setOrderId(rs.getString("orderid"));
+				order.setId(rs.getInt("order_id"));
 				order.setStatus(rs.getString("status"));
 				order.setDate(rs.getTimestamp("date"));
-				order.setPayementType(rs.getString("paymentType"));
+				order.setPaymentId(rs.getInt("payment_id"));
+				order.setAddress(rs.getString("address"));
+				order.setCity(rs.getString("city"));
+				order.setCountry(rs.getInt("country"));
 				order.setUserId(uid);
 
 				list.add(order);
@@ -73,17 +79,19 @@ public class OrderDao {
 	public Order getOrderById(int id){
 		Order order = new Order();
 		try {
-			String query = "select * from `order` where id = ?";
+			String query = "select * from `order` where order_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, id);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
-				order.setId(rs.getInt("id"));
-				order.setOrderId(rs.getString("orderid"));
+				order.setId(rs.getInt("order_id"));
 				order.setStatus(rs.getString("status"));
 				order.setDate(rs.getTimestamp("date"));
-				order.setPayementType(rs.getString("paymentType"));
-				order.setUserId(rs.getInt("userId"));
+				order.setPaymentId(rs.getInt("payment_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setAddress(rs.getString("address"));
+				order.setCity(rs.getString("city"));
+				order.setCountry(rs.getInt("country"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,13 +106,14 @@ public class OrderDao {
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Order order = new Order();
-				order.setId(rs.getInt("id"));
-				order.setOrderId(rs.getString("orderid"));
+				order.setId(rs.getInt("order_id"));
 				order.setStatus(rs.getString("status"));
 				order.setDate(rs.getTimestamp("date"));
-				order.setPayementType(rs.getString("paymentType"));
-				order.setUserId(rs.getInt("userId"));
-				
+				order.setPaymentId(rs.getInt("payment_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setAddress(rs.getString("address"));
+				order.setCity(rs.getString("city"));
+				order.setCountry(rs.getInt("country"));
 				list.add(order);
 			}
 		} catch (Exception e) {
@@ -114,7 +123,7 @@ public class OrderDao {
 	}
 	public void updateOrderStatus(int oid, String status) {
 		try {
-			String query = "update `order` set status = ? where id = ?";
+			String query = "update `order` set status = ? where order_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, status);
 			psmt.setInt(2, oid);
