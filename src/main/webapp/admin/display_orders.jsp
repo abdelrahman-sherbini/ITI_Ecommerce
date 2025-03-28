@@ -1,26 +1,4 @@
-
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@page import="java.util.List"%>
-<%@ page import="gov.iti.Model.OrderDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Model.OrderedProductDao" %>
-<%@ page import="gov.iti.Model.UserDao" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.ProductDao" %>
-
-
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-
-	ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
-OrderDao orderDao = new OrderDao(ConnectionProvider.getConnection());
-OrderedProductDao ordProdDao = new OrderedProductDao(ConnectionProvider.getConnection());
-List<Order> orderList = orderDao.getAllOrder();
-UserDao userDao = new UserDao(ConnectionProvider.getConnection());
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +47,7 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 					method="post">
 				<tr>
 					<td class="text-center"><img
-						src="Product_imgs\<%=prod.getProductImages()%>"
+						src="\customer\images\product\<%=prod.getProductImages()%>"
 						style="width: 50px; height: 50px; width: auto;"></td>
 					<td><%=order.getId()%></td>
 					<td><%=prod.getProductName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
@@ -111,5 +89,11 @@ UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 		}
 		%>
 	</div>
+
+		<!-- add  modal-->
+		<%@include file="Components/modals.jsp"%>
+
+		<!-- end of modal -->
+	
 </body>
 </html>

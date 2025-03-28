@@ -31,8 +31,8 @@ label {
 					<div class="card-body px-5">
 						<!--login-form-->
 						<form id="login-form" action="LoginServlet" method="post">
-							<input type="hidden" name="login" value="admin"> 
-							
+<%--							<input type="hidden" name="login" value="admin"> --%>
+
 							<div class="mb-3">
 								<label class="form-label">Email</label> <input type="email"
 									name="email" placeholder="Email address" class="form-control"

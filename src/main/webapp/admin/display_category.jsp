@@ -1,16 +1,4 @@
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Dtos.Category" %>
-<%@ page import="gov.iti.Model.CategoryDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="java.util.List" %>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-	CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
-	List<Category> categoryList = catDao.getAllCategories();
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +23,7 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 			for (Category c : categoryList) {
 			%>
 			<tr class="text-center">
-				<td><img src="Product_imgs\<%=c.getCategoryImage()%>"
+				<td><img src="\customer\images\product\<%=c.getCategoryImage()%>"
 					style="width: 60px; height: 60px; width: auto;"></td>
 				<td><%=c.getCategoryName()%></td>
 				<td><a href="update_category.jsp?category_id=<%=c.getCategoryId()%>" role="button" class="btn btn-secondary">Update</a>&emsp;<a
@@ -48,5 +36,11 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 		</table>
 	</div>
 
+		<!-- add  modal-->
+		<%@include file="Components/modals.jsp"%>
+
+		<!-- end of modal -->
+
+		
 </body>
 </html>

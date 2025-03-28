@@ -1,6 +1,6 @@
 package gov.iti.Controllers.admin;
 
-import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import gov.iti.Model.AdminDao;
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 		
 		String operation = request.getParameter("operation");
 		AdminDao adminDao = new AdminDao(ConnectionProvider.getConnection());
@@ -55,7 +55,7 @@ public class AdminServlet extends HttpServlet {
 		response.sendRedirect("display_admin.jsp");
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 		doGet(request, response);
 	}
 

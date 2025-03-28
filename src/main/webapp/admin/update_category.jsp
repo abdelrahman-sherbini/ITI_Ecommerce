@@ -1,15 +1,4 @@
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Dtos.Category" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Model.CategoryDao" %>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-	CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
-
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +36,7 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 							</div>
 							<div class="mb-3">
 								<label class="form-label"><b>Uploaded Image:&nbsp;</b></label><%=category.getCategoryImage()%>&emsp;<img
-									src="Product_imgs\<%=category.getCategoryImage()%>"
+									src="\customer\images\product<%=category.getCategoryImage()%>"
 									style="width: 80px; height: 80px; width: auto;">
 								<input type="hidden" name="image" value="<%=category.getCategoryImage()%>">
 							</div>

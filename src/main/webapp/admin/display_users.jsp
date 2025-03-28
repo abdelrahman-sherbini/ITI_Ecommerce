@@ -1,16 +1,4 @@
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Dtos.Message" %>
-<%@ page import="gov.iti.Model.UserDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.User" %>
-<%@ page import="java.util.List" %>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,5 +40,12 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 			%>
 		</table>
 	</div>
+
+		<!-- add  modal-->
+		<%@include file="Components/modals.jsp"%>
+
+		<!-- end of modal -->
+	
+		
 </body>
 </html>

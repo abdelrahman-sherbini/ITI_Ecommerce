@@ -1,16 +1,4 @@
-<%@page import="gov.iti.Model.AdminDao"%>
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="java.util.List" %>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-
-AdminDao adminDao = new AdminDao(ConnectionProvider.getConnection());
-List<Admin> adminList = adminDao.getAllAdmin();
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
