@@ -1,7 +1,5 @@
 package gov.iti.Controllers.admin;
 
-import gov.iti.Dtos.OrderedProduct;
-import gov.iti.Model.OrderDao;
 import gov.iti.Model.OrderedProductDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -39,7 +37,7 @@ public class AddOperationServlet extends HttpServlet {
 		OrderedProductDao orderedProductDao = new OrderedProductDao(ConnectionProvider.getConnection());
 
 		HttpSession session = request.getSession();
-		Message message = null;
+		Message message ;
 
 		if (operation.trim().equals("addCategory")) {
 
@@ -48,21 +46,10 @@ public class AddOperationServlet extends HttpServlet {
 			Category category = new Category(categoryName, part.getSubmittedFileName());
 			boolean flag = catDao.saveCategory(category);
 
-			String path = request.getServletContext().getRealPath("/") + "Product_imgs" + File.separator
+			String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 					+ part.getSubmittedFileName();
-
-			try {
-				FileOutputStream fos = new FileOutputStream(path);
-				InputStream is = part.getInputStream();
-				byte[] data = new byte[is.available()];
-				is.read(data);
-				fos.write(data);
-				fos.flush();
-				fos.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			System.out.println(request.getServletContext().getRealPath("/") );
+			writeImage(part, path);
 
 			if (flag) {
 				message = new Message("Category added successfully!!", "success", "alert-success");
@@ -90,20 +77,9 @@ public class AddOperationServlet extends HttpServlet {
 					categoryType);
 			boolean flag = pdao.saveProduct(product);
 
-			String path = request.getServletContext().getRealPath("/") + "Product_imgs" + File.separator
+			String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 					+ part.getSubmittedFileName();
-			try {
-				FileOutputStream fos = new FileOutputStream(path);
-				InputStream is = part.getInputStream();
-				byte[] data = new byte[is.available()];
-				is.read(data);
-				fos.write(data);
-				fos.flush();
-				fos.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			writeImage(part, path);
 			if (flag) {
 				message = new Message("Product added successfully!!", "success", "alert-success");
 			} else {
@@ -124,20 +100,9 @@ public class AddOperationServlet extends HttpServlet {
 			} else {
 				Category category = new Category(category_id, name, part.getSubmittedFileName());
 				catDao.updateCategory(category);
-				String path = request.getServletContext().getRealPath("/") + "Product_imgs" + File.separator
+				String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 						+ part.getSubmittedFileName();
-				try {
-					FileOutputStream fos = new FileOutputStream(path);
-					InputStream is = part.getInputStream();
-					byte[] data = new byte[is.available()];
-					is.read(data);
-					fos.write(data);
-					fos.flush();
-					fos.close();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				writeImage(part, path);
 			}
 			message = new Message("Category updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
@@ -162,7 +127,7 @@ public class AddOperationServlet extends HttpServlet {
 			}
 			Part part = request.getPart("product_img");
 			int category_id = Integer.parseInt(request.getParameter("categoryType"));
-			System.out.println(category_id);
+
 			if (category_id == 0) {
 				category_id = Integer.parseInt(request.getParameter("category"));
 			}
@@ -176,20 +141,9 @@ public class AddOperationServlet extends HttpServlet {
 						part.getSubmittedFileName(), category_id);
 				pdao.updateProduct(product);
 				// product image upload
-				String path = request.getServletContext().getRealPath("/") + "Product_imgs" + File.separator
+				String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 						+ part.getSubmittedFileName();
-				try {
-					FileOutputStream fos = new FileOutputStream(path);
-					InputStream is = part.getInputStream();
-					byte[] data = new byte[is.available()];
-					is.read(data);
-					fos.write(data);
-					fos.flush();
-					fos.close();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				writeImage(part, path);
 			}
 			message = new Message("Product updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
@@ -209,7 +163,22 @@ public class AddOperationServlet extends HttpServlet {
 			}
 
 		}
-		return;
+
+	}
+
+	private void writeImage(Part part, String path) {
+		try {
+			FileOutputStream fos = new FileOutputStream(path);
+			InputStream is = part.getInputStream();
+			byte[] data = new byte[is.available()];
+			is.read(data);
+			fos.write(data);
+			fos.flush();
+			fos.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

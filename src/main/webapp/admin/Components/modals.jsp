@@ -1,11 +1,4 @@
-<%@ page import="gov.iti.Model.CategoryDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.Category" %>
-<%@ page import="java.util.List" %><%
 
-    CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
-    List<Category> categoryList = catDao.getAllCategories();
-%>
 <!-- add category modal-->
 <div class="modal fade" id="add-category" tabindex="-1"
 aria-labelledby="addCategoryModalLabel" aria-hidden="true">

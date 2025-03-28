@@ -1,18 +1,4 @@
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Model.ProductDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.Product" %>
-<%@ page import="gov.iti.Model.CategoryDao" %>
-<%@ page import="gov.iti.Dtos.Category" %>
-<%@ page import="java.util.List" %>
-<%@page errorPage="error_exception.jsp"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-	CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
-	List<Category> categoryList = catDao.getAllCategories();
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +80,7 @@ Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
 							</div>
 							<div class="mb-3">
 								<label class="form-label"><b>Uploaded Image:&nbsp;</b></label><%=product.getProductImages()%>
-								&emsp;<img src="Product_imgs\<%=product.getProductImages()%>"
+								&emsp;<img src="\customer\images\product\<%=product.getProductImages()%>"
 									style="width: 80px; height: 80px; width: auto;"> <input
 									type="hidden" name="image"
 									value="<%=product.getProductImages()%>">

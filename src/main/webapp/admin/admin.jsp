@@ -1,13 +1,5 @@
+<%@ include file="Components/common_imports.jsp" %>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page errorPage="error_exception.jsp"%>
-<%@page import="gov.iti.Dtos.Message"%>
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%
-	Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,15 +117,6 @@ a {
 
 	<!-- end of modal -->
 
-	<script type="text/javascript">
-		function validate() {
-			var dis = document.addProductForm.discount.value;
-			if (dis > 100 || dis < 0) {
-				alert("Discount need to be between 0-100 !");
-				//document.addProductForm.discount.focus();
-				return false;
-			}
-		}
-	</script>
+
 </body>
 </html>

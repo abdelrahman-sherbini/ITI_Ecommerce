@@ -1,22 +1,4 @@
-<%@ page import="gov.iti.Dtos.Admin" %>
-<%@ page import="gov.iti.Model.UserDao" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Model.ProductDao" %>
-<%@ page import="gov.iti.Dtos.Product" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Model.CategoryDao" %>
-<%@ page import="gov.iti.Dtos.Category" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@page errorPage="error_exception.jsp"%>
-
-<%
-Admin activeAdmin = (Admin) session.getAttribute("activeAdmin");
-
-UserDao userDao = new UserDao(ConnectionProvider.getConnection());
-ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
-	CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
-%>
+<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +29,7 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 				String category = catDao.getCategoryName(prod.getCategoryId());
 			%>
 			<tr class="text-center">
-				<td><img src="Product_imgs\<%=prod.getProductImages()%>"
+				<td><img src="\customer\images\product\<%=prod.getProductImages()%>"
 					style="width: 60px; height: 60px; width: auto;"></td>
 				<td class="text-start"><%=prod.getProductName()%></td>
 				<td><%=category%></td>
@@ -63,6 +45,13 @@ ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 			%>
 		</table>
 	</div>
+
+		<!-- add  modal-->
+		<%@include file="Components/modals.jsp"%>
+
+		<!-- end of modal -->
+
+		
 </body>
 </html>
 
