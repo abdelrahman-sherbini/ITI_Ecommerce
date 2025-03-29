@@ -870,8 +870,9 @@ body {
 
 /* Input-Counter Component */
 .input-counter {
+  display: flex;
+  align-items: center;
   position: relative;
-  display: inline-block;
   max-width: 132px;
   min-width: 132px; }
   .input-counter__text {
@@ -893,7 +894,7 @@ body {
       background-color: transparent;
       border-color: #ff4500; }
   .input-counter__minus, .input-counter__plus {
-    top: 0;
+    top: 20px;
     display: inline-block;
     font-size: 10px;
     cursor: pointer;

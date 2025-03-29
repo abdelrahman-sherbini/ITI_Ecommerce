@@ -341,40 +341,99 @@
     };
 
     // Input Counter
-    RESHOP.initInputCounter = function() {
-        // Check if Input Counters on the page
-        if ($collectionInputCounter.length) {
-            // Attach Click event to plus button
-            $collectionInputCounter.find('.input-counter__plus').on('click',function () {
-                var $input = $(this).parent().find('input');
-                var count = parseInt($input.val()) + 1; // Number + Number
-                $input.val(count).change();
-            });
-            // Attach Click event to minus button
-            $collectionInputCounter.find('.input-counter__minus').on('click',function () {
-                var $input = $(this).parent().find('input');
-                var count = parseInt($input.val()) - 1; // Number - Number
-                $input.val(count).change();
-            });
-            // Fires when the value of the element is changed
-            $collectionInputCounter.find('input').change(function () {
-                var $this = $(this);
-                var min = $this.data('min');
-                var max = $this.data('max');
-                var val = parseInt($this.val());// Current value
-                // Restrictions check
-                if (!val) {
-                   val = 1;
+    RESHOP.initInputCounter = function () {
+  
+                // Check if Input Counters on the page
+                if ($collectionInputCounter.length) {
+                    // Attach Click event to plus button
+                    $collectionInputCounter.find('.input-counter__plus').on('click',function () {
+                        var $input = $(this).parent().find('input[type=text]');
+                        var cartItem = $(this).parent().find('[name="cartItem"]').val(); 
+                        var count = parseInt($input.val()) + 1; // Number + Number
+                        $input.val(count).change();
+ 
+                    });
+                    // Attach Click event to minus button
+                    $collectionInputCounter.find('.input-counter__minus').on('click',function () {
+                        var $input = $(this).parent().find('input[type=text]');
+                        var cartItem = $(this).parent().find('[name="cartItem"]').val(); 
+                        var count = parseInt($input.val()) - 1; // Number - Number
+                        $input.val(count).change();
+
+                    });
+                    // Fires when the value of the element is changed
+                    $collectionInputCounter.find('input').on('change',function () {
+                        var $this = $(this);
+                        var cartItem = $(this).parent().find('[name="cartItem"]').val(); 
+                        var priceItem = $(this).parent().find('[name="priceItem"]').val(); 
+                        var min = $this.data('min');
+                        var max = $this.data('max');
+                        var val = parseInt($this.val());// Current value
+                        // Restrictions check
+                        if (!val) {
+                           val = 1;
+                        }
+                        // The min() method returns the number with the lowest value
+                        val = Math.min(val,max);
+                        // The max() method returns the number with the highest value
+                        val = Math.max(val,min);
+                        let diff=0;
+                        // Sets the Value
+                        var $priceSpan = $(this).closest('tr').find('.table-p__price');
+                        diff = parseFloat($priceSpan.text().replace("$", ""));
+                        $priceSpan.text(`$${(val * priceItem).toFixed(2)}`);
+                        diff = parseFloat($priceSpan.text().replace("$", "")) - diff;
+                        updateTotals(diff);
+                        $.post("UpdateCartServlet", {
+                            operation: "UpdateOrder",
+                            cartItem: cartItem,
+                            quantity: val
+                        }, function (response) {
+                            $this.val(val);
+                        });
+                    });
                 }
-                // The min() method returns the number with the lowest value
-                val = Math.min(val,max);
-                // The max() method returns the number with the highest value
-                val = Math.max(val,min);
-                // Sets the Value
-                $this.val(val);
-            });
-        }
     };
+    function updateTotals(addme) {
+        var subtotal = 0;
+        
+
+            subtotal += parseFloat($("#subTotal").text().replace("$", "")); // Remove "$" and convert to number
+        subtotal += addme;
+    
+        var shippingFee = 4; // Set your shipping fee
+        var grandTotal = subtotal + shippingFee;
+    
+        $("#subTotal").text(`$${subtotal.toFixed(2)}`);
+        $("#total").text(`$${grandTotal.toFixed(2)}`);
+    }
+    RESHOP.initDeleteItem = function () {
+        $('.table-p__delete-link').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+    
+            var $button = $(this);
+            var $row = $button.closest('tr'); // Find the closest table row to remove
+            var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
+            var $priceSpan = $row.find('.table-p__price');
+            var pri = parseFloat($priceSpan.text().replace("$", ""));
+            updateTotals(pri *-1);
+            if (!cartItem) return;
+    
+            $.post("UpdateCartServlet", {
+                operation: "delete",
+                cartItem: cartItem
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+    };
+    
+    
 
 
     // Blog Post Gallery
@@ -674,6 +733,7 @@
         RESHOP.isotopeFilter();
         RESHOP.timerCountDown();
         RESHOP.initInputCounter();
+        RESHOP.initDeleteItem();
         RESHOP.blogPostGallery();
         RESHOP.blogPostVideo();
         RESHOP.blogPostEmbedVideo();

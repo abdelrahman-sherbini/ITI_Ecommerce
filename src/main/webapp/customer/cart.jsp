@@ -1,3 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%
+//    User activeUser = (User) session.getAttribute("activeUser");
+
+    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+    activeUser.setUserId(1);
+
+
+    Connection connection = ConnectionProvider.getConnection();
+
+    CategoryDao catDao = new CategoryDao(connection);
+    List<Category> categoryList = catDao.getAllCategories();
+
+    ProductDao productDao = new ProductDao(connection);
+
+    CartDao cartDao = new CartDao(connection);
+
+    OrderDao orderDao = new OrderDao(connection);
+
+    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
+    if(cartList.isEmpty()){
+        request.getRequestDispatcher("empty-cart.jsp").forward(request,response);
+    }
+    List<Order> orderList = orderDao.getAllOrder();
+
+    OrderedProductDao ordProdDao = new OrderedProductDao(connection);
+
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -20,6 +55,22 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
+
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!--font awesome-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!--JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!--sweet alert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -89,23 +140,33 @@
                                 <div class="table-responsive">
                                     <table class="table-p">
                                         <tbody>
+                                        <%
+                                            double totalPrice = 0;
+                                            for (Cart cart : cartList) {
 
+                                                Product prod  = productDao.getProductsByProductId(cart.getProductId());
+                                                Category category = catDao.getCategoryById(prod.getCategoryId());
+                                                int quantity = cart.getQuantity();
+                                                totalPrice += (prod.getProductPrice() * quantity);
+                                                int id = cart.getCartId();
+
+                                        %>
                                             <!--====== Row ======-->
                                             <tr>
                                                 <td>
                                                     <div class="table-p__box">
                                                         <div class="table-p__img-wrap">
 
-                                                            <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
+                                                            <img class="u-img-fluid" src=`images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>>` alt=""></div>
                                                         <div class="table-p__info">
 
                                                             <span class="table-p__name">
 
-                                                                <a href="product-detail.jsp">Yellow Wireless Headphone</a></span>
+                                                                <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
 
                                                             <span class="table-p__category">
 
-                                                                <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                                                <a href="shop-side-version-2.jsp?id=<%=category.getCategoryId()%>"><%=category.getCategoryName()%></a></span>
                                                             <ul class="table-p__variant-list">
                                                                 <li>
 
@@ -119,7 +180,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price">$125.00</span></td>
+                                                    <span class="table-p__price">$<%=prod.getProductPrice() * cart.getQuantity() %></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -127,126 +188,31 @@
                                                         <div class="input-counter">
 
                                                             <span class="input-counter__minus fas fa-minus"></span>
+                                                            <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
+                                                            <input type="hidden" name="priceItem" value="<%=prod.getProductPrice()%>">
+                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="<%=cart.getQuantity()%>" data-min="1" data-max="1000">
 
-                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
-
-                                                            <span class="input-counter__plus fas fa-plus"></span></div>
-                                                        <!--====== End - Input Counter ======-->
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="table-p__del-wrap">
-
-                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a></div>
-                                                </td>
-                                            </tr>
-                                            <!--====== End - Row ======-->
-
-
-                                            <!--====== Row ======-->
-                                            <tr>
-                                                <td>
-                                                    <div class="table-p__box">
-                                                        <div class="table-p__img-wrap">
-
-                                                            <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></div>
-                                                        <div class="table-p__info">
-
-                                                            <span class="table-p__name">
-
-                                                                <a href="product-detail.jsp">New Dress D Nice Elegant</a></span>
-
-                                                            <span class="table-p__category">
-
-                                                                <a href="shop-side-version-2.jsp">Women Clothing</a></span>
-                                                            <ul class="table-p__variant-list">
-                                                                <li>
-
-                                                                    <span>Size: 22</span></li>
-                                                                <li>
-
-                                                                    <span>Color: Red</span></li>
-                                                            </ul>
+                                                            <span class="input-counter__plus fas fa-plus"></span>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-
-                                                    <span class="table-p__price">$125.00</span></td>
-                                                <td>
-                                                    <div class="table-p__input-counter-wrap">
-
-                                                        <!--====== Input Counter ======-->
-                                                        <div class="input-counter">
-
-                                                            <span class="input-counter__minus fas fa-minus"></span>
-
-                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
-
-                                                            <span class="input-counter__plus fas fa-plus"></span></div>
                                                         <!--====== End - Input Counter ======-->
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="table-p__del-wrap">
 
-                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a></div>
+<%--                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a>--%>
+                                                        <button type="button" class="far fa-trash-alt table-p__delete-link border-0 bg-transparent"></button>
+                                                        <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <!--====== End - Row ======-->
 
+                                        <%
+                                            }
 
-                                            <!--====== Row ======-->
-                                            <tr>
-                                                <td>
-                                                    <div class="table-p__box">
-                                                        <div class="table-p__img-wrap">
+                                        %>
 
-                                                            <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                                                        <div class="table-p__info">
-
-                                                            <span class="table-p__name">
-
-                                                                <a href="product-detail.jsp">New Fashion D Nice Elegant</a></span>
-
-                                                            <span class="table-p__category">
-
-                                                                <a href="shop-side-version-2.jsp">Men Clothing</a></span>
-                                                            <ul class="table-p__variant-list">
-                                                                <li>
-
-                                                                    <span>Size: 22</span></li>
-                                                                <li>
-
-                                                                    <span>Color: Red</span></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-
-                                                    <span class="table-p__price">$125.00</span></td>
-                                                <td>
-                                                    <div class="table-p__input-counter-wrap">
-
-                                                        <!--====== Input Counter ======-->
-                                                        <div class="input-counter">
-
-                                                            <span class="input-counter__minus fas fa-minus"></span>
-
-                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
-
-                                                            <span class="input-counter__plus fas fa-plus"></span></div>
-                                                        <!--====== End - Input Counter ======-->
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="table-p__del-wrap">
-
-                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a></div>
-                                                </td>
-                                            </tr>
-                                            <!--====== End - Row ======-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -353,11 +319,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>SUBTOTAL</td>
-                                                                <td>$379.00</td>
+                                                                <td id="subTotal">$<%=totalPrice%></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>GRAND TOTAL</td>
-                                                                <td>$379.00</td>
+                                                                <td id="total">$<%=totalPrice + 4%></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
