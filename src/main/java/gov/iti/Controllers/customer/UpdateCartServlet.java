@@ -1,5 +1,6 @@
 package gov.iti.Controllers.customer;
 
+import gov.iti.Dtos.User;
 import gov.iti.Helper.ConnectionProvider;
 import gov.iti.Model.CartDao;
 import jakarta.servlet.ServletException;
@@ -25,6 +26,17 @@ public class UpdateCartServlet extends HttpServlet {
             int cartItem = Integer.parseInt(req.getParameter("cartItem"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
             cartDao.updateQuantity(cartItem, quantity);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int deleteCartItem = Integer.parseInt(req.getParameter("deleteCart"));
+        CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
+        User user = (User) req.getSession().getAttribute("activeUser");
+        if(deleteCartItem == 1){
+            cartDao.removeAllProduct(user.getUserId());
+            resp.sendRedirect("cart.jsp");
         }
     }
 }
