@@ -6,10 +6,10 @@
 <%@ page import="gov.iti.Model.*" %>
 <%@ page import="java.sql.Connection" %>
 <%
-//    User activeUser = (User) session.getAttribute("activeUser");
-
     User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
     activeUser.setUserId(1);
+    session.setAttribute("activeUser",activeUser);
+//    User activeUser = (User) session.getAttribute("activeUser");
 
 
     Connection connection = ConnectionProvider.getConnection();
@@ -226,7 +226,7 @@
                                             <span>CONTINUE SHOPPING</span></a></div>
                                     <div class="route-box__g2">
 
-                                        <a class="route-box__link" href="cart.jsp"><i class="fas fa-trash"></i>
+                                        <a class="route-box__link" href="UpdateCartServlet?deleteCart=1"><i class="fas fa-trash"></i>
 
                                             <span>CLEAR CART</span></a>
 
