@@ -39,28 +39,7 @@
         <!--====== App Content ======-->
         <div class="app-content">
 
-            <!--====== Section 1 ======-->
-            <div class="u-s-p-y-60">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="breadcrumb">
-                            <div class="breadcrumb__wrap">
-                                <ul class="breadcrumb__list">
-                                    <li class="has-separator">
-
-                                        <a href="index.jsp">Home</a></li>
-                                    <li class="is-marked">
-
-                                        <a href="signup.jsp">Signup</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--====== End - Section 1 ======-->
+            
 
 
             <!--====== Section 2 ======-->
@@ -89,36 +68,30 @@
                                 <div class="l-f-o">
                                     <div class="l-f-o__pad-box">
                                         <h1 class="gl-h1">PERSONAL INFORMATION</h1>
-                                        <form class="l-f-o__form">
-                                            <div class="gl-s-api">
-                                                <div class="u-s-m-b-15">
-
-                                                    <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i class="fab fa-facebook-f"></i>
-
-                                                        <span>Signup with Facebook</span></button></div>
-                                                <div class="u-s-m-b-30">
-
-                                                    <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button"><i class="fab fa-google"></i>
-
-                                                        <span>Signup with Google</span></button></div>
-                                            </div>
+                                        <form class="l-f-o__form" method="post"  id="reg-form" action="signup">
+                                            
                                             <div class="u-s-m-b-30">
+                                                
 
                                                 <label class="gl-label" for="reg-fname">FIRST NAME *</label>
+                                                <div class="gl-error" id="reg-fname-error"></div>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" placeholder="First Name"></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" name="reg-fname" placeholder="First Name" required></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="reg-lname">LAST NAME *</label>
+                                                <div class="gl-error" id="reg-lname-error"></div>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" placeholder="Last Name"></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" name="reg-lname" placeholder="Last Name" required></div>
                                             <div class="gl-inline">
                                                 <div class="u-s-m-b-30">
 
                                                     <!--====== Date of Birth Select-Box ======-->
 
                                                     <span class="gl-label">BIRTHDAY</span>
-                                                    <div class="gl-dob"><select class="select-box select-box--primary-style">
+                                                    <div class="gl-error" id="reg-dob-error"></div>
+                                                    <div class="gl-dob">
+                                                        <!--<select class="select-box select-box--primary-style">
                                                             <option selected>Month</option>
                                                             <option value="male">January</option>
                                                             <option value="male">February</option>
@@ -136,30 +109,163 @@
                                                             <option value="1992">1992</option>
                                                             <option value="1993">1993</option>
                                                             <option value="1994">1994</option>
-                                                        </select></div>
+                                                        </select> -->
+                                                        <input  class="select-box select-box--primary-style" type="date" id="reg-dob" name="reg-dob">
+                                                    </div>
                                                     <!--====== End - Date of Birth Select-Box ======-->
                                                 </div>
                                                 <div class="u-s-m-b-30">
 
-                                                    <label class="gl-label" for="gender">GENDER</label><select class="select-box select-box--primary-style u-w-100" id="gender">
-                                                        <option selected>Select</option>
+                                                    <label class="gl-label" for="reg-gender">GENDER</label>
+                                                    <div class="gl-error" id="reg-gender-error"></div>
+                                                    <select class="select-box select-box--primary-style u-w-100" id="gender" name="reg-gender">
+                                                        <option value="" selected>Select</option>
                                                         <option value="male">Male</option>
-                                                        <option value="male">Female</option>
-                                                    </select></div>
+                                                        <option value="female">Female</option>
+                                                      </select></div>
                                             </div>
                                             <div class="u-s-m-b-30">
 
-                                                <label class="gl-label" for="reg-email">E-MAIL *</label>
+                                                <label class="gl-label" for="reg-phone">PHONE *</label>
+                                                <div class="gl-error" id="reg-phone-error"></div>
+                                                <input class="input-text input-text--primary-style" type="tel" id="reg-phone" name="reg-phone" placeholder="phone number" required></div>
+                                            
+                                                <div class="u-s-m-b-30">
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-email" placeholder="Enter E-mail"></div>
+                                                    <label class="gl-label" for="reg-credit">CREDIT *</label>
+                                                    <div class="gl-error" id="reg-credit-error"></div>
+                                                    <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="reg-credit" placeholder="credit limit" required></div>
                                             <div class="u-s-m-b-30">
 
-                                                <label class="gl-label" for="reg-password">PASSWORD *</label>
+                                                <label class="gl-label" for="reg-job">JOB</label>
+                                                <div class="gl-error" id="reg-job-error"></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-job" name="reg-job" placeholder="job" ></div>
+                                            <div class="u-s-m-b-30">
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Enter Password"></div>
+                                                <label class="gl-label" for="reg-email">E-MAIL *</label>
+                                                <div class="gl-error" id="reg-email-error"></div>
+                                                <input class="input-text input-text--primary-style" type="email" id="reg-email" name="reg-email" placeholder="Enter E-mail" required></div>
+
+                                                <div class="u-s-m-b-30" style="position: relative;">
+                                                    <label class="gl-label" for="reg-password">PASSWORD *</label>
+                                                    <div class="gl-error" id="reg-password-error"></div>
+                                                    <div class="u-s-m-b-30" style="position: relative;">
+                                                        <input
+                                                            class="input-text input-text--primary-style"
+                                                            type="password"
+                                                            id="reg-password"
+                                                            name="reg-password"
+                                                            placeholder="Enter Password"
+                                                            required
+                                                            style="padding-right: 40px; width: 100%;"
+                                                        />
+                                                        <img
+                                                            src="images/eyeicon.png"
+                                                            alt="Show/Hide"
+                                                            class="toggle-password"
+                                                            toggle="#reg-password"
+                                                            style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                        />
+                                                    </div>
+                                                    
+                                                    
+                                                  </div>
+                                                  
+                                                  <div class="u-s-m-b-30" style="position: relative;">
+                                                    <label class="gl-label" for="reg-conf-password">CONFIRM PASSWORD *</label>
+                                                    <div class="gl-error" id="reg-conf-password-error"></div>
+                                                    
+                                                    <div class="u-s-m-b-30" style="position: relative;">
+                                                        <input
+                                                            class="input-text input-text--primary-style"
+                                                            type="password"
+                                                            id="reg-conf-password"
+                                                            name="reg-conf-password"
+                                                            placeholder="Enter Password"
+                                                            required
+                                                            style="padding-right: 40px; width: 100%;"
+                                                        />
+                                                        <img
+                                                            src="images/eyeicon.png"
+                                                            alt="Show/Hide"
+                                                            class="toggle-password"
+                                                            toggle="#reg-conf-password"
+                                                            style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                        />
+                                                    </div>
+                                                    
+                                                  </div>
+
+                                                  
+
+                                                  <div class="u-s-m-b-30" style="position: relative;">
+                                                    <h3 class="dash__h1 u-s-m-b-14">ADDRESS</h3>
+                                                    <div class="u-s-m-b-30">
+
+                                                        <label class="gl-label" for="address-street">STREET ADDRESS *</label>
+                                                        <div class="gl-error" id="address-street-error"></div>
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-street" name="address-street" placeholder="House Name and Street" required></div>
+                                                        <div class="u-s-m-b-30">
+
+                                                            
+                                                            <div class="gl-inline">
+                                                                
+                                                                
+                                                                <div class="u-s-m-b-30">
+                                                                    <label class="gl-label" for="address-state">GOVERNORATE *</label>
+                                                                    <div class="gl-error" id="address-state-error"></div>
+                                                                    <select class="select-box select-box--primary-style" id="address-state" name="address-state">
+                                                                      <option selected value="">Choose Governorate</option>
+                                                                    </select>
+                                                                  </div>
+                                                                  
+                                                                  <div class="u-s-m-b-30">
+                                                                    <label class="gl-label" for="address-city">TOWN/CITY *</label>
+                                                                    <div class="gl-error" id="address-city-error"></div>
+                                                                    <select class="select-box select-box--primary-style" id="address-city" name="address-city">
+                                                                      <option selected value="">Choose City</option>
+                                                                    </select>
+                                                                  </div>
+                                                                
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                  
+                                                        <div class="gl-inline">
+                                                            
+                                                            <div class="u-s-m-b-30">
+        
+                                                                <label class="gl-label" for="address-postal">ZIP/POSTAL CODE </label>
+        
+                                                                <input class="input-text input-text--primary-style" type="text" id="address-postal" name="address-postal" placeholder="Zip/Postal Code"></div>
+                                                        </div>
+                                                        <label class="gl-label" style="display: block; margin-bottom: 5px;">TYPE *</label>
+                                                        <div class="gl-error" id="address-type-error"></div>
+                                                        <div class="gl-inline">
+                                                            
+                                                            <div class="u-s-m-b-30">
+                                                                <label class="gl-label">
+                                                                <input type="radio" name="address-type" value="home" required>
+                                                                Home
+                                                                </label>
+                                                            </div>
+                                                            
+                                                            <div class="u-s-m-b-30">
+                                                                <label class="gl-label">
+                                                                <input type="radio" name="address-type" value="office">
+                                                                Office
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                          
+                                                  </div>
+
+                                                  
                                             <div class="u-s-m-b-15">
 
-                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">CREATE</button></div>
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit" id="reg-bttn">CREATE</button></div>
 
                                             <a class="gl-link" href="#">Return to Store</a>
                                         </form>
@@ -202,6 +308,7 @@
 
     <!--====== App ======-->
     <script src="js/app.js"></script>
+    <script src="js/signup.js"></script>
 
     <!--====== Noscript ======-->
     <noscript>
