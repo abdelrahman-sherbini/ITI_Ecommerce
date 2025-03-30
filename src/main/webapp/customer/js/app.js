@@ -422,6 +422,9 @@
         $('.table-p__delete-link').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
+            var $miniCartCount = $(".total-item-round");
+            var $miniCartCountval = parseInt($miniCartCount.first().text());
+            
             var $button = $(this);
             var $row = $button.closest('tr'); // Find the closest table row to remove
             var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
@@ -434,6 +437,7 @@
                 operation: "delete",
                 cartItem: cartItem
             }, function (response) {
+                $miniCartCount.text($miniCartCountval-1);
                 // Fade out and remove the row smoothly
                 $row.fadeOut(300, function () {
                     $(this).remove();
@@ -445,6 +449,9 @@
         $('.mini-product__delete-link').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
+            var $miniCartCount = $(".total-item-round");
+            var $miniCartCountval = parseInt($miniCartCount.first().val());
+            
             var $button = $(this);
             var $row = $button.closest('div'); // Find the closest parent div to remove
             var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
@@ -457,6 +464,7 @@
                 operation: "delete",
                 cartItem: cartItem
             }, function (response) {
+                $miniCartCount.text($miniCartCountval-1);
                 // Fade out and remove the row smoothly
                 $row.fadeOut(300, function () {
                     $(this).remove();
