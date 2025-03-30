@@ -738,9 +738,24 @@
             }, 5000);
         }
     };
-
+    function setupMiniCartHover() {
+        $('.mini-cart-shop-link').hover(function() {
+            $.ajax({
+                url: 'mini-cart.jsp',
+                method: 'GET',
+                success: function(response) {
+                    $('.mini-cart').html(response);
+                },
+                error: function() {
+                    console.error('Failed to load mini-cart');
+                }
+            });
+        });
+    }
     // Check everything including DOM elements and images loaded
     $(window).on('load',function () {
+
+        
         RESHOP.showNewsletterModal();
         if ($primarySlider.length) {
             // Play slider when everything is loaded
@@ -777,4 +792,5 @@
         RESHOP.shopCategoryToggle();
         RESHOP.shopPerspectiveChange();
         RESHOP.shopSideFilter();
+        setupMiniCartHover();
 })(jQuery);
