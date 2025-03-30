@@ -188,7 +188,7 @@
                                                     <div class="table-p__del-wrap">
 
 <%--                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a>--%>
-                                                        <button type="button" class="far fa-trash-alt table-p__delete-link border-0 bg-transparent"></button>
+                                                        <button type="button" class="far fa-trash-alt table-p__delete-link border-0 bg-transparent btn--e-transparent-platinum-b-2"></button>
                                                         <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
                                                     </div>
                                                 </td>
