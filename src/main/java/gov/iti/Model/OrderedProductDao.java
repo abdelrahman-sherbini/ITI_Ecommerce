@@ -23,7 +23,7 @@ public class OrderedProductDao {
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, ordProduct.getProduct_id());
 			psmt.setInt(2, ordProduct.getQuantity());
-			psmt.setInt(3,ordProduct.getPrice());
+			psmt.setBigDecimal(3,ordProduct.getPrice());
 			psmt.setInt(4,ordProduct.getOrderId());
 
 
@@ -43,7 +43,7 @@ public class OrderedProductDao {
 			while (rs.next()) {
 				OrderedProduct orderProd = new OrderedProduct();
 				orderProd.setId(rs.getInt("order_product_id"));
-				orderProd.setPrice(rs.getInt("price"));
+				orderProd.setPrice(rs.getBigDecimal("price"));
 				orderProd.setQuantity(rs.getInt("quantity"));
 				orderProd.setProduct_id(rs.getInt("product_id"));
 				orderProd.setOrderId(oid);

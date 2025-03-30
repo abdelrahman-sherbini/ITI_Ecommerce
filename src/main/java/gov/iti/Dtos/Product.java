@@ -1,11 +1,13 @@
 package gov.iti.Dtos;
 
+import java.math.BigDecimal;
+
 public class Product {
 
 	private int productId;
     private String productName;
     private String productDescription;
-    private double productPrice;
+    private BigDecimal  productPrice;
     private int productDiscount;
     private int productQunatity;
     private String productImages;
@@ -15,7 +17,7 @@ public class Product {
 		super();
 	}
 	
-	public Product(int productId, String productName, String productDescription, double productPrice,
+	public Product(int productId, String productName, String productDescription, BigDecimal  productPrice,
 			int productDiscount, int productQunatity, String productImages, int categoryId) {
 		super();
 		this.productId = productId;
@@ -28,7 +30,7 @@ public class Product {
 		this.categoryId = categoryId;
 	}
 
-	public Product(String productName, String productDescription, double productPrice, int productDiscount,
+	public Product(String productName, String productDescription, BigDecimal  productPrice, int productDiscount,
 			int productQunatity, String productImages) {
 		super();
 		this.productName = productName;
@@ -39,7 +41,7 @@ public class Product {
 		this.productImages = productImages;
 	}
 
-	public Product(String productName, String productDescription, double productPrice, int productDiscount,
+	public Product(String productName, String productDescription, BigDecimal  productPrice, int productDiscount,
 			int productQunatity, String productImages, int categoryId) {
 		super();
 		this.productName = productName;
@@ -51,7 +53,7 @@ public class Product {
 		this.categoryId = categoryId;
 	}
 	
-	public Product(int productId, String productName, double productPrice, int productDiscount, int productQunatity) {
+	public Product(int productId, String productName, BigDecimal  productPrice, int productDiscount, int productQunatity) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -84,11 +86,11 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
-	public double getProductPrice() {
+	public BigDecimal  getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(double productPrice) {
+	public void setProductPrice(BigDecimal  productPrice) {
 		this.productPrice = productPrice;
 	}
 
@@ -125,11 +127,11 @@ public class Product {
 	}
 
 	//calculate price of product by applying discount
-    public int getProductPriceAfterDiscount(){
-        int discount = (int) ((this.getProductDiscount()/100.0) * this.getProductPrice());
-        return (int) (this.getProductPrice() - discount);
-    }
-	
+	public BigDecimal getProductPriceAfterDiscount() {
+		BigDecimal discountPercentage = BigDecimal.valueOf(this.getProductDiscount()).divide(BigDecimal.valueOf(100));
+		BigDecimal discountAmount = this.getProductPrice().multiply(discountPercentage);
+		return this.getProductPrice().subtract(discountAmount);
+	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productDescription="

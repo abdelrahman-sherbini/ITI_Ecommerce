@@ -1,11 +1,13 @@
 package gov.iti.Dtos;
 
+import java.math.BigDecimal;
+
 public class OrderedProduct {
 	
 	private int id;
 
 
-	private int price;
+	private BigDecimal price;
 	private int product_id;
 	private int quantity;
 	private int orderId;
@@ -14,7 +16,7 @@ public class OrderedProduct {
 		super();
 	}
 
-	public OrderedProduct(int product_id, int price, int quantity, int orderId) {
+	public OrderedProduct(int product_id, BigDecimal price, int quantity, int orderId) {
 		super();
 		this.price = price;
 		this.product_id = product_id;
@@ -22,11 +24,11 @@ public class OrderedProduct {
 		this.orderId = orderId;
 	}
 
-	public int getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

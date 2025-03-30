@@ -24,7 +24,7 @@ ALTER TABLE
 CREATE TABLE `ordered_product`(
     `order_product_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `product_id` BIGINT UNSIGNED NOT NULL,
-    `price` BIGINT UNSIGNED NOT NULL,
+    `price` DECIMAL(10,2) UNSIGNED NOT NULL,
     `quantity` INT UNSIGNED NOT NULL,
     `order_id` BIGINT UNSIGNED NOT NULL
 );
@@ -47,7 +47,7 @@ CREATE TABLE `product`(
     `product_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(250) NOT NULL,
     `description` VARCHAR(500) NULL,
-    `price` FLOAT(53) NOT NULL,
+    `price` DECIMAL(10,2) UNSIGNED NOT NULL,
     `quantity` INT UNSIGNED NOT NULL DEFAULT '0',
     `discount` INT NOT NULL DEFAULT '0',
     `image` VARCHAR(100) NULL,
