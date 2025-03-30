@@ -59,7 +59,7 @@ CREATE TABLE `payment`(
     `payment_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT UNSIGNED NOT NULL,
     `method` VARCHAR(255) NOT NULL,
-    `ammount` FLOAT(53) NOT NULL,
+    `amount` FLOAT(53) NOT NULL,
     `status` VARCHAR(255) NOT NULL
 );
 ALTER TABLE
@@ -68,8 +68,8 @@ CREATE TABLE `user_address`(
     `address_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT UNSIGNED NOT NULL,
 	`address` VARCHAR(255) NOT NULL,
+    `governorate` VARCHAR(255) NOT NULL,
     `city` VARCHAR(255) NOT NULL,
-    `country` BIGINT NOT NULL,
     `type` VARCHAR(255) NOT NULL,
     `pin_code` VARCHAR(255) NULL
 );
@@ -77,14 +77,17 @@ ALTER TABLE
     `user_address` ADD INDEX `user_address_user_id_index`(`user_id`);
 CREATE TABLE `user`(
     `user_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(100) NOT NULL,
+    `first_name` VARCHAR(100) NOT NULL,
+    `last_name` VARCHAR(100) NOT NULL,
     `email` VARCHAR(45) NOT NULL,
-    `password` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `phone` VARCHAR(20) NOT NULL,
     `gender` VARCHAR(255) NULL,
     `register_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `job` VARCHAR(100) NULL,
-    `default_address` BIGINT UNSIGNED  NULL
+    `credit` FLOAT(53) NOT NULL,
+    `default_address` BIGINT UNSIGNED  NULL,
+    `dob` DATE NULL
     );
 ALTER TABLE
     `user` ADD INDEX `user_email_index`(`email`);

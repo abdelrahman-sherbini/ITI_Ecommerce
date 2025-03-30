@@ -218,15 +218,19 @@ submitBttn.addEventListener("click", (e) => {
     validateWith(validator, element, message);
   });
   // type radio button validation
-  const isAddressTypeSelected = document.querySelector('input[name="address-type"]:checked') !== null;
+  console.log("Radio checked?", document.querySelector('input[name="type"]:checked'));
+
+  const addressTypeRadios = document.querySelectorAll('input[name="type"]');
+  const firstRadio = addressTypeRadios[0];
+  const isAddressTypeSelected = document.querySelector('input[name="type"]:checked') !== null;
   const errorDiv = document.getElementById("address-type-error");
 
   if (!isAddressTypeSelected) {
     errorDiv.textContent = "*Please select an address type";
-    setOfInvalidElements.add(errorDiv);
+    setOfInvalidElements.add(firstRadio); 
   } else {
     errorDiv.textContent = "";
-    setOfInvalidElements.delete(errorDiv);
+    setOfInvalidElements.delete(firstRadio); 
   }
 
   if (setOfInvalidElements.size !== 0) {

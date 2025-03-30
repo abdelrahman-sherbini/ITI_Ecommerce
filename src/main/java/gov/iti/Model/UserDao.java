@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import gov.iti.Dtos.User;
+import gov.iti.Dtos.UserSignUp;
 
 public class UserDao {
 
@@ -19,34 +21,63 @@ public class UserDao {
 		this.con = con;
 	}
 
-	public boolean saveUser(User user) {
-		boolean flag = false;
+	public int saveUser(UserSignUp userSignUp) {
+		int userId = -1;
 
-		try {
-			String query = "insert into user(name, email, password, phone, gender, register_date, job, default_address) values(?, ?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setString(1, user.getUserName());
-			psmt.setString(2, user.getUserEmail());
-			psmt.setString(3, user.getUserPassword());
-			psmt.setString(4, user.getUserPhone());
-			psmt.setString(5, user.getUserGender());
-			psmt.setTimestamp(6,user.getRegisterDate());
-			psmt.setString(7, user.getJob());
-			if (user.getDefaultAddress() == 0) {
-				psmt.setNull(8, java.sql.Types.INTEGER);
-			} else {
-				psmt.setInt(8, user.getDefaultAddress());
-			}
-			// psmt.setInt(8,user.getDefaultAddress());
+    try {
+        // Step 1: Insert user without default address
+        String query = "INSERT INTO user(first_name, last_name, email, password, phone, gender, register_date, job, credit, dob) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, userSignUp.getFirstName());
+        ps.setString(2, userSignUp.getLastName());
+        ps.setString(3, userSignUp.getEmail());
+        ps.setString(4, userSignUp.getPassword());
+        ps.setString(5, userSignUp.getPhone());
+        ps.setString(6, userSignUp.getGender() != null ? userSignUp.getGender().toString() : null);
+        ps.setTimestamp(7, new java.sql.Timestamp(System.currentTimeMillis()));
+        ps.setString(8, userSignUp.getJob());
+        ps.setFloat(9, userSignUp.getCredit());
 
-			psmt.executeUpdate();
-			flag = true;
+		// Set DOB
+        if (userSignUp.getDob() != null) {
+            ps.setDate(10, java.sql.Date.valueOf(userSignUp.getDob()));
+        } else {
+            ps.setNull(10, java.sql.Types.DATE);
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
+        int rows = ps.executeUpdate();
+        if (rows == 0) return -1;
+
+        ResultSet rs = ps.getGeneratedKeys();
+        
+        if (rs.next()) {
+            userId = rs.getInt(1);
+        }
+
+        // Step 2: Insert address
+        AddressDao addressDao = new AddressDao(con);
+        boolean addressInserted = addressDao.insertAddress(userSignUp.getAddress(), userId);
+        if (!addressInserted) return -1;
+
+        // Step 3: Get the address ID
+        int addressId = addressDao.getLastInsertedAddressId(userId); // You need this method in AddressDao
+
+        // Step 4: Update user with default address
+        String updateQuery = "UPDATE user SET default_address = ? WHERE user_id = ?";
+        PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+        psUpdate.setInt(1, addressId);
+        psUpdate.setInt(2, userId);
+        psUpdate.executeUpdate();
+
+        
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return userId;
+}
+
 
 	public User getUserByEmailPassword(String userEmail, String userPassword) {
 		User user = null;
