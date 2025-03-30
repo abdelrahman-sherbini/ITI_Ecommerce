@@ -23,7 +23,7 @@ public class ProductDao {
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
-			psmt.setDouble(3, product.getProductPrice());
+			psmt.setBigDecimal(3, product.getProductPrice());
 			psmt.setInt(4, product.getProductQunatity());
 			psmt.setInt(5, product.getProductDiscount());
 			psmt.setString(6, product.getProductImages());
@@ -50,7 +50,7 @@ public class ProductDao {
 				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getDouble("price"));
+				product.setProductPrice(rs.getBigDecimal("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
@@ -76,7 +76,7 @@ public class ProductDao {
 				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getDouble("price"));
+				product.setProductPrice(rs.getBigDecimal("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
@@ -102,7 +102,7 @@ public class ProductDao {
 			product.setProductId(rs.getInt("product_id"));
 			product.setProductName(rs.getString("name"));
 			product.setProductDescription(rs.getString("description"));
-			product.setProductPrice(rs.getDouble("price"));
+			product.setProductPrice(rs.getBigDecimal("price"));
 			product.setProductQunatity(rs.getInt("quantity"));
 			product.setProductDiscount(rs.getInt("discount"));
 			product.setProductImages(rs.getString("image"));
@@ -126,7 +126,7 @@ public class ProductDao {
 				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getDouble("price"));
+				product.setProductPrice(rs.getBigDecimal("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
@@ -155,7 +155,7 @@ public class ProductDao {
 				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getDouble("price"));
+				product.setProductPrice(rs.getBigDecimal("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
@@ -180,7 +180,7 @@ public class ProductDao {
 				product.setProductId(rs.getInt("product_id"));
 				product.setProductName(rs.getString("name"));
 				product.setProductDescription(rs.getString("description"));
-				product.setProductPrice(rs.getDouble("price"));
+				product.setProductPrice(rs.getBigDecimal("price"));
 				product.setProductQunatity(rs.getInt("quantity"));
 				product.setProductDiscount(rs.getInt("discount"));
 				product.setProductImages(rs.getString("image"));
@@ -201,7 +201,7 @@ public class ProductDao {
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, product.getProductName());
 			psmt.setString(2, product.getProductDescription());
-			psmt.setDouble(3, product.getProductPrice());
+			psmt.setBigDecimal(3, product.getProductPrice());
 			psmt.setInt(4, product.getProductQunatity());
 			psmt.setInt(5, product.getProductDiscount());
 			psmt.setString(6, product.getProductImages());

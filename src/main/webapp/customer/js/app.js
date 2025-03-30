@@ -407,10 +407,24 @@
         $("#subTotal").text(`$${subtotal.toFixed(2)}`);
         $("#total").text(`$${grandTotal.toFixed(2)}`);
     }
+    function updateMiniTotals(addme,pricespan) {
+        var subtotal = 0;
+        
+
+            subtotal += parseFloat(pricespan.text().replace("$", "")); // Remove "$" and convert to number
+        subtotal += addme;
+    
+    
+        pricespan.text(`$${subtotal.toFixed(2)}`);
+
+    }
     RESHOP.initDeleteItem = function () {
         $('.table-p__delete-link').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
-    
+            $(this).off(); 
+            var $miniCartCount = $(".total-item-round");
+            var $miniCartCountval = parseInt($miniCartCount.first().text());
+            
             var $button = $(this);
             var $row = $button.closest('tr'); // Find the closest table row to remove
             var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
@@ -423,6 +437,34 @@
                 operation: "delete",
                 cartItem: cartItem
             }, function (response) {
+                $miniCartCount.text($miniCartCountval-1);
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+        $('.mini-product__delete-link').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+            $(this).off(); 
+            var $miniCartCount = $(".total-item-round");
+            var $miniCartCountval = parseInt($miniCartCount.first().val());
+            
+            var $button = $(this);
+            var $row = $button.closest('div'); // Find the closest parent div to remove
+            var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
+            var $priceSpan = $(".mini-total").find('.subtotal-value');
+            var pri = parseFloat($priceSpan.text().replace("$", ""));
+            updateMiniTotals(pri *-1,$priceSpan);
+            if (!cartItem) return;
+    
+            $.post("UpdateCartServlet", {
+                operation: "delete",
+                cartItem: cartItem
+            }, function (response) {
+                $miniCartCount.text($miniCartCountval-1);
                 // Fade out and remove the row smoothly
                 $row.fadeOut(300, function () {
                     $(this).remove();
@@ -704,9 +746,24 @@
             }, 5000);
         }
     };
-
+    function setupMiniCartHover() {
+        $('.mini-cart-shop-link').hover(function() {
+            $.ajax({
+                url: 'mini-cart.jsp',
+                method: 'GET',
+                success: function(response) {
+                    $('.mini-cart').html(response);
+                },
+                error: function() {
+                    console.error('Failed to load mini-cart');
+                }
+            });
+        });
+    }
     // Check everything including DOM elements and images loaded
     $(window).on('load',function () {
+
+        
         RESHOP.showNewsletterModal();
         if ($primarySlider.length) {
             // Play slider when everything is loaded
@@ -743,4 +800,5 @@
         RESHOP.shopCategoryToggle();
         RESHOP.shopPerspectiveChange();
         RESHOP.shopSideFilter();
+        setupMiniCartHover();
 })(jQuery);

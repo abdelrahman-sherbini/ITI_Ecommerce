@@ -5,6 +5,7 @@
 <%@ page import="gov.iti.Dtos.*" %>
 <%@ page import="gov.iti.Model.*" %>
 <%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
 <%
     User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
     activeUser.setUserId(1);
@@ -56,21 +57,7 @@
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
 
-    <!--CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!--font awesome-->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!--JavaScript-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
-    <!--jQuery-->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <!--sweet alert-->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -141,13 +128,13 @@
                                     <table class="table-p">
                                         <tbody>
                                         <%
-                                            double totalPrice = 0;
+                                            BigDecimal totalPrice = BigDecimal.valueOf(0);
                                             for (Cart cart : cartList) {
 
                                                 Product prod  = productDao.getProductsByProductId(cart.getProductId());
                                                 Category category = catDao.getCategoryById(prod.getCategoryId());
                                                 int quantity = cart.getQuantity();
-                                                totalPrice += (prod.getProductPrice() * quantity);
+                                                totalPrice = totalPrice.add (prod.getProductPrice().multiply(BigDecimal.valueOf( quantity)));
                                                 int id = cart.getCartId();
 
                                         %>
@@ -157,7 +144,7 @@
                                                     <div class="table-p__box">
                                                         <div class="table-p__img-wrap">
 
-                                                            <img class="u-img-fluid" src=`images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>>` alt=""></div>
+                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
                                                         <div class="table-p__info">
 
                                                             <span class="table-p__name">
@@ -180,7 +167,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price">$<%=prod.getProductPrice() * cart.getQuantity() %></span></td>
+                                                    <span class="table-p__price">$<%=prod.getProductPrice().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -201,7 +188,7 @@
                                                     <div class="table-p__del-wrap">
 
 <%--                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a>--%>
-                                                        <button type="button" class="far fa-trash-alt table-p__delete-link border-0 bg-transparent"></button>
+                                                        <button type="button" class="far fa-trash-alt table-p__delete-link border-0 bg-transparent btn--e-transparent-platinum-b-2"></button>
                                                         <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
                                                     </div>
                                                 </td>
@@ -323,7 +310,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>GRAND TOTAL</td>
-                                                                <td id="total">$<%=totalPrice + 4%></td>
+                                                                <td id="total">$<%=totalPrice.add(BigDecimal.valueOf(4))%></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
