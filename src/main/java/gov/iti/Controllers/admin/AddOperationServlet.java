@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 
 import gov.iti.Dtos.Category;
 import gov.iti.Dtos.Message;
@@ -64,7 +65,7 @@ public class AddOperationServlet extends HttpServlet {
 			// add product to database
 			String pName = request.getParameter("name");
 			String pDesc = request.getParameter("description");
-			int pPrice = Integer.parseInt(request.getParameter("price"));
+			BigDecimal pPrice = new BigDecimal(request.getParameter("price"));
 			int pDiscount = Integer.parseInt(request.getParameter("discount"));
 			if (pDiscount < 0 || pDiscount > 100) {
 				pDiscount = 0;
@@ -118,7 +119,7 @@ public class AddOperationServlet extends HttpServlet {
 
 			int product_id = Integer.parseInt(request.getParameter("product_id"));
 			String name = request.getParameter("name");
-			float price = Float.parseFloat(request.getParameter("price"));
+			BigDecimal price = new BigDecimal(request.getParameter("price"));
 			String description = request.getParameter("description");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int discount = Integer.parseInt(request.getParameter("discount"));

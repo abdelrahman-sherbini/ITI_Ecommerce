@@ -5,6 +5,7 @@
 <%@ page import="gov.iti.Dtos.*" %>
 <%@ page import="gov.iti.Model.*" %>
 <%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
 <%
     User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
     activeUser.setUserId(1);
@@ -141,13 +142,13 @@
                                     <table class="table-p">
                                         <tbody>
                                         <%
-                                            double totalPrice = 0;
+                                            BigDecimal totalPrice = BigDecimal.valueOf(0);
                                             for (Cart cart : cartList) {
 
                                                 Product prod  = productDao.getProductsByProductId(cart.getProductId());
                                                 Category category = catDao.getCategoryById(prod.getCategoryId());
                                                 int quantity = cart.getQuantity();
-                                                totalPrice += (prod.getProductPrice() * quantity);
+                                                totalPrice = totalPrice.add (prod.getProductPrice().multiply(BigDecimal.valueOf( quantity)));
                                                 int id = cart.getCartId();
 
                                         %>
@@ -157,7 +158,7 @@
                                                     <div class="table-p__box">
                                                         <div class="table-p__img-wrap">
 
-                                                            <img class="u-img-fluid" src=`images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>>` alt=""></div>
+                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
                                                         <div class="table-p__info">
 
                                                             <span class="table-p__name">
@@ -180,7 +181,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price">$<%=prod.getProductPrice() * cart.getQuantity() %></span></td>
+                                                    <span class="table-p__price">$<%=prod.getProductPrice().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -323,7 +324,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>GRAND TOTAL</td>
-                                                                <td id="total">$<%=totalPrice + 4%></td>
+                                                                <td id="total">$<%=totalPrice.add(BigDecimal.valueOf(4))%></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
