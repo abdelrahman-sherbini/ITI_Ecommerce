@@ -16,24 +16,20 @@ import java.io.IOException;
 public class UpdateWishServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        User user = (User) req.getSession().getAttribute("activeUser");
 
         String operation = req.getParameter("operation");
         WishlistDao wishlistDao = new WishlistDao(ConnectionProvider.getConnection());
         if (operation.equals("delete")) {
             int wishItem = Integer.parseInt(req.getParameter("wishItem"));
             wishlistDao.deleteWishlist(wishItem);
+        }else if(operation.equals("deleteAll")){
+            wishlistDao.deleteAllWishlist(user.getUserId());
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int deleteCartItem = Integer.parseInt(req.getParameter("deleteCart"));
-        CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
-        User user = (User) req.getSession().getAttribute("activeUser");
-        if(deleteCartItem == 1){
-            cartDao.removeAllProduct(user.getUserId());
-            resp.sendRedirect("cart.jsp");
-        }
+
     }
 }

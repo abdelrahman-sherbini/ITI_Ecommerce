@@ -172,10 +172,10 @@
                                         <input type="hidden" name="wishItem" value="<%=wishlist.getWishlistId()%>">
                                     </div>
                                 </div>
+
+
+                                </div>
                                 <!--====== End - Wishlist Product ======-->
-
-
-
                                 <%
                                     }
 
@@ -190,7 +190,7 @@
                                             <span>CONTINUE SHOPPING</span></a></div>
                                     <div class="route-box__g">
 
-                                        <a class="route-box__link" href="wishlist.jsp"><i class="fas fa-trash"></i>
+                                        <a id="deleteWishList" class="route-box__link" ><i class="fas fa-trash"></i>
 
                                             <span>CLEAR WISHLIST</span></a></div>
                                 </div>

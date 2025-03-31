@@ -93,4 +93,15 @@ public class WishlistDao {
 			e.printStackTrace();
 		}
 	}
+	public void deleteAllWishlist(int uid) {
+		try {
+			String query = "delete from wishlist where user_id = ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, uid);
+			
+			psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -495,6 +495,28 @@
                 alert("Failed to delete item. Please try again."); // Handle errors
             });
         });
+
+        $('#deleteWishList').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+
+
+            var $button = $(this);
+            var $rows = $button.closest('div.col-lg-12').siblings('.col-lg-12.col-md-12.col-sm-12'); // Find the closest parent div to remove
+
+
+    
+            $.post("UpdateWishServlet", {
+                operation: "deleteAll"
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $rows.children().fadeOut(300, function () {
+                    
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+
     };
     
     // Product Detail Modal in wishlist
@@ -505,7 +527,7 @@
             var $miniCartCount = $(".total-item-round");
             var $miniCartCountval = parseInt($miniCartCount.last().text());
             var $button = $(this);
-            var $row = $button.closest('div.w-r__container'); // Find the closest parent div to remove
+            var $row = $button.closest('div.w-r.u-s-m-b-30'); // Find the closest parent div to remove
             var wishItem = $button.siblings('[name="wishItem"]').val(); // Get cart item ID
             // Get product details from data attributes
             var productName = $(this).data("name");

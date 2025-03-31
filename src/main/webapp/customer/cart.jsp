@@ -134,7 +134,7 @@
                                                 Product prod  = productDao.getProductsByProductId(cart.getProductId());
                                                 Category category = catDao.getCategoryById(prod.getCategoryId());
                                                 int quantity = cart.getQuantity();
-                                                totalPrice = totalPrice.add (prod.getProductPrice().multiply(BigDecimal.valueOf( quantity)));
+                                                totalPrice = totalPrice.add (prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( quantity)));
                                                 int id = cart.getCartId();
 
                                         %>
@@ -167,7 +167,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price">$<%=prod.getProductPrice().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></td>
+                                                    <span class="table-p__price">$<%=prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -176,7 +176,7 @@
 
                                                             <span class="input-counter__minus fas fa-minus"></span>
                                                             <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
-                                                            <input type="hidden" name="priceItem" value="<%=prod.getProductPrice()%>">
+                                                            <input type="hidden" name="priceItem" value="<%=prod.getProductPriceAfterDiscount()%>">
                                                             <input class="input-counter__text input-counter--text-primary-style" type="text" value="<%=cart.getQuantity()%>" data-min="1" data-max="1000">
 
                                                             <span class="input-counter__plus fas fa-plus"></span>
