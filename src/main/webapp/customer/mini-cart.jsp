@@ -106,3 +106,46 @@
     <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.jsp">VIEW CART</a></div>
 </div>
 <!--====== End - Mini Product Statistics ======-->
+<script>
+  jQuery(document).ready(function(){
+    $('.mini-product__delete-link').on('click', function (e) {
+      e.preventDefault(); // Prevent default button behavior
+      $(this).off();
+      console.log("meows")
+      var $miniCartCount = $(".total-item-round");
+      var $miniCartCountval = parseInt($miniCartCount.last().text());
+
+      var $button = $(this);
+      var $row = $button.closest('div'); // Find the closest parent div to remove
+      var cartItem = $button.siblings('[name="cartItem"]').val(); // Get cart item ID
+      var $priceSpan = $(".mini-total").find('.subtotal-value');
+      var pri = parseFloat($priceSpan.text().replace("$", ""));
+      updateMiniTotals(pri *-1,$priceSpan);
+      if (!cartItem) return;
+
+      $.post("UpdateCartServlet", {
+        operation: "delete",
+        cartItem: cartItem
+      }, function (response) {
+        $miniCartCount.text($miniCartCountval-1);
+        // Fade out and remove the row smoothly
+        $row.fadeOut(300, function () {
+          $(this).remove();
+        });
+      }).fail(function () {
+        alert("Failed to delete item. Please try again."); // Handle errors
+      });
+    });
+  });
+  function updateMiniTotals(addme,pricespan) {
+    var subtotal = 0;
+
+
+    subtotal += parseFloat(pricespan.text().replace("$", "")); // Remove "$" and convert to number
+    subtotal += addme;
+
+
+    pricespan.text(`$${subtotal.toFixed(2)}`);
+
+  }
+</script>

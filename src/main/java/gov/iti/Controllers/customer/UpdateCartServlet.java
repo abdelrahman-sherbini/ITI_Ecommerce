@@ -1,5 +1,6 @@
 package gov.iti.Controllers.customer;
 
+import gov.iti.Dtos.Cart;
 import gov.iti.Dtos.User;
 import gov.iti.Helper.ConnectionProvider;
 import gov.iti.Model.CartDao;
@@ -18,6 +19,8 @@ public class UpdateCartServlet extends HttpServlet {
 
 
         String operation = req.getParameter("operation");
+        User user = (User) req.getSession().getAttribute("activeUser");
+
         CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
         if (operation.equals("delete")) {
             int cartItem = Integer.parseInt(req.getParameter("cartItem"));
@@ -26,6 +29,14 @@ public class UpdateCartServlet extends HttpServlet {
             int cartItem = Integer.parseInt(req.getParameter("cartItem"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
             cartDao.updateQuantity(cartItem, quantity);
+        }else if (operation.equals("AddOrder")){
+            Cart cart = new Cart();
+            cart.setQuantity(1);
+            cart.setUserId(user.getUserId());
+            int productID = Integer.parseInt(req.getParameter("productID"));
+            cart.setProductId(productID);
+            cartDao.addToCart(cart);
+            
         }
     }
 
