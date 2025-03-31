@@ -107,7 +107,7 @@
 </div>
 <!--====== End - Mini Product Statistics ======-->
 <script>
-  jQuery(document).ready(function(){
+  $( document ).ready(function() {
     $('.mini-product__delete-link').on('click', function (e) {
       e.preventDefault(); // Prevent default button behavior
       $(this).off();
