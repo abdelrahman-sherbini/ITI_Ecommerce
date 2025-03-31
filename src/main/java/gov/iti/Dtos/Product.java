@@ -1,6 +1,7 @@
 package gov.iti.Dtos;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Product {
 
@@ -129,7 +130,7 @@ public class Product {
 	//calculate price of product by applying discount
 	public BigDecimal getProductPriceAfterDiscount() {
 		BigDecimal discountPercentage = BigDecimal.valueOf(this.getProductDiscount()).divide(BigDecimal.valueOf(100));
-		BigDecimal discountAmount = this.getProductPrice().multiply(discountPercentage);
+		BigDecimal discountAmount = this.getProductPrice().multiply(discountPercentage).setScale(2, RoundingMode.HALF_UP);
 		return this.getProductPrice().subtract(discountAmount);
 	}
 	@Override
