@@ -155,7 +155,15 @@
                                         </div>
                                         <div class="w-r__wrap-2">
 
-                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart">ADD TO CART</a>
+                                            <a
+                                                id="add-to-cart-btn-wishlist"
+                                                class="w-r__link btn--e-brand-b-2"
+                                               data-toggle="modal"
+                                               data-name="<%=prod.getProductName()%>"
+                                               data-image="images/product/electronic/<%=prod.getProductImages()%>"
+                                               data-price="<%=prod.getProductPriceAfterDiscount()%>"
+                                               data-id="<%=prod.getProductId()%>"
+                                               >ADD TO CART</a>
 
                                             <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=<%=prod.getProductId()%>">VIEW</a>
 

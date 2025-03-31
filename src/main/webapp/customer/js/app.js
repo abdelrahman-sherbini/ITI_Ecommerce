@@ -450,7 +450,7 @@
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
             var $miniCartCount = $(".total-item-round");
-            var $miniCartCountval = parseInt($miniCartCount.first().val());
+            var $miniCartCountval = parseInt($miniCartCount.last().text());
             
             var $button = $(this);
             var $row = $button.closest('div'); // Find the closest parent div to remove
@@ -497,8 +497,53 @@
         });
     };
     
-    
+    // Product Detail Modal in wishlist
+    RESHOP.showProductDetailModal = function() {
+        $("#add-to-cart-btn-wishlist").on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
 
+            var $miniCartCount = $(".total-item-round");
+            var $miniCartCountval = parseInt($miniCartCount.last().text());
+            var $button = $(this);
+            var $row = $button.closest('div.w-r__container'); // Find the closest parent div to remove
+            var wishItem = $button.siblings('[name="wishItem"]').val(); // Get cart item ID
+            // Get product details from data attributes
+            var productName = $(this).data("name");
+            var productImage = $(this).data("image");
+            var productID = $(this).data("id");
+            var productPrice = $(this).data("price");
+            // var productQuantity = $(this).data("quantity");
+    
+            // Update modal content
+            $("#add-to-cart .success__name").text(productName);
+            $("#add-to-cart .success__price").text("$" + productPrice);
+            // $("#add-to-cart .success__quantity").text("Quantity: " + productQuantity);
+            $("#add-to-cart .success__img-wrap img").attr("src", productImage);
+    
+            
+            $.post("UpdateWishServlet", {
+                operation: "delete",
+                wishItem: wishItem
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    // $(this).remove();
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+            $.post("UpdateCartServlet", {
+                operation: "AddOrder",
+                productID: productID
+            }, function (response) {
+                $miniCartCount.text($miniCartCountval+1);
+                // Show the modal
+                $("#add-to-cart").modal("show");
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+    };
 
     // Blog Post Gallery
     RESHOP.blogPostGallery = function() {
@@ -661,6 +706,7 @@
       }
     };
 
+
     // Modal Product Detail Init
     RESHOP.modalProductDetailInit = function() {
         if ($modalProductDetailElement.length && $modalProductDetailElementThumbnail.length) {
@@ -822,5 +868,6 @@
         RESHOP.shopCategoryToggle();
         RESHOP.shopPerspectiveChange();
         RESHOP.shopSideFilter();
+        RESHOP.showProductDetailModal();
         setupMiniCartHover();
 })(jQuery);
