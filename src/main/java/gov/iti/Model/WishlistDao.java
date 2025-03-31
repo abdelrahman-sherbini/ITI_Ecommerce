@@ -18,7 +18,7 @@ public class WishlistDao {
 	public boolean addToWishlist(Wishlist w) {
 		boolean flag = false;
 		try {
-			String query = "insert into wishlist(iduser, idproduct) values(?,?)";
+			String query = "insert into wishlist(user_id, product_id) values(?,?)";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, w.getUserId());
 			psmt.setInt(2, w.getProductId());
@@ -34,7 +34,7 @@ public class WishlistDao {
 	public boolean getWishlist(int uid, int pid) {
 		boolean flag = false;
 		try {
-			String query = "select * from wishlist where iduser = ? and idproduct = ?";
+			String query = "select * from wishlist where user_id = ? and product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);
@@ -52,16 +52,16 @@ public class WishlistDao {
 	public List<Wishlist> getListByUserId(int uid){
 		List<Wishlist> list = new ArrayList<Wishlist>();
 		try {
-			String query = "select * from wishlist where iduser = ?";
+			String query = "select * from wishlist where user_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				Wishlist wishlist = new Wishlist();
-				wishlist.setWishlistId(rs.getInt("idwishlist"));
-				wishlist.setUserId(rs.getInt("iduser"));
-				wishlist.setProductId(rs.getInt("idproduct"));
+				wishlist.setWishlistId(rs.getInt("wishlist_id"));
+				wishlist.setUserId(rs.getInt("user_id"));
+				wishlist.setProductId(rs.getInt("product_id"));
 				
 				list.add(wishlist);
 			}
@@ -72,10 +72,21 @@ public class WishlistDao {
 	}
 	public void deleteWishlist(int uid, int pid) {
 		try {
-			String query = "delete from wishlist where iduser = ? and idproduct = ?";
+			String query = "delete from wishlist where user_id = ? and product_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			psmt.setInt(2, pid);
+			
+			psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteWishlist(int id) {
+		try {
+			String query = "delete from wishlist where wishlist_id = ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, id);
 			
 			psmt.executeUpdate();
 		} catch (Exception e) {

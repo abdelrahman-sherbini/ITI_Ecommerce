@@ -473,6 +473,28 @@
                 alert("Failed to delete item. Please try again."); // Handle errors
             });
         });
+        $('#deleteWish').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+            $(this).off(); 
+
+            var $button = $(this);
+            var $row = $button.closest('div.w-r.u-s-m-b-30'); // Find the closest parent div to remove
+            var wishItem = $button.siblings('[name="wishItem"]').val(); // Get cart item ID
+
+            if (!wishItem) return;
+    
+            $.post("UpdateWishServlet", {
+                operation: "delete",
+                wishItem: wishItem
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
     };
     
     

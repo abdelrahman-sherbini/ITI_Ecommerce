@@ -1,3 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+    activeUser.setUserId(1);
+    session.setAttribute("activeUser",activeUser);
+//    User activeUser = (User) session.getAttribute("activeUser");
+
+
+    Connection connection = ConnectionProvider.getConnection();
+
+    CategoryDao catDao = new CategoryDao(connection);
+    List<Category> categoryList = catDao.getAllCategories();
+
+    ProductDao productDao = new ProductDao(connection);
+
+    WishlistDao wishlistDao = new WishlistDao(connection);
+
+    OrderDao orderDao = new OrderDao(connection);
+    List<Wishlist> wishList  =  wishlistDao.getListByUserId(activeUser.getUserId());
+    if(wishList.isEmpty()){
+        request.getRequestDispatcher("empty-wishlist.jsp").forward(request,response);
+    }
+
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -86,104 +117,61 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
+                                <%
 
+                                    for (Wishlist wishlist : wishList) {
+
+                                        Product prod  = productDao.getProductsByProductId(wishlist.getProductId());
+                                        Category category = catDao.getCategoryById(prod.getCategoryId());
+
+
+
+                                %>
                                 <!--====== Wishlist Product ======-->
                                 <div class="w-r u-s-m-b-30">
                                     <div class="w-r__container">
                                         <div class="w-r__wrap-1">
                                             <div class="w-r__img-wrap">
 
-                                                <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
+                                                <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
                                             <div class="w-r__info">
 
                                                 <span class="w-r__name">
 
-                                                    <a href="product-detail.jsp">Yellow Wireless Headphone</a></span>
+                                                    <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
 
                                                 <span class="w-r__category">
 
-                                                    <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                                    <a href="shop-side-version-2.jsp<%=category.getCategoryId()%>"><%=category.getCategoryName()%></a></span>
+                                                <% if(prod.getProductPriceAfterDiscount().equals(prod.getProductPrice())){ %>
+                                                <span class="w-r__price">$<%=prod.getProductPrice()%></span>
+                                            <% }else{%>
 
-                                                <span class="w-r__price">$125.00
+                                                <span class="w-r__price">$<%=prod.getProductPriceAfterDiscount()%>
 
-                                                    <span class="w-r__discount">$160.00</span></span></div>
+                                                    <span class="w-r__discount">$<%=prod.getProductPrice()%></span></span>
+                                                <% }%>
+                                            </div>
                                         </div>
                                         <div class="w-r__wrap-2">
 
                                             <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart">ADD TO CART</a>
 
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp">VIEW</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=<%=prod.getProductId()%>">VIEW</a>
 
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>
+<%--                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>--%>
+                                        <button type="button" id="deleteWish" class="w-r__link btn--e-transparent-platinum-b-2">Remove</button>
+                                        <input type="hidden" name="wishItem" value="<%=wishlist.getWishlistId()%>">
                                     </div>
                                 </div>
                                 <!--====== End - Wishlist Product ======-->
 
 
-                                <!--====== Wishlist Product ======-->
-                                <div class="w-r u-s-m-b-30">
-                                    <div class="w-r__container">
-                                        <div class="w-r__wrap-1">
-                                            <div class="w-r__img-wrap">
 
-                                                <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></div>
-                                            <div class="w-r__info">
+                                <%
+                                    }
 
-                                                <span class="w-r__name">
-
-                                                    <a href="product-detail.jsp">New Dress D Nice Elegant</a></span>
-
-                                                <span class="w-r__category">
-
-                                                    <a href="shop-side-version-2.jsp">Women Clothing</a></span>
-
-                                                <span class="w-r__price">$125.00
-
-                                                    <span class="w-r__discount">$160.00</span></span></div>
-                                        </div>
-                                        <div class="w-r__wrap-2">
-
-                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart">ADD TO CART</a>
-
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp">VIEW</a>
-
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>
-                                    </div>
-                                </div>
-                                <!--====== End - Wishlist Product ======-->
-
-
-                                <!--====== Wishlist Product ======-->
-                                <div class="w-r u-s-m-b-30">
-                                    <div class="w-r__container">
-                                        <div class="w-r__wrap-1">
-                                            <div class="w-r__img-wrap">
-
-                                                <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                                            <div class="w-r__info">
-
-                                                <span class="w-r__name">
-
-                                                    <a href="product-detail.jsp">New Fashion D Nice Elegant</a></span>
-
-                                                <span class="w-r__category">
-
-                                                    <a href="shop-side-version-2.jsp">Men Clothing</a></span>
-
-                                                <span class="w-r__price">$125.00
-
-                                                    <span class="w-r__discount">$160.00</span></span></div>
-                                        </div>
-                                        <div class="w-r__wrap-2">
-
-                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart">ADD TO CART</a>
-
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp">VIEW</a>
-
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>
-                                    </div>
-                                </div>
-                                <!--====== End - Wishlist Product ======-->
+                                %>
                             </div>
                             <div class="col-lg-12">
                                 <div class="route-box">
