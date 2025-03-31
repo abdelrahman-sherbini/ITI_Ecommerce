@@ -272,4 +272,19 @@ public class UserDao {
 		}
 		return list;
 	}
+
+	public List<String> getAllPhoneNumbers() {
+		List<String> list = new ArrayList<>();
+		try {
+			String query = "select phone from user";
+			Statement statement = this.con.createStatement();
+			ResultSet set = statement.executeQuery(query);
+			while (set.next()) {
+				list.add(set.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
