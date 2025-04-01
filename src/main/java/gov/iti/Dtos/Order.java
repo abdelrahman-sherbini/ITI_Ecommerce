@@ -9,7 +9,7 @@ public class Order {
 
 	private String address;
 	private String city;
-	private int country;
+	private String governorate;
 	private int paymentId;
 	private String status;
 	private Timestamp date;
@@ -19,11 +19,11 @@ public class Order {
 		super();
 	}
 
-	public Order(String address,String city,int country,int paymentId, String status, Timestamp date, int userId) {
+	public Order(String address,String city,String governorate,int paymentId, String status, Timestamp date, int userId) {
 		super();
 		this.address = address;
 		this.city = city;
-		this.country = country;
+		this.governorate = governorate;
 		this.paymentId = paymentId;
 		this.status = status;
 		this.date = date;
@@ -86,12 +86,12 @@ public class Order {
 		this.city = city;
 	}
 
-	public int getCountry() {
-		return country;
+	public String getGovernorate() {
+		return governorate;
 	}
 
-	public void setCountry(int country) {
-		this.country = country;
+	public void setGovernorate(String governorate) {
+		this.governorate = governorate;
 	}
 
 	public int getUserId() {

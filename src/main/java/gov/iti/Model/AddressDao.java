@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import gov.iti.Dtos.Address;
+import gov.iti.Dtos.User;
 
 public class AddressDao {
 
@@ -53,6 +57,33 @@ public class AddressDao {
             e.printStackTrace();
         }
         return addressId;
+    }
+
+    //Get all adresses for a user
+    public List<Address> getAllAddressList(long userId) {
+        		List<Address> list = new ArrayList<Address>();
+		try {
+			String query = "SELECT * FROM user_address WHERE user_id = ?";
+			PreparedStatement statement = con.prepareStatement(query);
+            statement.setLong(1, userId);
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				Address address = new Address();
+                address.setAddress_id(set.getInt("address_id"));
+                address.setUser_id(set.getInt("user_id"));
+                address.setPin_code(set.getString("pin_code"));
+                address.setAddressDescription(set.getString("address"));
+                address.setGovernorate(set.getString("governorate"));
+                address.setCity(set.getString("city"));
+                address.setType(set.getString("type"));
+
+				list.add(address);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+
     }
 
     // Retrieve an address by address ID

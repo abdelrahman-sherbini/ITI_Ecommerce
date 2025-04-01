@@ -111,7 +111,7 @@
     $('.mini-product__delete-link').on('click', function (e) {
       e.preventDefault(); // Prevent default button behavior
       $(this).off();
-      console.log("meows")
+
       var $miniCartCount = $(".total-item-round");
       var $miniCartCountval = parseInt($miniCartCount.last().text());
 

@@ -17,14 +17,14 @@ public class OrderDao {
 	public int insertOrder(Order order) {
 		int id = 0;
 		try {
-			String query = "insert into `order`(payment_id, user_id,address,city,country, status, date) values(?,?,?,?, ?, ?, ?)";
+			String query = "insert into `order`(payment_id, user_id,address,city,governorate, status, date) values(?,?,?,?, ?, ?, ?)";
 			PreparedStatement psmt = this.con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			psmt.setInt(1, order.getPaymentId());
 			psmt.setInt(2, order.getUserId());
 			psmt.setString(3, order.getAddress());
 			psmt.setString(4, order.getCity());
-			psmt.setInt(5, order.getCountry());
+			psmt.setString(5, order.getGovernorate());
 			psmt.setString(6, order.getStatus());
 			if (order.getDate() != null) {
 
@@ -66,7 +66,7 @@ public class OrderDao {
 				order.setPaymentId(rs.getInt("payment_id"));
 				order.setAddress(rs.getString("address"));
 				order.setCity(rs.getString("city"));
-				order.setCountry(rs.getInt("country"));
+				order.setGovernorate(rs.getString("governorate"));
 				order.setUserId(uid);
 
 				list.add(order);
@@ -91,7 +91,7 @@ public class OrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setAddress(rs.getString("address"));
 				order.setCity(rs.getString("city"));
-				order.setCountry(rs.getInt("country"));
+				order.setGovernorate(rs.getString("governorate"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class OrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setAddress(rs.getString("address"));
 				order.setCity(rs.getString("city"));
-				order.setCountry(rs.getInt("country"));
+				order.setGovernorate(rs.getString("governorate"));
 				list.add(order);
 			}
 		} catch (Exception e) {

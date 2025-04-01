@@ -22,7 +22,6 @@
 				<th>Action</th>
 			</tr>
 			<%
-			UserDao userDao = new UserDao(ConnectionProvider.getConnection());
 			List<User> userList = userDao.getAllUser();
 			for (User u : userList) {
 			%>

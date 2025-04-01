@@ -113,7 +113,7 @@ public class UserDao {
 	public List<User> getAllUser() {
 		List<User> list = new ArrayList<User>();
 		try {
-			String query = "select * from user";
+			String query = "select *,CONCAT(first_name, ' ', last_name) AS name from user";
 			Statement statement = this.con.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			while (set.next()) {
@@ -206,7 +206,7 @@ public class UserDao {
 	public String getUserName(int uid) {
 		String name = "";
 		try {
-			String query = "select name from user where user_id = ?";
+			String query = "select concat(first_name,' ',last_name) from user where user_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
 			
