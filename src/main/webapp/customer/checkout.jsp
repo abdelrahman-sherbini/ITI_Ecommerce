@@ -429,13 +429,14 @@
                                         <div class="o-summary__section u-s-m-b-30">
                                             <div class="o-summary__box">
                                                 <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
-                                                <form class="checkout-f__payment">
+                                                <form class="checkout-f__payment" action="CheckOutServlet" method="post">
+                                                    <input type="hidden" name="address_ID" value="<%=activeUser.getDefaultAddress()%>">
                                                     <div class="u-s-m-b-10">
 
                                                         <!--====== Radio Box ======-->
                                                         <div class="radio-box">
 
-                                                            <input type="radio" id="cash-on-delivery" name="payment">
+                                                            <input type="radio" id="cash-on-delivery" name="payment" value="COD">
                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                 <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label></div>
@@ -449,7 +450,7 @@
                                                         <!--====== Radio Box ======-->
                                                         <div class="radio-box">
 
-                                                            <input type="radio" id="direct-bank-transfer" name="payment">
+                                                            <input type="radio" id="direct-bank-transfer" name="payment" value="DIRECTBANK">
                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                 <label class="radio-box__label" for="direct-bank-transfer">Direct Bank Transfer</label></div>
@@ -463,7 +464,7 @@
                                                         <!--====== Radio Box ======-->
                                                         <div class="radio-box">
 
-                                                            <input type="radio" id="pay-with-check" name="payment">
+                                                            <input type="radio" id="pay-with-check" name="payment" value="PAYCHECK">
                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                 <label class="radio-box__label" for="pay-with-check">Pay With Check</label></div>
@@ -477,7 +478,7 @@
                                                         <!--====== Radio Box ======-->
                                                         <div class="radio-box">
 
-                                                            <input type="radio" id="pay-with-card" name="payment">
+                                                            <input type="radio" id="pay-with-card" name="payment" value="PAYCREDIT">
                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                 <label class="radio-box__label" for="pay-with-card">Pay With Credit / Debit Card</label></div>
@@ -491,7 +492,7 @@
                                                         <!--====== Radio Box ======-->
                                                         <div class="radio-box">
 
-                                                            <input type="radio" id="pay-pal" name="payment">
+                                                            <input type="radio" id="pay-pal" name="payment" value="PAYPAL" required>
                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                 <label class="radio-box__label" for="pay-pal">Pay Pal</label></div>
@@ -505,7 +506,7 @@
                                                         <!--====== Check Box ======-->
                                                         <div class="check-box">
 
-                                                            <input type="checkbox" id="term-and-condition">
+                                                            <input type="checkbox" id="term-and-condition" required>
                                                             <div class="check-box__state check-box__state--primary">
 
                                                                 <label class="check-box__label" for="term-and-condition">I consent to the</label></div>
@@ -516,7 +517,8 @@
                                                     </div>
                                                     <div>
 
-                                                        <button class="btn btn--e-brand-b-2" type="submit">PLACE ORDER</button></div>
+                                                        <button class="btn btn--e-brand-b-2" type="submit">PLACE ORDER</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -582,7 +584,7 @@
 
                                                     <!--====== Radio Box ======-->
                                                     <div class="radio-box">
-
+                                                        <input id="addressID" type="hidden" value="<%=address.getAddress_id()%>">
                                                         <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" checked="">
                                                         <div class="radio-box__state radio-box__state--primary">
 
@@ -724,11 +726,23 @@
     <script>
             let selectedAddress = $('input[name="default-address"]:checked').val();
             $(".ship-b__p").text(selectedAddress);
+            let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
+            $('input[name="address_ID"]').val(selectedAdressID);
         $("#save-address").click(function() {
             let selectedAddress = $('input[name="default-address"]:checked').val();
             $(".ship-b__p").text(selectedAddress);
+            let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
+            $('input[name="address_ID"]').val(selectedAdressID);
 
         });
+            $('#addressID').each(function() {
+                if ($(this).val() == <%= activeUser.getDefaultAddress() %>) {
+                    // Find the next radio button and check it
+                    $(this).next('input[type="radio"]').prop('checked', true);
+                    let selectedAddress = $('input[name="default-address"]:checked').val();
+                    $(".ship-b__p").text(selectedAddress);
+                }
+            });
         window.ga = function() {
             ga.q.push(arguments)
         };
