@@ -76,13 +76,13 @@
                                                 <label class="gl-label" for="reg-fname">FIRST NAME *</label>
                                                 <div class="gl-error" id="reg-fname-error"></div>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" name="reg-fname" placeholder="First Name" required></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" name="firstName" placeholder="First Name" required></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="reg-lname">LAST NAME *</label>
                                                 <div class="gl-error" id="reg-lname-error"></div>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" name="reg-lname" placeholder="Last Name" required></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" name="lastName" placeholder="Last Name" required></div>
                                             <div class="gl-inline">
                                                 <div class="u-s-m-b-30">
 
@@ -110,7 +110,7 @@
                                                             <option value="1993">1993</option>
                                                             <option value="1994">1994</option>
                                                         </select> -->
-                                                        <input  class="select-box select-box--primary-style" type="date" id="reg-dob" name="reg-dob">
+                                                        <input  class="select-box select-box--primary-style" type="date" id="reg-dob" name="dob">
                                                     </div>
                                                     <!--====== End - Date of Birth Select-Box ======-->
                                                 </div>
@@ -118,7 +118,7 @@
 
                                                     <label class="gl-label" for="reg-gender">GENDER</label>
                                                     <div class="gl-error" id="reg-gender-error"></div>
-                                                    <select class="select-box select-box--primary-style u-w-100" id="gender" name="reg-gender">
+                                                    <select class="select-box select-box--primary-style u-w-100" id="reg-gender" name="gender">
                                                         <option value="" selected>Select</option>
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
@@ -128,23 +128,23 @@
 
                                                 <label class="gl-label" for="reg-phone">PHONE *</label>
                                                 <div class="gl-error" id="reg-phone-error"></div>
-                                                <input class="input-text input-text--primary-style" type="tel" id="reg-phone" name="reg-phone" placeholder="phone number" required></div>
+                                                <input class="input-text input-text--primary-style" type="tel" id="reg-phone" name="phone" placeholder="phone number" required></div>
                                             
                                                 <div class="u-s-m-b-30">
 
                                                     <label class="gl-label" for="reg-credit">CREDIT *</label>
                                                     <div class="gl-error" id="reg-credit-error"></div>
-                                                    <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="reg-credit" placeholder="credit limit" required></div>
+                                                    <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="credit" placeholder="credit limit" required></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="reg-job">JOB</label>
                                                 <div class="gl-error" id="reg-job-error"></div>
-                                                <input class="input-text input-text--primary-style" type="text" id="reg-job" name="reg-job" placeholder="job" ></div>
+                                                <input class="input-text input-text--primary-style" type="text" id="reg-job" name="job" placeholder="job" ></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="reg-email">E-MAIL *</label>
                                                 <div class="gl-error" id="reg-email-error"></div>
-                                                <input class="input-text input-text--primary-style" type="email" id="reg-email" name="reg-email" placeholder="Enter E-mail" required></div>
+                                                <input class="input-text input-text--primary-style" type="email" id="reg-email" name="email" placeholder="Enter E-mail" required></div>
 
                                                 <div class="u-s-m-b-30" style="position: relative;">
                                                     <label class="gl-label" for="reg-password">PASSWORD *</label>
@@ -154,7 +154,7 @@
                                                             class="input-text input-text--primary-style"
                                                             type="password"
                                                             id="reg-password"
-                                                            name="reg-password"
+                                                            name="password"
                                                             placeholder="Enter Password"
                                                             required
                                                             style="padding-right: 40px; width: 100%;"
@@ -204,7 +204,7 @@
 
                                                         <label class="gl-label" for="address-street">STREET ADDRESS *</label>
                                                         <div class="gl-error" id="address-street-error"></div>
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-street" name="address-street" placeholder="House Name and Street" required></div>
+                                                        <input class="input-text input-text--primary-style" type="text" id="address-street" name="addressDescription" placeholder="House Name and Street" required></div>
                                                         <div class="u-s-m-b-30">
 
                                                             
@@ -214,7 +214,7 @@
                                                                 <div class="u-s-m-b-30">
                                                                     <label class="gl-label" for="address-state">GOVERNORATE *</label>
                                                                     <div class="gl-error" id="address-state-error"></div>
-                                                                    <select class="select-box select-box--primary-style" id="address-state" name="address-state">
+                                                                    <select class="select-box select-box--primary-style" id="address-state" name="governorate">
                                                                       <option selected value="">Choose Governorate</option>
                                                                     </select>
                                                                   </div>
@@ -222,7 +222,7 @@
                                                                   <div class="u-s-m-b-30">
                                                                     <label class="gl-label" for="address-city">TOWN/CITY *</label>
                                                                     <div class="gl-error" id="address-city-error"></div>
-                                                                    <select class="select-box select-box--primary-style" id="address-city" name="address-city">
+                                                                    <select class="select-box select-box--primary-style" id="address-city" name="city">
                                                                       <option selected value="">Choose City</option>
                                                                     </select>
                                                                   </div>
@@ -247,14 +247,14 @@
                                                             
                                                             <div class="u-s-m-b-30">
                                                                 <label class="gl-label">
-                                                                <input type="radio" name="address-type" value="home" required>
+                                                                <input type="radio" name="type" value="home">
                                                                 Home
                                                                 </label>
                                                             </div>
                                                             
                                                             <div class="u-s-m-b-30">
                                                                 <label class="gl-label">
-                                                                <input type="radio" name="address-type" value="office">
+                                                                <input type="radio" name="type" value="office">
                                                                 Office
                                                                 </label>
                                                             </div>

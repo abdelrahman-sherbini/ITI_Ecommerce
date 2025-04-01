@@ -196,6 +196,75 @@ function notEmptyValidator(value) {
     return value !== "";
   }
 
+  function fetchEmails() {
+    const emailText = email.value.trim(); // Get email value
+    if (!emailText) return; // Avoid unnecessary requests if empty
+
+    $.ajax({
+        url: "email",
+        method: "GET",
+        data: { email: emailText },
+        success: function (response) {
+            let isInvalid = response === "true" || response === true; 
+            let errorElement = document.getElementById("reg-email-error");
+
+            if (isInvalid) {
+                setOfInvalidElements.add(email);
+                errorElement.innerHTML = "*This email is already taken.";
+                
+            } else {
+                setOfInvalidElements.delete(email);
+                errorElement.innerHTML = "";
+            }
+        },
+        error: function () {
+            console.error("Failed to validate email.");
+        },
+    });
+}
+
+// Attach event properly
+email.addEventListener("blur", function () {
+    fetchEmails();
+});
+
+
+email.addEventListener("blur", fetchEmails);
+
+function fetchPhone() {
+  const phoneText = phone.value.trim();
+  if (!phoneText) return;
+
+  $.ajax({
+      url: "phone",
+      method: "GET",
+      data: { phone: phoneText },
+      success: function (response) {
+          let isInvalid = response === "true" || response === true; 
+          let errorElement = document.getElementById("reg-phone-error");
+
+          if (isInvalid) {
+              setOfInvalidElements.add(phone);
+              errorElement.innerHTML = "*This phone number is already taken.";
+          } else {
+              setOfInvalidElements.delete(phone);
+              errorElement.innerHTML = "";
+          }
+      },
+      error: function () {
+          console.error("Failed to validate phone number.");
+      },
+  });
+}
+
+// Attach event properly
+phone.addEventListener("blur", function () {
+  fetchPhone();
+});
+
+
+
+
 // default address
 const address = document.getElementById("address-street");
 const governorate = document.getElementById("address-state");
@@ -218,15 +287,19 @@ submitBttn.addEventListener("click", (e) => {
     validateWith(validator, element, message);
   });
   // type radio button validation
-  const isAddressTypeSelected = document.querySelector('input[name="address-type"]:checked') !== null;
+  console.log("Radio checked?", document.querySelector('input[name="type"]:checked'));
+
+  const addressTypeRadios = document.querySelectorAll('input[name="type"]');
+  const firstRadio = addressTypeRadios[0];
+  const isAddressTypeSelected = document.querySelector('input[name="type"]:checked') !== null;
   const errorDiv = document.getElementById("address-type-error");
 
   if (!isAddressTypeSelected) {
     errorDiv.textContent = "*Please select an address type";
-    setOfInvalidElements.add(errorDiv);
+    setOfInvalidElements.add(firstRadio); 
   } else {
     errorDiv.textContent = "";
-    setOfInvalidElements.delete(errorDiv);
+    setOfInvalidElements.delete(firstRadio); 
   }
 
   if (setOfInvalidElements.size !== 0) {
