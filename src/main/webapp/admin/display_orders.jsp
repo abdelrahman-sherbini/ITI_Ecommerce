@@ -1,3 +1,4 @@
+<%@ page import="java.math.BigDecimal" %>
 <%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
 						style="width: 50px; height: 50px; width: auto;"></td>
 					<td><%=order.getId()%></td>
 					<td><%=prod.getProductName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
-						Price: &#8377;<%=orderProduct.getPrice() * orderProduct.getQuantity()%></td>
+						Price: &#8377;<%=orderProduct.getPrice().multiply(BigDecimal.valueOf(orderProduct.getQuantity()))%></td>
 					<td><%=userDao.getUserName(order.getUserId())%><br>Mobile No. <%=userDao.getUserPhone(order.getUserId())%><br><%=order.getAddress() +" "+order.getCity()%></td>
 					<td><%=order.getDate()%></td>
 					<td><%= "COD"%></td>

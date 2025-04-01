@@ -1,9 +1,9 @@
 USE shop;
 
 -- Insert Users
-INSERT INTO `user` (`name`, `email`, `password`, `phone`, `gender`, `job`, `default_address`) VALUES
-('Alice Johnson', 'alice@example.com', 'hashedpassword', '1234567890', 'Female', 'Engineer', NULL),
-('Bob Smith', 'bob@example.com', 'hashedpassword', '9876543210', 'Male', 'Teacher', NULL);
+INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`, `phone`, `gender`, `job`, `default_address`, `credit`) VALUES
+('Alice', 'Johnson', 'alice@example.com', 'hashedpassword', '1234567890', 'Female', 'Engineer', NULL, 0.0),
+('Bob', 'Smith', 'bob@example.com', 'hashedpassword', '9876543210', 'Male', 'Teacher', NULL, 0.0);
 
 -- Insert Admins
 INSERT INTO `admin` (`name`, `email`, `password`, `phone`) VALUES
@@ -21,16 +21,16 @@ INSERT INTO `product` (`name`, `description`, `price`, `quantity`, `discount`, `
 ('Science Fiction Book', 'A popular science fiction novel.', 19.99, 100, 0, 'scifi.jpg', 2);
 
 -- Insert User Addresses
-INSERT INTO `user_address` (`user_id`, `address`, `city`, `country`, `type`, `pin_code`) VALUES
-(1, '123 Elm Street', 'Cairo', 1, 'Home', '12345'),
-(2, '456 Maple Avenue', 'Alexandria', 1, 'Office', '54321');
+INSERT INTO `user_address` (`user_id`, `address`, `governorate`, `city`, `type`, `pin_code`) VALUES
+(1, '123 Elm Street', 'Cairo Governorate', 'Cairo', 'Home', '12345'),
+(2, '456 Maple Avenue', 'Alexandria Governorate', 'Alexandria', 'Office', '54321');
 
 -- Insert Payments
-INSERT INTO `payment` (`user_id`, `method`, `ammount`, `status`) VALUES
+INSERT INTO `payment` (`user_id`, `method`, `amount`, `status`) VALUES
 (1, 'Credit Card', 599.99, 'Completed'),
 (2, 'PayPal', 19.99, 'Pending');
 
--- Insert Orders
+-- Insert Orders (renaming `order` to `orders` due to reserved keyword issue)
 INSERT INTO `order` (`payment_id`, `user_id`, `address`, `city`, `country`, `status`) VALUES
 (1, 1, '123 Elm Street', 'Cairo', 1, 'Shipped'),
 (2, 2, '456 Maple Avenue', 'Alexandria', 1, 'Processing');
@@ -43,10 +43,8 @@ INSERT INTO `ordered_product` (`product_id`, `price`, `quantity`, `order_id`) VA
 -- Insert Wishlist Items
 INSERT INTO `wishlist` (`user_id`, `product_id`) VALUES
 (1, 2),
-(2, 1);
+(1, 1);
 
 -- Insert Cart Items
 INSERT INTO `cart` (`user_id`, `product_id`, `quantity`) VALUES
-(1, 3, 1),
-(2, 2, 2);
-
+(1, 3, 1);

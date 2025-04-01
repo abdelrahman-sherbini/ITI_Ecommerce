@@ -1,3 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+    activeUser.setUserId(1);
+    session.setAttribute("activeUser",activeUser);
+//    User activeUser = (User) session.getAttribute("activeUser");
+
+
+    Connection connection = ConnectionProvider.getConnection();
+
+    CategoryDao catDao = new CategoryDao(connection);
+    List<Category> categoryList = catDao.getAllCategories();
+
+    ProductDao productDao = new ProductDao(connection);
+
+    CartDao cartDao = new CartDao(connection);
+
+    AddressDao addressDao = new AddressDao(connection);
+    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
+    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
+    if(cartList.isEmpty()){
+        request.getRequestDispatcher("empty-cart.jsp").forward(request,response);
+    }
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -20,6 +52,9 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -311,78 +346,41 @@
                                     <div class="o-summary">
                                         <div class="o-summary__section u-s-m-b-30">
                                             <div class="o-summary__item-wrap gl-scroll">
+                                                <%
+                                                    BigDecimal totalPrice = BigDecimal.valueOf(0);
+                                                    for (Cart cart : cartList) {
+
+                                                        Product prod  = productDao.getProductsByProductId(cart.getProductId());
+                                                        Category category = catDao.getCategoryById(prod.getCategoryId());
+                                                        int quantity = cart.getQuantity();
+                                                        totalPrice = totalPrice.add (prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( quantity)));
+                                                        int id = cart.getCartId();
+
+                                                %>
                                                 <div class="o-card">
                                                     <div class="o-card__flex">
                                                         <div class="o-card__img-wrap">
 
-                                                            <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
+                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
                                                         <div class="o-card__info-wrap">
 
                                                             <span class="o-card__name">
 
-                                                                <a href="product-detail.jsp">Yellow Wireless Headphone</a></span>
+                                                                <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
 
-                                                            <span class="o-card__quantity">Quantity x 1</span>
+                                                            <span class="o-card__quantity">Quantity x <%=cart.getQuantity()%></span>
 
-                                                            <span class="o-card__price">$150.00</span></div>
+                                                            <span class="o-card__price">$<%=prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></div>
                                                     </div>
 
-                                                    <a class="o-card__del far fa-trash-alt"></a>
+<%--                                                    <a class="o-card__del far fa-trash-alt"></a>--%>
+<%--                                                    <button type="button" class="o-card__del far fa-trash-alt"></button>--%>
+<%--                                                    <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">--%>
                                                 </div>
-                                                <div class="o-card">
-                                                    <div class="o-card__flex">
-                                                        <div class="o-card__img-wrap">
+                                                <%
+                                                    }
 
-                                                            <img class="u-img-fluid" src="images/product/electronic/product18.jpg" alt=""></div>
-                                                        <div class="o-card__info-wrap">
-
-                                                            <span class="o-card__name">
-
-                                                                <a href="product-detail.jsp">Nikon DSLR Camera 4k</a></span>
-
-                                                            <span class="o-card__quantity">Quantity x 1</span>
-
-                                                            <span class="o-card__price">$150.00</span></div>
-                                                    </div>
-
-                                                    <a class="o-card__del far fa-trash-alt"></a>
-                                                </div>
-                                                <div class="o-card">
-                                                    <div class="o-card__flex">
-                                                        <div class="o-card__img-wrap">
-
-                                                            <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></div>
-                                                        <div class="o-card__info-wrap">
-
-                                                            <span class="o-card__name">
-
-                                                                <a href="product-detail.jsp">New Dress D Nice Elegant</a></span>
-
-                                                            <span class="o-card__quantity">Quantity x 1</span>
-
-                                                            <span class="o-card__price">$150.00</span></div>
-                                                    </div>
-
-                                                    <a class="o-card__del far fa-trash-alt"></a>
-                                                </div>
-                                                <div class="o-card">
-                                                    <div class="o-card__flex">
-                                                        <div class="o-card__img-wrap">
-
-                                                            <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                                                        <div class="o-card__info-wrap">
-
-                                                            <span class="o-card__name">
-
-                                                                <a href="product-detail.jsp">New Fashion D Nice Elegant</a></span>
-
-                                                            <span class="o-card__quantity">Quantity x 1</span>
-
-                                                            <span class="o-card__price">$150.00</span></div>
-                                                    </div>
-
-                                                    <a class="o-card__del far fa-trash-alt"></a>
-                                                </div>
+                                                %>
                                             </div>
                                         </div>
                                         <div class="o-summary__section u-s-m-b-30">
@@ -418,11 +416,11 @@
                                                         </tr>
                                                         <tr>
                                                             <td>SUBTOTAL</td>
-                                                            <td>$379.00</td>
+                                                            <td>$<%=totalPrice%></td>
                                                         </tr>
                                                         <tr>
                                                             <td>GRAND TOTAL</td>
-                                                            <td>$379.00</td>
+                                                            <td>$<%=totalPrice.add(BigDecimal.valueOf(4))%></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -556,7 +554,7 @@
                                         <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Add new Address</a></div>
                                 </div>
                             </div>
-                            <form class="checkout-modal2__form">
+<%--                            <form class="checkout-modal2__form">--%>
                                 <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
                                     <table class="dash__table-2">
                                         <thead>
@@ -564,62 +562,67 @@
                                                 <th>Action</th>
                                                 <th>Full Name</th>
                                                 <th>Address</th>
-                                                <th>Region</th>
+                                                <th>City</th>
+                                                <th>Governorate</th>
+                                                <th>Type</th>
                                                 <th>Phone Number</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <%
+
+                                            for (Address address : addressList) {
+
+
+
+                                        %>
                                             <tr>
                                                 <td>
 
                                                     <!--====== Radio Box ======-->
                                                     <div class="radio-box">
 
-                                                        <input type="radio" id="address-1" name="default-address" checked="">
+                                                        <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" checked="">
                                                         <div class="radio-box__state radio-box__state--primary">
 
                                                             <label class="radio-box__label" for="address-1"></label></div>
                                                     </div>
                                                     <!--====== End - Radio Box ======-->
                                                 </td>
-                                                <td>John Doe</td>
-                                                <td>4247 Ashford Drive Virginia VA-20006 USA</td>
-                                                <td>Virginia VA-20006 USA</td>
-                                                <td>(+0) 900901904</td>
+                                                <td><%=userDao.getUserName(activeUser.getUserId())%></td>
+                                                <td><%=address.getAddressDescription()%></td>
+                                                <td><%=address.getCity()%></td>
+                                                <td><%=address.getGovernorate()%></td>
+                                                <td><%=address.getType()%></td>
+                                                <td><%=userDao.getUserPhone(activeUser.getUserId())%></td>
+                                                <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
+
                                                 <td>
                                                     <div class="gl-text">Default Shipping Address</div>
-                                                    <div class="gl-text">Default Billing Address</div>
                                                 </td>
-                                            </tr>
-                                            <tr>
+                                                <% }else{%>
+
                                                 <td>
 
-                                                    <!--====== Radio Box ======-->
-                                                    <div class="radio-box">
-
-                                                        <input type="radio" id="address-2" name="default-address">
-                                                        <div class="radio-box__state radio-box__state--primary">
-
-                                                            <label class="radio-box__label" for="address-2"></label></div>
-                                                    </div>
-                                                    <!--====== End - Radio Box ======-->
                                                 </td>
-                                                <td>Doe John</td>
-                                                <td>1484 Abner Road</td>
-                                                <td>Eau Claire WI - Wisconsin</td>
-                                                <td>(+0) 7154419563</td>
-                                                <td></td>
+                                                <% }%>
                                             </tr>
+
+
+                                            <%
+                                                }
+
+                                            %>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="gl-modal-btn-group">
 
-                                    <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                                    <button id="save-address" class="btn btn--e-brand-b-2" type="submit">SAVE</button>
 
                                     <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button></div>
-                            </form>
+<%--                            </form>--%>
                         </div>
                     </div>
                 </div>
@@ -719,6 +722,13 @@
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+            let selectedAddress = $('input[name="default-address"]:checked').val();
+            $(".ship-b__p").text(selectedAddress);
+        $("#save-address").click(function() {
+            let selectedAddress = $('input[name="default-address"]:checked').val();
+            $(".ship-b__p").text(selectedAddress);
+
+        });
         window.ga = function() {
             ga.q.push(arguments)
         };
