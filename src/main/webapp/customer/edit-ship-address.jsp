@@ -8,6 +8,7 @@
 
 <%
     User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+    activeUser.setDefaultAddress(3);
     activeUser.setUserId(1);
 //    session.setAttribute("activeUser",activeUser);
 //    //User activeUser = (User) session.getAttribute("activeUser");
@@ -68,8 +69,8 @@
 
                                 <!--====== Radio Box ======-->
                                 <div class="radio-box">
-                                    <input id="addressID" type="hidden" value="<%=address.getAddress_id()%>">
-                                    <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" checked="">
+                                    <input class="addressID" type="hidden" value="<%=address.getAddress_id()%>">
+                                    <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" >
                                     <div class="radio-box__state radio-box__state--primary">
 
                                         <label class="radio-box__label" for="address-1"></label></div>
@@ -116,11 +117,39 @@
 
 <script>
     $(document).ready(function () {
+        let check = true;
+        if(  $('input[name="first_time"]').val() ==1 ){
+            $('input[name="first_time"]').val(0)
+            $('.addressID').each(function() {
+            if ($(this).val() == <%= activeUser.getDefaultAddress() %>) {
+                // Find the next radio button and check it
+                $(this).next('input[type="radio"]').prop('checked', true);
+                let selectedAddress = $('input[name="default-address"]:checked').val();
+                $(".ship-b__p").text(selectedAddress);
+                check = false;
+            }
+        });
+        if(check){
+            $('.addressID').first().next('input[type="radio"]').prop('checked', true);
+            let selectedAddress = $('input[name="default-address"]:checked').val();
+            $(".ship-b__p").text(selectedAddress);
+        }
+        let selectedAdressID = $('input[name="default-address"]:checked').prev(".addressID").val();
+        $('input[name="address_ID"]').val(selectedAdressID);
+        }else{
+            $('.addressID').each(function() {
+                if ($(this).val() == $('input[name="address_ID"]').val()) {
+                    // Find the next radio button and check it
+                    $(this).next('input[type="radio"]').prop('checked', true);
+
+                }
+            });
+        }
 
         $("#save-address").click(function() {
             let selectedAddress = $('input[name="default-address"]:checked').val();
             $(".ship-b__p").text(selectedAddress);
-            let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
+            let selectedAdressID = $('input[name="default-address"]:checked').prev(".addressID").val();
             $('input[name="address_ID"]').val(selectedAdressID);
             console.log(selectedAdressID);
 
