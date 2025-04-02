@@ -392,13 +392,13 @@
                                                     <div class="ship-b__box u-s-m-b-10">
                                                         <p class="ship-b__p">4247 Ashford Drive Virginia VA-20006 USA (+0) 900901904</p>
 
-                                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" data-dismiss="modal">Edit</a>
                                                     </div>
                                                     <div class="ship-b__box">
 
                                                         <span class="ship-b__text">Bill to default billing address</span>
 
-                                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a></div>
+                                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" data-dismiss="modal">Edit</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -544,91 +544,8 @@
 
         <!--====== Shipping Address Add Modal ======-->
         <div class="modal fade" id="edit-ship-address">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="checkout-modal2">
-                            <div class="u-s-m-b-30">
-                                <div class="dash-l-r">
-                                    <h1 class="gl-modal-h1">Shipping Address</h1>
-                                    <div class="dash__link dash__link--brand">
+            <jsp:include page="edit-ship-address.jsp"/>
 
-                                        <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Add new Address</a></div>
-                                </div>
-                            </div>
-<%--                            <form class="checkout-modal2__form">--%>
-                                <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
-                                    <table class="dash__table-2">
-                                        <thead>
-                                            <tr>
-                                                <th>Action</th>
-                                                <th>Full Name</th>
-                                                <th>Address</th>
-                                                <th>City</th>
-                                                <th>Governorate</th>
-                                                <th>Type</th>
-                                                <th>Phone Number</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-
-                                            for (Address address : addressList) {
-
-
-
-                                        %>
-                                            <tr>
-                                                <td>
-
-                                                    <!--====== Radio Box ======-->
-                                                    <div class="radio-box">
-                                                        <input id="addressID" type="hidden" value="<%=address.getAddress_id()%>">
-                                                        <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" checked="">
-                                                        <div class="radio-box__state radio-box__state--primary">
-
-                                                            <label class="radio-box__label" for="address-1"></label></div>
-                                                    </div>
-                                                    <!--====== End - Radio Box ======-->
-                                                </td>
-                                                <td><%=userDao.getUserName(activeUser.getUserId())%></td>
-                                                <td><%=address.getAddressDescription()%></td>
-                                                <td><%=address.getCity()%></td>
-                                                <td><%=address.getGovernorate()%></td>
-                                                <td><%=address.getType()%></td>
-                                                <td><%=userDao.getUserPhone(activeUser.getUserId())%></td>
-                                                <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
-
-                                                <td>
-                                                    <div class="gl-text">Default Shipping Address</div>
-                                                </td>
-                                                <% }else{%>
-
-                                                <td>
-
-                                                </td>
-                                                <% }%>
-                                            </tr>
-
-
-                                            <%
-                                                }
-
-                                            %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="gl-modal-btn-group">
-
-                                    <button id="save-address" class="btn btn--e-brand-b-2" type="submit">SAVE</button>
-
-                                    <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button></div>
-<%--                            </form>--%>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <!--====== End - Shipping Address Add Modal ======-->
 
@@ -639,56 +556,53 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="checkout-modal1">
-                            <form class="checkout-modal1__form">
+                            <form id="checkout-address" class="checkout-modal1__form" >
+                                <input type="hidden" name="operation" value="addAddress">
                                 <div class="u-s-m-b-30">
                                     <h1 class="gl-modal-h1">Add new Shipping Address</h1>
                                 </div>
                                 <div class="gl-inline">
                                     <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="address-fname">FIRST NAME *</label>
+                                        <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="address-fname" placeholder="First Name"></div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="address-lname">LAST NAME *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text" id="address-lname" placeholder="Last Name"></div>
-                                </div>
-                                <div class="gl-inline">
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="address-phone">PHONE *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text" id="address-phone"></div>
-                                    <div class="u-s-m-b-30">
-
-                                        <label class="gl-label" for="address-street">STREET ADDRESS *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text" id="address-street" placeholder="House Name and Street"></div>
-                                </div>
-                                <div class="gl-inline">
-                                    <div class="u-s-m-b-30">
-
-                                        <!--====== Select Box ======-->
-
-                                        <label class="gl-label" for="address-country">COUNTRY *</label><select class="select-box select-box--primary-style" id="address-country">
-                                            <option selected value="">Choose Country</option>
-                                            <option value="uae">United Arab Emirate (UAE)</option>
-                                            <option value="uk">United Kingdom (UK)</option>
-                                            <option value="us">United States (US)</option>
-                                        </select>
-                                        <!--====== End - Select Box ======-->
+                                        <input class="input-text input-text--primary-style" type="text" name="addressDesc" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                     </div>
                                     <div class="u-s-m-b-30">
 
-                                        <!--====== Select Box ======-->
+                                        <label class="gl-label" for="address-governorate">GOVERNORATE *</label>
 
-                                        <label class="gl-label" for="address-state">STATE/PROVINCE *</label><select class="select-box select-box--primary-style" id="address-state">
-                                            <option selected value="">Choose State/Province</option>
-                                            <option value="al">Alabama</option>
-                                            <option value="al">Alaska</option>
-                                            <option value="ny">New York</option>
+<%--                                        <input class="input-text input-text--primary-style" type="text" id="address-governorate" placeholder="GOVERNORATE">--%>
+                                        <!--====== Select Box ======-->
+                                        <select class="select-box select-box--primary-style" name="governorate" id="address-governorate" required>
+                                            <option disabled value="">Choose governorate</option>
+                                            <option value="cairo">Cairo</option>
+                                            <option value="giza">Giza</option>
+                                            <option value="alexandria">Alexandria</option>
+                                            <option value="dakahlia">Dakahlia</option>
+                                            <option value="red_sea">Red Sea</option>
+                                            <option value="beheira">Beheira</option>
+                                            <option value="fayoum">Fayoum</option>
+                                            <option value="gharbia">Gharbia</option>
+                                            <option value="ismailia">Ismailia</option>
+                                            <option value="menofia">Menofia</option>
+                                            <option value="minya">Minya</option>
+                                            <option value="qalyubia">Qalyubia</option>
+                                            <option value="new_valley">New Valley</option>
+                                            <option value="suez">Suez</option>
+                                            <option value="aswan">Aswan</option>
+                                            <option value="assiut">Assiut</option>
+                                            <option value="beni_suef">Beni Suef</option>
+                                            <option value="port_said">Port Said</option>
+                                            <option value="damietta">Damietta</option>
+                                            <option value="sharqia">Sharqia</option>
+                                            <option value="south_sinai">South Sinai</option>
+                                            <option value="kafr_el_sheikh">Kafr El Sheikh</option>
+                                            <option value="matrouh">Matrouh</option>
+                                            <option value="luxor">Luxor</option>
+                                            <option value="qena">Qena</option>
+                                            <option value="north_sinai">North Sinai</option>
+                                            <option value="sohag">Sohag</option>
                                         </select>
                                         <!--====== End - Select Box ======-->
                                     </div>
@@ -696,20 +610,24 @@
                                 <div class="gl-inline">
                                     <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="address-city">TOWN/CITY *</label>
+                                        <label class="gl-label" for="address-city">CITY *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="address-city"></div>
+                                        <input class="input-text input-text--primary-style" name="city" type="text" id="address-city" required>
+                                    </div>
                                     <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="address-street">ZIP/POSTAL CODE *</label>
+                                        <label class="gl-label" for="address-type">Type *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="address-postal" placeholder="Zip/Postal Code"></div>
+                                        <input class="input-text input-text--primary-style" type="text" name="type" id="address-type" placeholder="House OR Work" required>
+                                    </div>
                                 </div>
+
                                 <div class="gl-modal-btn-group">
 
-                                    <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                                    <button class="btn btn--e-brand-b-2" data-dismiss="modal" type="submit">SAVE</button>
 
-                                    <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button></div>
+                                    <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -728,13 +646,7 @@
             $(".ship-b__p").text(selectedAddress);
             let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
             $('input[name="address_ID"]').val(selectedAdressID);
-        $("#save-address").click(function() {
-            let selectedAddress = $('input[name="default-address"]:checked').val();
-            $(".ship-b__p").text(selectedAddress);
-            let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
-            $('input[name="address_ID"]').val(selectedAdressID);
 
-        });
             $('#addressID').each(function() {
                 if ($(this).val() == <%= activeUser.getDefaultAddress() %>) {
                     // Find the next radio button and check it
