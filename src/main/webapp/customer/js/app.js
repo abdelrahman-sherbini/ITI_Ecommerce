@@ -850,6 +850,51 @@
             });
         });
     }
+    function setupEditShippingAddress() {
+        $('.ship-b__edit').on('click',function () {
+            $.ajax({
+                url: 'edit-ship-address.jsp',
+                method: 'GET',
+                success: function(response) {
+                    $('#edit-ship-address').html(response);
+                },
+                error: function() {
+                    console.error('Failed to load edit-ship-address');
+                }
+            });
+        });
+    }
+
+    RESHOP.submitFormCheckoutAddress = function() {
+        $("#checkout-address").on("submit", function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            let form = this; 
+
+            // Check if all required fields are filled
+            if (form.checkValidity()) {
+                $.ajax({
+                    url: "AddressServlet", 
+                    type: "POST",
+                    data: $(form).serialize(), // Serialize form data
+                    success: function (response) {
+                        $('#add-ship-address').modal({
+                            backdrop: 'static',
+                            keyboard: false,
+                            show: false
+                        });
+
+                    },
+                    error: function () {
+                        $("#response").html("<p>Error submitting form.</p>");
+                    }
+                });
+            } else {
+                form.reportValidity(); // Show validation messages
+            }
+        });
+    };
+
     // Check everything including DOM elements and images loaded
     $(window).on('load',function () {
 
@@ -892,4 +937,6 @@
         RESHOP.shopSideFilter();
         RESHOP.showProductDetailModal();
         setupMiniCartHover();
+        setupEditShippingAddress();
+        RESHOP.submitFormCheckoutAddress();
 })(jQuery);
