@@ -878,11 +878,8 @@
                     type: "POST",
                     data: $(form).serialize(), // Serialize form data
                     success: function (response) {
-                        $('#add-ship-address').modal({
-                            backdrop: 'static',
-                            keyboard: false,
-                            show: false
-                        });
+                        $("#add-ship-address").modal("hide"); 
+                        $('.ship-b__edit').click();
 
                     },
                     error: function () {

@@ -429,6 +429,7 @@
                                         <div class="o-summary__section u-s-m-b-30">
                                             <div class="o-summary__box">
                                                 <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
+                                                <input type="hidden" name="first_time" value="1">
                                                 <form class="checkout-f__payment" action="CheckOutServlet" method="post">
                                                     <input type="hidden" name="address_ID" value="<%=activeUser.getDefaultAddress()%>">
                                                     <div class="u-s-m-b-10">
@@ -624,7 +625,7 @@
 
                                 <div class="gl-modal-btn-group">
 
-                                    <button class="btn btn--e-brand-b-2" data-dismiss="modal" type="submit">SAVE</button>
+                                    <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
 
                                     <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
                                 </div>
@@ -642,19 +643,7 @@
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
-            let selectedAddress = $('input[name="default-address"]:checked').val();
-            $(".ship-b__p").text(selectedAddress);
-            let selectedAdressID = $('input[name="default-address"]:checked').prev("#addressID").val();
-            $('input[name="address_ID"]').val(selectedAdressID);
 
-            $('#addressID').each(function() {
-                if ($(this).val() == <%= activeUser.getDefaultAddress() %>) {
-                    // Find the next radio button and check it
-                    $(this).next('input[type="radio"]').prop('checked', true);
-                    let selectedAddress = $('input[name="default-address"]:checked').val();
-                    $(".ship-b__p").text(selectedAddress);
-                }
-            });
         window.ga = function() {
             ga.q.push(arguments)
         };
