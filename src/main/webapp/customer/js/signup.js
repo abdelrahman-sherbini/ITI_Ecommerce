@@ -1,3 +1,7 @@
+const passwordErrorDiv = document.getElementById("reg-password-error");
+passwordErrorDiv.style.height = "auto"; 
+passwordErrorDiv.style.maxHeight = "none";
+
 // password toggle
 document.querySelectorAll(".toggle-password").forEach(function (icon) {
   icon.addEventListener("click", function () {

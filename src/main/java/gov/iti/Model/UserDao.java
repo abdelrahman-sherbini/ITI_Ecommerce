@@ -21,8 +21,8 @@ public class UserDao {
 		this.con = con;
 	}
 
-	public int saveUser(UserSignUp userSignUp) {
-		int userId = -1;
+	public User saveUser(UserSignUp userSignUp) {
+		User user = null;
 
     try {
         // Step 1: Insert user without default address
@@ -46,28 +46,40 @@ public class UserDao {
         }
 
         int rows = ps.executeUpdate();
-        if (rows == 0) return -1;
+        if (rows == 0) return null;
 
         ResultSet rs = ps.getGeneratedKeys();
         
         if (rs.next()) {
-            userId = rs.getInt(1);
+            int userId = rs.getInt(1);
+			// Step 2: Insert address
+			AddressDao addressDao = new AddressDao(con);
+			boolean addressInserted = addressDao.insertAddress(userSignUp.getAddress(), userId);
+			if (!addressInserted) return null;
+	
+			// Step 3: Get the address ID
+			int addressId = addressDao.getLastInsertedAddressId(userId); // You need this method in AddressDao
+	
+			// Step 4: Update user with default address
+			String updateQuery = "UPDATE user SET default_address = ? WHERE user_id = ?";
+			PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+			psUpdate.setInt(1, addressId);
+			psUpdate.setInt(2, userId);
+			psUpdate.executeUpdate();
+	
+	
+			user = new User();
+				user.setUserId(userId);
+				user.setUserName(userSignUp.getFirstName() + " " + userSignUp.getLastName());
+				user.setUserEmail(userSignUp.getEmail());
+				user.setUserPassword(userSignUp.getPassword());
+				user.setUserPhone(userSignUp.getPhone());
+				user.setUserGender(userSignUp.getGender().toString());
+				user.setJob(userSignUp.getJob());
+				user.setDefaultAddress(addressId);
         }
 
-        // Step 2: Insert address
-        AddressDao addressDao = new AddressDao(con);
-        boolean addressInserted = addressDao.insertAddress(userSignUp.getAddress(), userId);
-        if (!addressInserted) return -1;
-
-        // Step 3: Get the address ID
-        int addressId = addressDao.getLastInsertedAddressId(userId); // You need this method in AddressDao
-
-        // Step 4: Update user with default address
-        String updateQuery = "UPDATE user SET default_address = ? WHERE user_id = ?";
-        PreparedStatement psUpdate = con.prepareStatement(updateQuery);
-        psUpdate.setInt(1, addressId);
-        psUpdate.setInt(2, userId);
-        psUpdate.executeUpdate();
+        
 
         
 
@@ -75,7 +87,7 @@ public class UserDao {
         e.printStackTrace();
     }
 
-    return userId;
+    return user;
 }
 
 
@@ -93,6 +105,39 @@ public class UserDao {
 
 				user.setUserId(set.getInt("user_id"));
 				user.setUserName(set.getString("name"));
+				user.setUserEmail(set.getString("email"));
+				user.setUserPassword(set.getString("password"));
+				user.setUserPhone(set.getString("phone"));
+				user.setUserGender(set.getString("gender"));
+				user.setRegisterDate(set.getTimestamp("register_date"));
+				user.setJob(set.getString("job"));
+				user.setDefaultAddress(set.getInt("default_address"));
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return user;
+	}
+
+
+	public User getUserByEmail(String userEmail) {
+		User user = null;
+		try {
+			String query = "select * from user where email = ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setString(1, userEmail);
+			
+
+			ResultSet set = psmt.executeQuery();
+			while (set.next()) {
+				user = new User();
+
+				user.setUserId(set.getInt("user_id"));
+				user.setUserFirstName(set.getString("first_name"));
+				user.setUserLastName(set.getString("last_name"));
 				user.setUserEmail(set.getString("email"));
 				user.setUserPassword(set.getString("password"));
 				user.setUserPhone(set.getString("phone"));

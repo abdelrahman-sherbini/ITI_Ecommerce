@@ -39,28 +39,7 @@
         <!--====== App Content ======-->
         <div class="app-content">
 
-            <!--====== Section 1 ======-->
-            <div class="u-s-p-y-60">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="breadcrumb">
-                            <div class="breadcrumb__wrap">
-                                <ul class="breadcrumb__list">
-                                    <li class="has-separator">
-
-                                        <a href="index.jsp">Home</a></li>
-                                    <li class="is-marked">
-
-                                        <a href="signin.jsp">Signin</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--====== End - Section 1 ======-->
+           
 
 
             <!--====== Section 2 ======-->
@@ -97,29 +76,39 @@
                                         <h1 class="gl-h1">SIGNIN</h1>
 
                                         <span class="gl-text u-s-m-b-30">If you have an account with us, please log in.</span>
-                                        <form class="l-f-o__form">
-                                            <div class="gl-s-api">
-                                                <div class="u-s-m-b-15">
-
-                                                    <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i class="fab fa-facebook-f"></i>
-
-                                                        <span>Signin with Facebook</span></button></div>
-                                                <div class="u-s-m-b-15">
-
-                                                    <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button"><i class="fab fa-google"></i>
-
-                                                        <span>Signin with Google</span></button></div>
+                                        <c:if test="${not empty errorMessage}">
+                                            
+                                            <div class="gl-error" style="font-size: 15px;" id="cred-error">
+                                                ${errorMessage}
                                             </div>
+                                        </c:if>
+                                        
+                                        <form class="l-f-o__form" id="login-form" method="post" action="login">
+                                            
+                                            
+                                            
+                                            
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="login-email">E-MAIL *</label>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail"></div>
+                                                <input class="input-text input-text--primary-style" type="email" id="login-email" name="email" placeholder="Enter E-mail" value=
+                                                "${userSignIn.email}" required></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="login-password">PASSWORD *</label>
-
-                                                <input class="input-text input-text--primary-style" type="text" id="login-password" placeholder="Enter Password"></div>
+                                                <div class="u-s-m-b-30" style="position: relative;">
+                                                    <input class="input-text input-text--primary-style" type="password" id="login-password" name="password" placeholder="Enter Password" value="${userSignIn.password}" required>
+                                                    <img
+                                                                src="images/eyeicon.png"
+                                                                alt="Show/Hide"
+                                                                class="toggle-password"
+                                                                toggle="#login-password"
+                                                                style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                            />
+                                                </div>
+                                                
+                                            </div>
                                             <div class="gl-inline">
                                                 <div class="u-s-m-b-30">
 
@@ -133,7 +122,7 @@
                                                 <!--====== Check Box ======-->
                                                 <div class="check-box">
 
-                                                    <input type="checkbox" id="remember-me">
+                                                    <input type="checkbox" id="remember-me" name="rememberMe"  ${userSignIn.rememberMe == true ? 'checked' : ''}>
                                                     <div class="check-box__state check-box__state--primary">
 
                                                         <label class="check-box__label" for="remember-me">Remember Me</label></div>
@@ -180,6 +169,7 @@
 
     <!--====== App ======-->
     <script src="js/app.js"></script>
+    <script src="js/signin.js"></script>
 
     <!--====== Noscript ======-->
     <noscript>

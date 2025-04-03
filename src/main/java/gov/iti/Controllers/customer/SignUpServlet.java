@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import gov.iti.Dtos.Address;
 import gov.iti.Dtos.Cart;
+import gov.iti.Dtos.User;
 import gov.iti.Dtos.UserSignUp;
 import gov.iti.Services.UserService;
 import jakarta.servlet.ServletException;
@@ -35,16 +36,12 @@ public class SignUpServlet extends HttpServlet{
             BeanUtils.populate(user, req.getParameterMap());
             BeanUtils.populate(defaultAddress, req.getParameterMap());
             user.setAddress(defaultAddress);
-            int userId = userService.SignUp(user);
+            User databaseUser  = userService.signUp(user);
 
-            if (userId > 0) {
+            if (user != null) {
                 HttpSession session = req.getSession(true);
-                session.setAttribute("UserId", userId);
-                session.setAttribute("firstName", user.getFirstName());
-                session.setAttribute("lastName", user.getLastName());
-                Cart  cart = new Cart();
-                // add cart in session
-                session.setAttribute("cart", cart);
+                session.setAttribute("LoggedUser", databaseUser);
+                
                 Writer out = resp.getWriter();
                 out.write((String) session.getAttribute("firstName"));
                 // send email
