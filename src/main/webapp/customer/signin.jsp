@@ -83,8 +83,8 @@
                                             </div>
                                         </c:if>
                                         
-                                        <form class="l-f-o__form" method="post" action="login">
-                                            <jsp:useBean id="userSignIn" class="gov.iti.Dtos.UserSignIn" scope="request" />
+                                        <form class="l-f-o__form" id="login-form" method="post" action="login">
+                                            
                                             
                                             
                                             
@@ -92,13 +92,23 @@
 
                                                 <label class="gl-label" for="login-email">E-MAIL *</label>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="login-email" name="email" placeholder="Enter E-mail" value=
-                                                "${userSignIn.email}"></div>
+                                                <input class="input-text input-text--primary-style" type="email" id="login-email" name="email" placeholder="Enter E-mail" value=
+                                                "${userSignIn.email}" required></div>
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="login-password">PASSWORD *</label>
-
-                                                <input class="input-text input-text--primary-style" type="text" id="login-password" name="password" placeholder="Enter Password" value="${userSignIn.password}"></div>
+                                                <div class="u-s-m-b-30" style="position: relative;">
+                                                    <input class="input-text input-text--primary-style" type="password" id="login-password" name="password" placeholder="Enter Password" value="${userSignIn.password}" required>
+                                                    <img
+                                                                src="images/eyeicon.png"
+                                                                alt="Show/Hide"
+                                                                class="toggle-password"
+                                                                toggle="#login-password"
+                                                                style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                            />
+                                                </div>
+                                                
+                                            </div>
                                             <div class="gl-inline">
                                                 <div class="u-s-m-b-30">
 
@@ -159,6 +169,7 @@
 
     <!--====== App ======-->
     <script src="js/app.js"></script>
+    <script src="js/signin.js"></script>
 
     <!--====== Noscript ======-->
     <noscript>

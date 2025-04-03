@@ -508,8 +508,8 @@ body {
     color: #ff4500  !important;
     transition: color 0.5s linear !important; 
     display: block !important;
-    height: 18px !important;
-    max-height: 18px !important;}
+    height: 18px;
+    max-height: 18px ;}
     .gl-error:hover {
       color: #fa4400; }
 .gl-link {

@@ -40,7 +40,7 @@ public class UserService {
 
     public User logIn(UserSignIn userSignIn){
        User user = dao.getUserByEmail(userSignIn.getEmail());
-       System.out.println(user.getUserEmail());
+       
        if(user != null){
         boolean verify =PasswordHasher.verifyPassword(userSignIn.getPassword(), user.getUserPassword());
         System.out.println(verify);
