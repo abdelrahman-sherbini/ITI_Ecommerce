@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class User {
 	
 	private int userId;
+	private String userFirstName;
+	private String userLastName;
 	private String userName;
 	private String userEmail;
 	private String userPassword;
@@ -121,6 +123,24 @@ public class User {
 	public void setUserGender(String userGender) {
 		this.userGender = userGender;
 	}
+
+
+	public String getUserFirstName() {
+		return userFirstName;
+	}
+
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
+	}
+
+	public String getUserLastName() {
+		return userLastName;
+	}
+
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+
 
 
 	
