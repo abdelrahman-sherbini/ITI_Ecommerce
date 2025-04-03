@@ -97,6 +97,13 @@ ALTER TABLE
     `user` ADD UNIQUE `user_email_unique`(`email`);
 ALTER TABLE
     `user` ADD UNIQUE `user_phone_unique`(`phone`);
+    
+CREATE TABLE `user_auth`(
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `selector` VARCHAR(12),
+    `validator` VARCHAR(64),
+    `user_id` BIGINT UNSIGNED NOT NULL
+);
 CREATE TABLE `admin`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(100) NOT NULL,
@@ -130,6 +137,8 @@ ALTER TABLE
     `product` ADD CONSTRAINT `product_category_id_foreign` FOREIGN KEY(`category_id`) REFERENCES `category`(`category_id`);
 ALTER TABLE
     `payment` ADD CONSTRAINT `payment_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
+ALTER TABLE
+    `user_auth` ADD CONSTRAINT `user_auth_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`);
 ALTER TABLE `user` 
 ADD CONSTRAINT `user_default_address_fk` 
 FOREIGN KEY (`default_address`) REFERENCES `user_address`(`address_id`) 
