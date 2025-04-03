@@ -50,6 +50,9 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -328,8 +331,8 @@
         let citySelect = document.getElementById("address-city");
         citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
 
-        if (governorate && citiesByGovernorate[gove2]) {
-            citiesByGovernorate[governorate].forEach(function(city) {
+        if (gove2 && citiesByGovernorate[gove2]) {
+            citiesByGovernorate[gove2].forEach(function(city) {
                 let option = document.createElement("option");
                 option.value = city;
                 option.textContent = city;
