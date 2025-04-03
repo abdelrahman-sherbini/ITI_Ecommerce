@@ -904,6 +904,36 @@
         }
     });
 
+    const citiesByGovernorate = {
+        "Cairo": ["Nasr City", "Heliopolis", "Maadi", "Zamalek", "Downtown", "6th of October"],
+        "Alexandria": ["Sidi Gaber", "Sporting", "Miami", "Stanley", "Agami"],
+        "Giza": ["Dokki", "Mohandessin", "Haram", "Sheikh Zayed"],
+        "Dakahlia": ["Mansoura", "Mit Ghamr", "Talkha"],
+        "Red Sea": ["Hurghada", "Safaga", "Marsa Alam"],
+        "Beheira": ["Damanhur", "Kafr El Dawwar", "Rashid"],
+        "Fayoum": ["Fayoum City", "Ibsheway"],
+        "Gharbia": ["Tanta", "El Mahalla El Kubra"],
+        "Ismailia": ["Ismailia City", "El Qantara"],
+        "Menoufia": ["Shebin El Kom", "Menouf"],
+        "Minya": ["Minya City", "Beni Mazar"],
+        "Qalyubia": ["Banha", "Shubra El Kheima"],
+        "New Valley": ["Kharga", "Dakhla"],
+        "Suez": ["Suez City"],
+        "Aswan": ["Aswan City", "Edfu"],
+        "Assiut": ["Assiut City", "Dairut"],
+        "Beni Suef": ["Beni Suef City"],
+        "Port Said": ["Port Said City"],
+        "Damietta": ["Damietta City", "New Damietta"],
+        "Sharkia": ["Zagazig", "10th of Ramadan"],
+        "South Sinai": ["Sharm El Sheikh", "Dahab", "Nuweiba"],
+        "Kafr El Sheikh": ["Kafr El Sheikh City"],
+        "Matrouh": ["Marsa Matrouh", "Siwa"],
+        "Luxor": ["Luxor City"],
+        "Qena": ["Qena City"],
+        "North Sinai": ["Arish", "Sheikh Zuweid"],
+        "Sohag": ["Sohag City"]
+    };
+
 
         RESHOP.initScrollUp();
         RESHOP.initTooltip();

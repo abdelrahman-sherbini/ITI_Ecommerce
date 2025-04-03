@@ -106,6 +106,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
+                                    <%@include file="Components/alert_message.jsp"%>
                                 <div id="checkout-msg-group">
                                     <div class="msg u-s-m-b-30">
 
@@ -151,8 +152,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="msg">
 
+                                    <div class="msg">
                                         <span class="msg__text">Have a coupon?
 
                                             <a class="gl-link" href="#have-coupon" data-toggle="collapse">Click Here to enter your code</a></span>
@@ -389,8 +390,10 @@
                                                 <div class="ship-b">
 
                                                     <span class="ship-b__text">Ship to:</span>
+
                                                     <div class="ship-b__box u-s-m-b-10">
-                                                        <p class="ship-b__p">4247 Ashford Drive Virginia VA-20006 USA (+0) 900901904</p>
+<%--                                                        <p class="ship-b__p">4247 Ashford Drive Virginia VA-20006 USA (+0) 900901904</p>--%>
+                                                        <p class="ship-b__p"></p>
 
                                                         <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" data-dismiss="modal">Edit</a>
                                                     </div>
@@ -613,7 +616,10 @@
 
                                         <label class="gl-label" for="address-city">CITY *</label>
 
-                                        <input class="input-text input-text--primary-style" name="city" type="text" id="address-city" required>
+                                        <select class="select-box select-box--primary-style" id="address-city" name="city" required>
+                                            <option disabled value="">Select City</option>
+                                        </select>
+
                                     </div>
                                     <div class="u-s-m-b-30">
 
@@ -640,10 +646,32 @@
     </div>
     <!--====== End - Main App ======-->
 
+    <!--====== Vendor Js ======-->
+    <script src="js/vendor.js"></script>
+
+    <!--====== jQuery Shopnav plugin ======-->
+    <script src="js/jquery.shopnav.js"></script>
+
+    <!--====== App ======-->
+    <script src="js/app.js"></script>
+
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+        document.getElementById("address-governorate").addEventListener("change", function() {
+            let governorate = this.value;
+            let citySelect = document.getElementById("address-city");
+            citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
 
+            if (governorate && citiesByGovernorate[governorate]) {
+                citiesByGovernorate[governorate].forEach(function(city) {
+                    let option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
         window.ga = function() {
             ga.q.push(arguments)
         };
@@ -653,15 +681,6 @@
         ga('send', 'pageview')
     </script>
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
-
-    <!--====== Vendor Js ======-->
-    <script src="js/vendor.js"></script>
-
-    <!--====== jQuery Shopnav plugin ======-->
-    <script src="js/jquery.shopnav.js"></script>
-
-    <!--====== App ======-->
-    <script src="js/app.js"></script>
 
     <!--====== Noscript ======-->
     <noscript>
