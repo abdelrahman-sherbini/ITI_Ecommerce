@@ -64,11 +64,9 @@ public class AddressServlet extends HttpServlet {
         }else if(operation.equals("deleteAddress")) {
             int address_id = Integer.parseInt(req.getParameter("address_id"));
             if(!addressDao.checkAddress(address_id, user.getUserId())) {
-                message = new Message("Address does not exist!", "error", "alert-danger");
-                req.getSession().setAttribute("message", message);
-                resp.sendRedirect("dash-address-book.jsp");
                 return;
             }
+            addressDao.deleteAddressById(address_id);
 
         }else if(operation.equals("makeDefaultAddress")) {
             int address_id = Integer.parseInt(req.getParameter("address_id"));

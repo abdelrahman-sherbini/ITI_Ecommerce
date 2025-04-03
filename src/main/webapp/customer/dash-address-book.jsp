@@ -8,7 +8,7 @@
 
 <%
     User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-    activeUser.setDefaultAddress(3);
+    activeUser.setDefaultAddress(7);
     activeUser.setUserId(1);
 //    session.setAttribute("activeUser",activeUser);
 //    //User activeUser = (User) session.getAttribute("activeUser");
@@ -190,13 +190,12 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Action</th>
-                                                    <th>Full Name</th>
                                                     <th>Address</th>
                                                     <th>City</th>
                                                     <th>Governorate</th>
                                                     <th>Type</th>
-                                                    <th>Phone Number</th>
                                                     <th>Status</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -212,12 +211,10 @@
 
                                                         <a class="address-book-edit btn--e-transparent-platinum-b-2" href="dash-address-edit.jsp?id=<%=address.getAddress_id()%>">Edit</a>
                                                     </td>
-                                                    <td><%=userDao.getUserName(activeUser.getUserId())%></td>
                                                     <td><%=address.getAddressDescription()%></td>
                                                     <td><%=address.getCity()%></td>
                                                     <td><%=address.getGovernorate()%></td>
                                                     <td><%=address.getType()%></td>
-                                                    <td><%=userDao.getUserPhone(activeUser.getUserId())%></td>
                                                     <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
 
                                                     <td>
@@ -229,6 +226,10 @@
 
                                                     </td>
                                                     <% }%>
+                                                    <td>
+                                                        <button type="button" id="deleteAddress" class="far fa-trash-alt table-p__delete-link  btn--e-transparent-platinum-b-2"></button>
+                                                        <input type="hidden" name="addressID" value="<%=address.getAddress_id()%>">
+                                                    </td>
                                                 </tr>
 
 

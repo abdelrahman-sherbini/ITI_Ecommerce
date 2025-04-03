@@ -171,13 +171,12 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Action</th>
-                                                        <th>Full Name</th>
                                                         <th>Address</th>
                                                         <th>City</th>
                                                         <th>Governorate</th>
                                                         <th>Type</th>
-                                                        <th>Phone Number</th>
                                                         <th>Status</th>
+                                                        <th>Delete</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -201,12 +200,10 @@
                                                             </div>
                                                             <!--====== End - Radio Box ======-->
                                                         </td>
-                                                        <td><%=userDao.getUserName(activeUser.getUserId())%></td>
                                                         <td><%=address.getAddressDescription()%></td>
                                                         <td><%=address.getCity()%></td>
                                                         <td><%=address.getGovernorate()%></td>
                                                         <td><%=address.getType()%></td>
-                                                        <td><%=userDao.getUserPhone(activeUser.getUserId())%></td>
                                                         <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
 
                                                         <td>
@@ -218,6 +215,7 @@
 
                                                         </td>
                                                         <% }%>
+
                                                     </tr>
 
 

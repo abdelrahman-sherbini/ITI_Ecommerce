@@ -419,7 +419,7 @@
 
     }
     RESHOP.initDeleteItem = function () {
-        $('.table-p__delete-link').on('click', function (e) {
+        $('.table-p__delete-link.extrameow').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
             var $miniCartCount = $(".total-item-round");
@@ -511,6 +511,28 @@
                 // Fade out and remove the row smoothly
                 $rows.children().fadeOut(300, function () {
                     
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+        $('#deleteAddress').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+            $(this).off(); 
+
+            var $button = $(this);
+            var $row = $button.closest('tr'); // Find the closest parent div to remove
+            var address_id = $button.siblings('[name="addressID"]').val(); // Get cart item ID
+
+            if (!address_id) return;
+    
+            $.post("AddressServlet", {
+                operation: "deleteAddress",
+                address_id: address_id
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    $(this).remove();
                 });
             }).fail(function () {
                 alert("Failed to delete item. Please try again."); // Handle errors
