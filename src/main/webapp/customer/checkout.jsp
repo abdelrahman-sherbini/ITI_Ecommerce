@@ -580,33 +580,33 @@
                                         <!--====== Select Box ======-->
                                         <select class="select-box select-box--primary-style" name="governorate" id="address-governorate" required>
                                             <option disabled value="">Choose governorate</option>
-                                            <option value="cairo">Cairo</option>
-                                            <option value="giza">Giza</option>
-                                            <option value="alexandria">Alexandria</option>
-                                            <option value="dakahlia">Dakahlia</option>
-                                            <option value="red_sea">Red Sea</option>
-                                            <option value="beheira">Beheira</option>
-                                            <option value="fayoum">Fayoum</option>
-                                            <option value="gharbia">Gharbia</option>
-                                            <option value="ismailia">Ismailia</option>
-                                            <option value="menofia">Menofia</option>
-                                            <option value="minya">Minya</option>
-                                            <option value="qalyubia">Qalyubia</option>
-                                            <option value="new_valley">New Valley</option>
-                                            <option value="suez">Suez</option>
-                                            <option value="aswan">Aswan</option>
-                                            <option value="assiut">Assiut</option>
-                                            <option value="beni_suef">Beni Suef</option>
-                                            <option value="port_said">Port Said</option>
-                                            <option value="damietta">Damietta</option>
-                                            <option value="sharqia">Sharqia</option>
-                                            <option value="south_sinai">South Sinai</option>
-                                            <option value="kafr_el_sheikh">Kafr El Sheikh</option>
-                                            <option value="matrouh">Matrouh</option>
-                                            <option value="luxor">Luxor</option>
-                                            <option value="qena">Qena</option>
-                                            <option value="north_sinai">North Sinai</option>
-                                            <option value="sohag">Sohag</option>
+                                            <option value="Cairo">Cairo</option>
+                                            <option value="Alexandria">Alexandria</option>
+                                            <option value="Giza">Giza</option>
+                                            <option value="Dakahlia">Dakahlia</option>
+                                            <option value="Red Sea">Red Sea</option>
+                                            <option value="Beheira">Beheira</option>
+                                            <option value="Fayoum">Fayoum</option>
+                                            <option value="Gharbia">Gharbia</option>
+                                            <option value="Ismailia">Ismailia</option>
+                                            <option value="Menoufia">Menoufia</option>
+                                            <option value="Minya">Minya</option>
+                                            <option value="Qalyubia">Qalyubia</option>
+                                            <option value="New Valley">New Valley</option>
+                                            <option value="Suez">Suez</option>
+                                            <option value="Aswan">Aswan</option>
+                                            <option value="Assiut">Assiut</option>
+                                            <option value="Beni Suef">Beni Suef</option>
+                                            <option value="Port Said">Port Said</option>
+                                            <option value="Damietta">Damietta</option>
+                                            <option value="Sharkia">Sharkia</option>
+                                            <option value="South Sinai">South Sinai</option>
+                                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                                            <option value="Matrouh">Matrouh</option>
+                                            <option value="Luxor">Luxor</option>
+                                            <option value="Qena">Qena</option>
+                                            <option value="North Sinai">North Sinai</option>
+                                            <option value="Sohag">Sohag</option>
                                         </select>
                                         <!--====== End - Select Box ======-->
                                     </div>
@@ -618,6 +618,18 @@
 
                                         <select class="select-box select-box--primary-style" id="address-city" name="city" required>
                                             <option disabled value="">Select City</option>
+                                            <option value="Nasr City">Nasr City</option>
+                                            <option value="Heliopolis">Heliopolis</option>
+                                            <option value="Maadi">Maadi</option>
+                                            <option value="Shubra">Shubra</option>
+                                            <option value="Zamalek">Zamalek</option>
+                                            <option value="New Cairo">New Cairo</option>
+                                            <option value="El Marg">El Marg</option>
+                                            <option value="Ain Shams">Ain Shams</option>
+                                            <option value="El Sayeda Zeinab">El Sayeda Zeinab</option>
+                                            <option value="Helwan">Helwan</option>
+                                            <option value="6th of October">6th of October</option>
+                                            <option value="Obour">Obour</option>
                                         </select>
 
                                     </div>
@@ -658,6 +670,36 @@
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+        const citiesByGovernorate = {
+            "Cairo": ["Nasr City", "Heliopolis", "Maadi", "Zamalek", "Downtown", "6th of October"],
+            "Alexandria": ["Sidi Gaber", "Sporting", "Miami", "Stanley", "Agami"],
+            "Giza": ["Dokki", "Mohandessin", "Haram", "Sheikh Zayed"],
+            "Dakahlia": ["Mansoura", "Mit Ghamr", "Talkha"],
+            "Red Sea": ["Hurghada", "Safaga", "Marsa Alam"],
+            "Beheira": ["Damanhur", "Kafr El Dawwar", "Rashid"],
+            "Fayoum": ["Fayoum City", "Ibsheway"],
+            "Gharbia": ["Tanta", "El Mahalla El Kubra"],
+            "Ismailia": ["Ismailia City", "El Qantara"],
+            "Menoufia": ["Shebin El Kom", "Menouf"],
+            "Minya": ["Minya City", "Beni Mazar"],
+            "Qalyubia": ["Banha", "Shubra El Kheima"],
+            "New Valley": ["Kharga", "Dakhla"],
+            "Suez": ["Suez City"],
+            "Aswan": ["Aswan City", "Edfu"],
+            "Assiut": ["Assiut City", "Dairut"],
+            "Beni Suef": ["Beni Suef City"],
+            "Port Said": ["Port Said City"],
+            "Damietta": ["Damietta City", "New Damietta"],
+            "Sharkia": ["Zagazig", "10th of Ramadan"],
+            "South Sinai": ["Sharm El Sheikh", "Dahab", "Nuweiba"],
+            "Kafr El Sheikh": ["Kafr El Sheikh City"],
+            "Matrouh": ["Marsa Matrouh", "Siwa"],
+            "Luxor": ["Luxor City"],
+            "Qena": ["Qena City"],
+            "North Sinai": ["Arish", "Sheikh Zuweid"],
+            "Sohag": ["Sohag City"]
+        };
+
         document.getElementById("address-governorate").addEventListener("change", function() {
             let governorate = this.value;
             let citySelect = document.getElementById("address-city");
