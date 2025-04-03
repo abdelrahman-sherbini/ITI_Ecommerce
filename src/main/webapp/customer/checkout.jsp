@@ -570,7 +570,7 @@
 
                                         <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" name="addressDesc" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
+                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                     </div>
                                     <div class="u-s-m-b-30">
 

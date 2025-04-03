@@ -137,6 +137,33 @@ public class UserDao {
 		return list;
 	}
 
+	public User getUserByID( int userId) {
+		User user = null;
+		try {
+			String query = "select *,CONCAT(first_name, ' ', last_name) AS name from user where user_id = ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, userId);
+
+			ResultSet set = psmt.executeQuery();
+			if (set.next()) {
+				user = new User();
+				user.setUserId(set.getInt("user_id"));
+				user.setUserName(set.getString("name"));
+				user.setUserEmail(set.getString("email"));
+				user.setUserPassword(set.getString("password"));
+				user.setUserPhone(set.getString("phone"));
+				user.setUserGender(set.getString("gender"));
+				user.setRegisterDate(set.getTimestamp("register_date"));
+				user.setJob(set.getString("job"));
+				user.setDefaultAddress(set.getInt("default_address"));
+
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 	public void updateUserDefaultAddresss(User user) {
 		try {
 			String query = "update user set default_address = ? where user_id = ?";
