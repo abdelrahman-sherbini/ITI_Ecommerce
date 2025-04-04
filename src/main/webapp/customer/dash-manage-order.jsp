@@ -325,13 +325,11 @@
         }
         let clsList = $("div.timeline-l-i");
         for (let i = 0; i < clsList.length; i++) {
-            if (i ==stop) {
+            if (i == stop) {
                 break;
             }
 
-            clsList[i].addClass("timeline-l-i--finish");
-
-
+            $(clsList[i]).addClass("timeline-l-i--finish");
         }
         window.ga = function() {
             ga.q.push(arguments)
