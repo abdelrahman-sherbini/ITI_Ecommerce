@@ -142,7 +142,7 @@
 
                                             <span class="dash__text u-s-m-b-30">From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</span>
                                             <div class="row">
-                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="col-lg-6 u-s-m-b-30">
                                                     <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
                                                         <div class="dash__pad-3">
                                                             <h2 class="dash__h2 u-s-m-b-8">PERSONAL PROFILE</h2>
@@ -160,9 +160,8 @@
                                                     </div>
                                                 </div>
                                                 <% if (address != null) { %>
-                                                <div class="col-lg-4 u-s-m-b-30">
 
-                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="col-lg-6 u-s-m-b-30">
                                                     <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
                                                         <div class="dash__pad-3">
                                                             <h2 class="dash__h2 u-s-m-b-8">ADDRESS BOOK</h2>
@@ -172,7 +171,7 @@
 
                                                                 <a href="dash-address-book.jsp">Edit</a></div>
 
-                                                            <span class="dash__text"><%=address.getAddressDescription() +" - " + address.getCity() + " - " + address.getGovernorate()%></span>
+                                                            <span class="dash__text"><%=String.join(" - ",address.getAddressDescription().replaceAll("\\n", ""),address.getCity().replaceAll("\\n", ""), address.getGovernorate().replaceAll("\\n", ""))%></span>
 
                                                             <span class="dash__text">(+02) <%=activeUser.getUserPhone()%></span>
                                                         </div>

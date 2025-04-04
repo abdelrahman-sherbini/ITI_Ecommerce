@@ -185,7 +185,7 @@
                                                 </div>
                                                 <div class="manage-o__timeline">
                                                     <div class="timeline-row">
-                                                        <div class="col-lg-4 u-s-m-b-30">
+                                                        <div class="col-lg-3 u-s-m-b-30">
                                                             <div class="timeline-step">
                                                                 <div class="timeline-l-i">
 
@@ -194,7 +194,7 @@
                                                                 <span class="timeline-text">Processing</span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 u-s-m-b-30">
+                                                        <div class="col-lg-3 u-s-m-b-30">
                                                             <div class="timeline-step">
                                                                 <div class="timeline-l-i">
 
@@ -203,7 +203,7 @@
                                                                 <span class="timeline-text">Shipped</span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 u-s-m-b-30">
+                                                        <div class="col-lg-3 u-s-m-b-30">
                                                             <div class="timeline-step">
                                                                 <div class="timeline-l-i">
 
@@ -212,7 +212,7 @@
                                                                 <span class="timeline-text">Out for Delivery</span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 u-s-m-b-30">
+                                                        <div class="col-lg-3 u-s-m-b-30">
                                                             <div class="timeline-step">
                                                                 <div class="timeline-l-i">
 
