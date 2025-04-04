@@ -134,8 +134,8 @@
                                     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                         <div class="dash__pad-2">
                                             <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
-
                                             <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
+                                            <%@include file="Components/alert_message.jsp"%>
                                             <form class="m-order u-s-m-b-30">
                                                 <div class="m-order__select-wrapper">
 
@@ -164,7 +164,7 @@
                                                             <div>
                                                                 <div class="dash__link dash__link--brand">
 
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
+                                                                    <a href="dash-manage-order.jsp?orderId=<%=order.getId()%>">MANAGE</a></div>
                                                             </div>
                                                         </div>
                                                     </div>

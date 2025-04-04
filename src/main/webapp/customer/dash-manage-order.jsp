@@ -1,3 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+
+    User activeUser = (User) session.getAttribute("LoggedUser");
+
+    Connection connection = ConnectionProvider.getConnection();
+    OrderDao orderDao = new OrderDao(connection);
+    OrderedProductDao orderedProductDao = new OrderedProductDao(connection);
+    ProductDao productDao = new ProductDao(connection);
+    CategoryDao catDao = new CategoryDao(connection);
+
+    String orderIDS = request.getParameter("orderId");
+    Message message;
+    if(orderIDS==null){
+        message = new Message("Choose an order to manage!", "error", "alert-danger");
+        request.getSession().setAttribute("message", message);
+        response.sendRedirect("dash-my-order.jsp");
+    }
+    Order order = orderDao.getOrderById(Integer.parseInt(orderIDS));
+    int uid = order.getUserId();
+
+    if(uid != activeUser.getUserId()){
+        message = new Message("No such order exists!", "error", "alert-danger");
+        request.getSession().setAttribute("message", message);
+        response.sendRedirect("dash-my-order.jsp");
+    }
+    BigDecimal total =BigDecimal.valueOf(0);
+    List<OrderedProduct> ordProdList2 = orderedProductDao.getAllOrderedProduct(order.getId());
+    for (OrderedProduct orderProduct : ordProdList2) {
+        total = total.add (orderProduct.getPrice());
+    }
+    PaymentDao paymentDao = new PaymentDao(connection);
+    Payment payment = paymentDao.getPaymentById(order.getPaymentId());
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -20,6 +61,9 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -77,7 +121,7 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
                                             <ul class="dash__f-list">
                                                 <li>
 
@@ -114,13 +158,13 @@
                                         <div class="dash__pad-2">
                                             <div class="dash-l-r">
                                                 <div>
-                                                    <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                    <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                    <div class="manage-o__text-2 u-c-secondary">Order #<%=order.getId()%></div>
+                                                    <div class="manage-o__text u-c-silver">Placed on <%=order.getDate()%></div>
                                                 </div>
                                                 <div>
                                                     <div class="manage-o__text-2 u-c-silver">Total:
 
-                                                        <span class="manage-o__text-2 u-c-secondary">$16.00</span></div>
+                                                        <span class="manage-o__text-2 u-c-secondary">$<%=total%></span></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,7 +178,7 @@
                                                         <span class="manage-o__text">Package 1</span></div>
                                                 </div>
                                                 <div class="dash-l-r">
-                                                    <div class="manage-o__text u-c-secondary">Delivered on 26 Oct 2016</div>
+                                                    <div class="manage-o__text u-c-secondary">Delivered </div>
                                                     <div class="manage-o__icon"><i class="fas fa-truck u-s-m-r-5"></i>
 
                                                         <span class="manage-o__text">Standard</span></div>
@@ -143,7 +187,7 @@
                                                     <div class="timeline-row">
                                                         <div class="col-lg-4 u-s-m-b-30">
                                                             <div class="timeline-step">
-                                                                <div class="timeline-l-i timeline-l-i--finish">
+                                                                <div class="timeline-l-i">
 
                                                                     <span class="timeline-circle"></span></div>
 
@@ -152,11 +196,20 @@
                                                         </div>
                                                         <div class="col-lg-4 u-s-m-b-30">
                                                             <div class="timeline-step">
-                                                                <div class="timeline-l-i timeline-l-i--finish">
+                                                                <div class="timeline-l-i">
 
                                                                     <span class="timeline-circle"></span></div>
 
                                                                 <span class="timeline-text">Shipped</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 u-s-m-b-30">
+                                                            <div class="timeline-step">
+                                                                <div class="timeline-l-i">
+
+                                                                    <span class="timeline-circle"></span></div>
+
+                                                                <span class="timeline-text">Out for Delivery</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4 u-s-m-b-30">
@@ -170,26 +223,39 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="manage-o__description">
+                                                <%
+                                                    List<OrderedProduct> ordProdList = orderedProductDao.getAllOrderedProduct(order.getId());
+                                                    for (OrderedProduct orderProduct : ordProdList) {
+                                                        Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
+                                                        Category category = catDao.getCategoryById(prod.getCategoryId());
+
+                                                %>
+                                                <div class="manage-o__description shop-p__meta-wrap">
                                                     <div class="description__container">
                                                         <div class="description__img-wrap">
 
-                                                            <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
-                                                        <div class="description-title">Yellow Wireless Headphone</div>
+                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
+                                                        <div class="description-title"><%=prod.getProductName()%></div>
                                                     </div>
                                                     <div class="description__info-wrap">
                                                         <div>
 
-                                                            <span class="manage-o__text-2 u-c-silver">Quantity:
-
-                                                                <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
+                                                            <span class="manage-o__badge badge--processing">Processing</span></div>
                                                         <div>
 
-                                                            <span class="manage-o__text-2 u-c-silver">Total:
+                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
 
-                                                                <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary"><%=orderProduct.getQuantity()%></span></span></div>
+                                                        <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">Total:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">$<%=orderProduct.getPrice()%></span></span></div>
                                                     </div>
                                                 </div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </div>
                                     </div>
@@ -198,23 +264,14 @@
                                             <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                                 <div class="dash__pad-3">
                                                     <h2 class="dash__h2 u-s-m-b-8">Shipping Address</h2>
-                                                    <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
+                                                    <h2 class="dash__h2 u-s-m-b-8"><%=activeUser.getUserName()%></h2>
 
-                                                    <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+                                                    <span class="dash__text-2"><%=order.getAddress() +" - " + order.getCity() + " - " + order.getGovernorate()%></span>
 
-                                                    <span class="dash__text-2">(+0) 900901904</span>
+                                                    <span class="dash__text-2">(+02) <%=activeUser.getUserPhone()%></span>
                                                 </div>
                                             </div>
-                                            <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                                <div class="dash__pad-3">
-                                                    <h2 class="dash__h2 u-s-m-b-8">Billing Address</h2>
-                                                    <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
 
-                                                    <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
-
-                                                    <span class="dash__text-2">(+0) 900901904</span>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
@@ -222,18 +279,18 @@
                                                     <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
                                                     <div class="dash-l-r u-s-m-b-8">
                                                         <div class="manage-o__text-2 u-c-secondary">Subtotal</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                                        <div class="manage-o__text-2 u-c-secondary">$<%=total%></div>
                                                     </div>
                                                     <div class="dash-l-r u-s-m-b-8">
                                                         <div class="manage-o__text-2 u-c-secondary">Shipping Fee</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$16.00</div>
+                                                        <div class="manage-o__text-2 u-c-secondary">$4.00</div>
                                                     </div>
                                                     <div class="dash-l-r u-s-m-b-8">
                                                         <div class="manage-o__text-2 u-c-secondary">Total</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$30.00</div>
+                                                        <div class="manage-o__text-2 u-c-secondary">$<%=total.add(BigDecimal.valueOf(4))%></div>
                                                     </div>
 
-                                                    <span class="dash__text-2">Paid by Cash on Delivery</span>
+                                                    <span class="dash__text-2">Paid by <%=payment.getMethod()%></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,6 +315,24 @@
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+        let meow = ["Order Confirmed","Shipped","Out For Delivery","Delivered"];
+        let stop = 1;
+        for (let i = 0; i < meow.length; i++) {
+            if (meow[i] == "<%=order.getStatus()%>") {
+                stop = i + 1;
+                break;
+            }
+        }
+        let clsList = $("div.timeline-l-i");
+        for (let i = 0; i < clsList.length; i++) {
+            if (i ==stop) {
+                break;
+            }
+
+            clsList[i].addClass("timeline-l-i--finish");
+
+
+        }
         window.ga = function() {
             ga.q.push(arguments)
         };
