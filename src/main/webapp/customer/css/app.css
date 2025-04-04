@@ -508,7 +508,7 @@ body {
     font-weight: 600 !important;
     color: #ff4500  !important;
     transition: color 0.5s linear !important; 
-    display: block !important;
+    display: inline-block !important;
     height: 18px;
     max-height: 40px ;}
     .gl-error:hover {
