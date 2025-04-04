@@ -156,8 +156,8 @@
                                         <div class="w-r__wrap-2">
 
                                             <a
-                                                id="add-to-cart-btn-wishlist"
-                                                class="w-r__link btn--e-brand-b-2"
+
+                                                class="w-r__link btn--e-brand-b-2 add-to-cart-btn-wishlist"
                                                data-toggle="modal"
                                                data-name="<%=prod.getProductName()%>"
                                                data-image="images/product/electronic/<%=prod.getProductImages()%>"

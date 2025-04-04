@@ -543,9 +543,9 @@
     
     // Product Detail Modal in wishlist
     RESHOP.showProductDetailModal = function() {
-        $("#add-to-cart-btn-wishlist").on('click', function (e) {
+        $(".add-to-cart-btn-wishlist").on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
-
+            $(this).off(); 
             var $miniCartCount = $(".total-item-round");
             var $miniCartCountval = parseInt($miniCartCount.last().text());
             var $button = $(this);
@@ -571,7 +571,7 @@
             }, function (response) {
                 // Fade out and remove the row smoothly
                 $row.fadeOut(300, function () {
-                    // $(this).remove();
+                    $(this).remove();
                 });
             }).fail(function () {
                 alert("Failed to delete item. Please try again."); // Handle errors
