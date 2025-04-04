@@ -1,7 +1,10 @@
 package gov.iti.Dtos;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class UserSignUp {
     private String firstName;
@@ -36,13 +39,18 @@ public class UserSignUp {
     }
 
     public void setDob(String dobStr) {
+   
         if (dobStr == null || dobStr.trim().isEmpty()) {
             this.dob = null;
         } else {
             try {
-                this.dob = LocalDate.parse(dobStr);
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dobStr);
+                this.dob = new java.sql.Date( date.getTime()) .toLocalDate();
             } catch (DateTimeParseException e) {
                 this.dob = null; // Or handle error accordingly
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }

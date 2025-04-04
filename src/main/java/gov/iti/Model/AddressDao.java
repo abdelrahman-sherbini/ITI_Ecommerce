@@ -143,4 +143,26 @@ public class AddressDao {
         }
         return flag;
     }
+
+    // Check if addressid belongs to userid
+    public boolean checkAddress(int addressId,int userId) {
+        boolean flag = false;
+
+        try {
+            String query = "SELECT * FROM user_address WHERE address_id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setLong(1, addressId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                if (userId == rs.getInt("user_id")) {
+                    flag = true;
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }

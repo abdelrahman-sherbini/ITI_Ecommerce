@@ -1,6 +1,7 @@
 package gov.iti.Dtos;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class User {
 	
@@ -14,6 +15,7 @@ public class User {
 	private String userGender;
 
 
+	private LocalDate dob;
 	private Timestamp registerDate;
 	private String job;
 	private int defaultAddress;
@@ -52,6 +54,14 @@ public class User {
 		this.userPhone = userPhone;
 		this.userGender = userGender;
 
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
 	}
 
 	public int getUserId() {

@@ -7,12 +7,12 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.math.BigDecimal" %>
 <%
-    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-    activeUser.setUserId(1);
-    session.setAttribute("activeUser",activeUser);
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setUserId(1);
+//    session.setAttribute("activeUser",activeUser);
 //    User activeUser = (User) session.getAttribute("activeUser");
 
-
+    User activeUser = (User) session.getAttribute("LoggedUser");
     Connection connection = ConnectionProvider.getConnection();
 
     CategoryDao catDao = new CategoryDao(connection);
@@ -106,6 +106,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
+                                    <%@include file="Components/alert_message.jsp"%>
                                 <div id="checkout-msg-group">
                                     <div class="msg u-s-m-b-30">
 
@@ -151,8 +152,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="msg">
 
+                                    <div class="msg">
                                         <span class="msg__text">Have a coupon?
 
                                             <a class="gl-link" href="#have-coupon" data-toggle="collapse">Click Here to enter your code</a></span>
@@ -389,8 +390,10 @@
                                                 <div class="ship-b">
 
                                                     <span class="ship-b__text">Ship to:</span>
+
                                                     <div class="ship-b__box u-s-m-b-10">
-                                                        <p class="ship-b__p">4247 Ashford Drive Virginia VA-20006 USA (+0) 900901904</p>
+<%--                                                        <p class="ship-b__p">4247 Ashford Drive Virginia VA-20006 USA (+0) 900901904</p>--%>
+                                                        <p class="ship-b__p"></p>
 
                                                         <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" data-dismiss="modal">Edit</a>
                                                     </div>
@@ -567,7 +570,7 @@
 
                                         <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" name="addressDesc" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
+                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                     </div>
                                     <div class="u-s-m-b-30">
 
@@ -577,33 +580,33 @@
                                         <!--====== Select Box ======-->
                                         <select class="select-box select-box--primary-style" name="governorate" id="address-governorate" required>
                                             <option disabled value="">Choose governorate</option>
-                                            <option value="cairo">Cairo</option>
-                                            <option value="giza">Giza</option>
-                                            <option value="alexandria">Alexandria</option>
-                                            <option value="dakahlia">Dakahlia</option>
-                                            <option value="red_sea">Red Sea</option>
-                                            <option value="beheira">Beheira</option>
-                                            <option value="fayoum">Fayoum</option>
-                                            <option value="gharbia">Gharbia</option>
-                                            <option value="ismailia">Ismailia</option>
-                                            <option value="menofia">Menofia</option>
-                                            <option value="minya">Minya</option>
-                                            <option value="qalyubia">Qalyubia</option>
-                                            <option value="new_valley">New Valley</option>
-                                            <option value="suez">Suez</option>
-                                            <option value="aswan">Aswan</option>
-                                            <option value="assiut">Assiut</option>
-                                            <option value="beni_suef">Beni Suef</option>
-                                            <option value="port_said">Port Said</option>
-                                            <option value="damietta">Damietta</option>
-                                            <option value="sharqia">Sharqia</option>
-                                            <option value="south_sinai">South Sinai</option>
-                                            <option value="kafr_el_sheikh">Kafr El Sheikh</option>
-                                            <option value="matrouh">Matrouh</option>
-                                            <option value="luxor">Luxor</option>
-                                            <option value="qena">Qena</option>
-                                            <option value="north_sinai">North Sinai</option>
-                                            <option value="sohag">Sohag</option>
+                                            <option value="Cairo">Cairo</option>
+                                            <option value="Alexandria">Alexandria</option>
+                                            <option value="Giza">Giza</option>
+                                            <option value="Dakahlia">Dakahlia</option>
+                                            <option value="Red Sea">Red Sea</option>
+                                            <option value="Beheira">Beheira</option>
+                                            <option value="Fayoum">Fayoum</option>
+                                            <option value="Gharbia">Gharbia</option>
+                                            <option value="Ismailia">Ismailia</option>
+                                            <option value="Menoufia">Menoufia</option>
+                                            <option value="Minya">Minya</option>
+                                            <option value="Qalyubia">Qalyubia</option>
+                                            <option value="New Valley">New Valley</option>
+                                            <option value="Suez">Suez</option>
+                                            <option value="Aswan">Aswan</option>
+                                            <option value="Assiut">Assiut</option>
+                                            <option value="Beni Suef">Beni Suef</option>
+                                            <option value="Port Said">Port Said</option>
+                                            <option value="Damietta">Damietta</option>
+                                            <option value="Sharkia">Sharkia</option>
+                                            <option value="South Sinai">South Sinai</option>
+                                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                                            <option value="Matrouh">Matrouh</option>
+                                            <option value="Luxor">Luxor</option>
+                                            <option value="Qena">Qena</option>
+                                            <option value="North Sinai">North Sinai</option>
+                                            <option value="Sohag">Sohag</option>
                                         </select>
                                         <!--====== End - Select Box ======-->
                                     </div>
@@ -613,7 +616,22 @@
 
                                         <label class="gl-label" for="address-city">CITY *</label>
 
-                                        <input class="input-text input-text--primary-style" name="city" type="text" id="address-city" required>
+                                        <select class="select-box select-box--primary-style" id="address-city" name="city" required>
+                                            <option disabled value="">Select City</option>
+                                            <option value="Nasr City">Nasr City</option>
+                                            <option value="Heliopolis">Heliopolis</option>
+                                            <option value="Maadi">Maadi</option>
+                                            <option value="Shubra">Shubra</option>
+                                            <option value="Zamalek">Zamalek</option>
+                                            <option value="New Cairo">New Cairo</option>
+                                            <option value="El Marg">El Marg</option>
+                                            <option value="Ain Shams">Ain Shams</option>
+                                            <option value="El Sayeda Zeinab">El Sayeda Zeinab</option>
+                                            <option value="Helwan">Helwan</option>
+                                            <option value="6th of October">6th of October</option>
+                                            <option value="Obour">Obour</option>
+                                        </select>
+
                                     </div>
                                     <div class="u-s-m-b-30">
 
@@ -640,10 +658,62 @@
     </div>
     <!--====== End - Main App ======-->
 
+    <!--====== Vendor Js ======-->
+    <script src="js/vendor.js"></script>
+
+    <!--====== jQuery Shopnav plugin ======-->
+    <script src="js/jquery.shopnav.js"></script>
+
+    <!--====== App ======-->
+    <script src="js/app.js"></script>
+
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+        const citiesByGovernorate = {
+            "Cairo": ["Nasr City", "Heliopolis", "Maadi", "Zamalek", "Downtown", "6th of October"],
+            "Alexandria": ["Sidi Gaber", "Sporting", "Miami", "Stanley", "Agami"],
+            "Giza": ["Dokki", "Mohandessin", "Haram", "Sheikh Zayed"],
+            "Dakahlia": ["Mansoura", "Mit Ghamr", "Talkha"],
+            "Red Sea": ["Hurghada", "Safaga", "Marsa Alam"],
+            "Beheira": ["Damanhur", "Kafr El Dawwar", "Rashid"],
+            "Fayoum": ["Fayoum City", "Ibsheway"],
+            "Gharbia": ["Tanta", "El Mahalla El Kubra"],
+            "Ismailia": ["Ismailia City", "El Qantara"],
+            "Menoufia": ["Shebin El Kom", "Menouf"],
+            "Minya": ["Minya City", "Beni Mazar"],
+            "Qalyubia": ["Banha", "Shubra El Kheima"],
+            "New Valley": ["Kharga", "Dakhla"],
+            "Suez": ["Suez City"],
+            "Aswan": ["Aswan City", "Edfu"],
+            "Assiut": ["Assiut City", "Dairut"],
+            "Beni Suef": ["Beni Suef City"],
+            "Port Said": ["Port Said City"],
+            "Damietta": ["Damietta City", "New Damietta"],
+            "Sharkia": ["Zagazig", "10th of Ramadan"],
+            "South Sinai": ["Sharm El Sheikh", "Dahab", "Nuweiba"],
+            "Kafr El Sheikh": ["Kafr El Sheikh City"],
+            "Matrouh": ["Marsa Matrouh", "Siwa"],
+            "Luxor": ["Luxor City"],
+            "Qena": ["Qena City"],
+            "North Sinai": ["Arish", "Sheikh Zuweid"],
+            "Sohag": ["Sohag City"]
+        };
 
+        document.getElementById("address-governorate").addEventListener("change", function() {
+            let governorate = this.value;
+            let citySelect = document.getElementById("address-city");
+            citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
+
+            if (governorate && citiesByGovernorate[governorate]) {
+                citiesByGovernorate[governorate].forEach(function(city) {
+                    let option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
         window.ga = function() {
             ga.q.push(arguments)
         };
@@ -653,15 +723,6 @@
         ga('send', 'pageview')
     </script>
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
-
-    <!--====== Vendor Js ======-->
-    <script src="js/vendor.js"></script>
-
-    <!--====== jQuery Shopnav plugin ======-->
-    <script src="js/jquery.shopnav.js"></script>
-
-    <!--====== App ======-->
-    <script src="js/app.js"></script>
 
     <!--====== Noscript ======-->
     <noscript>

@@ -1,3 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+
+<%
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setDefaultAddress(3);
+//    activeUser.setUserId(1);
+    User activeUser = (User) session.getAttribute("LoggedUser");
+    Connection connection = ConnectionProvider.getConnection();
+
+    AddressDao addressDao = new AddressDao(connection);
+    Message message ;
+    if(request.getParameter("id")==null){
+        message = new Message("Empty address to edit!", "error", "alert-danger");
+        request.getSession().setAttribute("message", message);
+        response.sendRedirect("dash-address-book.jsp");
+    }
+     int id = Integer.parseInt(request.getParameter("id"));
+    if(!addressDao.checkAddress(id,activeUser.getUserId())){
+        message = new Message("Address does not exist!", "error", "alert-danger");
+        request.getSession().setAttribute("message", message);
+        response.sendRedirect("dash-address-book.jsp");
+    }
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -20,6 +50,9 @@
 
     <!--====== App ======-->
     <link rel="stylesheet" href="css/app.css">
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body class="config">
     <div class="preloader is-active">
@@ -144,53 +177,52 @@
                                             <h1 class="dash__h1 u-s-m-b-14">Edit Address</h1>
 
                                             <span class="dash__text u-s-m-b-30">We need an address where we could deliver products.</span>
-                                            <form class="dash-address-manipulation">
+                                            <form class="dash-address-manipulation" action="AddressServlet" method="post">
+
+                                                <input type="hidden" name="operation" value="updateAddress">
+                                                <input type="hidden" name="address_id" value="<%= id %>">
                                                 <div class="gl-inline">
                                                     <div class="u-s-m-b-30">
 
-                                                        <label class="gl-label" for="address-fname">FIRST NAME *</label>
+                                                        <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-fname" placeholder="John Doe"></div>
-                                                    <div class="u-s-m-b-30">
-
-                                                        <label class="gl-label" for="address-lname">LAST NAME *</label>
-
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-lname" placeholder="Doe"></div>
-                                                </div>
-                                                <div class="gl-inline">
-                                                    <div class="u-s-m-b-30">
-
-                                                        <label class="gl-label" for="address-phone">PHONE *</label>
-
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-phone" placeholder="(+0) 900901904"></div>
-                                                    <div class="u-s-m-b-30">
-
-                                                        <label class="gl-label" for="address-street">STREET ADDRESS *</label>
-
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-street" placeholder="4247 Ashford Drive Virginia"></div>
-                                                </div>
-                                                <div class="gl-inline">
-                                                    <div class="u-s-m-b-30">
-
-                                                        <!--====== Select Box ======-->
-
-                                                        <label class="gl-label" for="address-country">COUNTRY *</label><select class="select-box select-box--primary-style" id="address-country">
-                                                            <option selected value="">Choose Country</option>
-                                                            <option value="uae">United Arab Emirate (UAE)</option>
-                                                            <option value="uk">United Kingdom (UK)</option>
-                                                            <option value="us">United States (US)</option>
-                                                        </select>
-                                                        <!--====== End - Select Box ======-->
+                                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                                     </div>
                                                     <div class="u-s-m-b-30">
 
-                                                        <!--====== Select Box ======-->
+                                                        <label class="gl-label" for="address-governorate">GOVERNORATE *</label>
 
-                                                        <label class="gl-label" for="address-state">STATE/PROVINCE *</label><select class="select-box select-box--primary-style" id="address-state">
-                                                            <option selected value="">Choose State/Province</option>
-                                                            <option value="al">Alabama</option>
-                                                            <option value="al">Alaska</option>
-                                                            <option value="ny">New York</option>
+                                                        <%--                                        <input class="input-text input-text--primary-style" type="text" id="address-governorate" placeholder="GOVERNORATE">--%>
+                                                        <!--====== Select Box ======-->
+                                                        <select class="select-box select-box--primary-style" name="governorate" id="address-governorate" required>
+                                                            <option disabled value="">Choose governorate</option>
+                                                            <option value="Cairo">Cairo</option>
+                                                            <option value="Alexandria">Alexandria</option>
+                                                            <option value="Giza">Giza</option>
+                                                            <option value="Dakahlia">Dakahlia</option>
+                                                            <option value="Red Sea">Red Sea</option>
+                                                            <option value="Beheira">Beheira</option>
+                                                            <option value="Fayoum">Fayoum</option>
+                                                            <option value="Gharbia">Gharbia</option>
+                                                            <option value="Ismailia">Ismailia</option>
+                                                            <option value="Menoufia">Menoufia</option>
+                                                            <option value="Minya">Minya</option>
+                                                            <option value="Qalyubia">Qalyubia</option>
+                                                            <option value="New Valley">New Valley</option>
+                                                            <option value="Suez">Suez</option>
+                                                            <option value="Aswan">Aswan</option>
+                                                            <option value="Assiut">Assiut</option>
+                                                            <option value="Beni Suef">Beni Suef</option>
+                                                            <option value="Port Said">Port Said</option>
+                                                            <option value="Damietta">Damietta</option>
+                                                            <option value="Sharkia">Sharkia</option>
+                                                            <option value="South Sinai">South Sinai</option>
+                                                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                                                            <option value="Matrouh">Matrouh</option>
+                                                            <option value="Luxor">Luxor</option>
+                                                            <option value="Qena">Qena</option>
+                                                            <option value="North Sinai">North Sinai</option>
+                                                            <option value="Sohag">Sohag</option>
                                                         </select>
                                                         <!--====== End - Select Box ======-->
                                                     </div>
@@ -198,16 +230,32 @@
                                                 <div class="gl-inline">
                                                     <div class="u-s-m-b-30">
 
-                                                        <label class="gl-label" for="address-city">TOWN/CITY *</label>
+                                                        <label class="gl-label" for="address-city">CITY *</label>
 
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-city"></div>
+                                                        <select class="select-box select-box--primary-style" id="address-city" name="city" required>
+                                                            <option disabled value="">Select City</option>
+                                                            <option value="Nasr City">Nasr City</option>
+                                                            <option value="Heliopolis">Heliopolis</option>
+                                                            <option value="Maadi">Maadi</option>
+                                                            <option value="Shubra">Shubra</option>
+                                                            <option value="Zamalek">Zamalek</option>
+                                                            <option value="New Cairo">New Cairo</option>
+                                                            <option value="El Marg">El Marg</option>
+                                                            <option value="Ain Shams">Ain Shams</option>
+                                                            <option value="El Sayeda Zeinab">El Sayeda Zeinab</option>
+                                                            <option value="Helwan">Helwan</option>
+                                                            <option value="6th of October">6th of October</option>
+                                                            <option value="Obour">Obour</option>
+                                                        </select>
+
+                                                    </div>
                                                     <div class="u-s-m-b-30">
 
-                                                        <label class="gl-label" for="address-street">ZIP/POSTAL CODE *</label>
+                                                        <label class="gl-label" for="address-type">Type *</label>
 
-                                                        <input class="input-text input-text--primary-style" type="text" id="address-postal" placeholder="20006"></div>
+                                                        <input class="input-text input-text--primary-style" type="text" name="type" id="address-type" placeholder="House OR Work" required>
+                                                    </div>
                                                 </div>
-
                                                 <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
                                             </form>
                                         </div>
@@ -232,6 +280,69 @@
 
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
     <script>
+        const citiesByGovernorate = {
+            "Cairo": ["Nasr City", "Heliopolis", "Maadi", "Zamalek", "Downtown", "6th of October"],
+            "Alexandria": ["Sidi Gaber", "Sporting", "Miami", "Stanley", "Agami"],
+            "Giza": ["Dokki", "Mohandessin", "Haram", "Sheikh Zayed"],
+            "Dakahlia": ["Mansoura", "Mit Ghamr", "Talkha"],
+            "Red Sea": ["Hurghada", "Safaga", "Marsa Alam"],
+            "Beheira": ["Damanhur", "Kafr El Dawwar", "Rashid"],
+            "Fayoum": ["Fayoum City", "Ibsheway"],
+            "Gharbia": ["Tanta", "El Mahalla El Kubra"],
+            "Ismailia": ["Ismailia City", "El Qantara"],
+            "Menoufia": ["Shebin El Kom", "Menouf"],
+            "Minya": ["Minya City", "Beni Mazar"],
+            "Qalyubia": ["Banha", "Shubra El Kheima"],
+            "New Valley": ["Kharga", "Dakhla"],
+            "Suez": ["Suez City"],
+            "Aswan": ["Aswan City", "Edfu"],
+            "Assiut": ["Assiut City", "Dairut"],
+            "Beni Suef": ["Beni Suef City"],
+            "Port Said": ["Port Said City"],
+            "Damietta": ["Damietta City", "New Damietta"],
+            "Sharkia": ["Zagazig", "10th of Ramadan"],
+            "South Sinai": ["Sharm El Sheikh", "Dahab", "Nuweiba"],
+            "Kafr El Sheikh": ["Kafr El Sheikh City"],
+            "Matrouh": ["Marsa Matrouh", "Siwa"],
+            "Luxor": ["Luxor City"],
+            "Qena": ["Qena City"],
+            "North Sinai": ["Arish", "Sheikh Zuweid"],
+            "Sohag": ["Sohag City"]
+        };
+        document.getElementById("address-governorate").addEventListener("change", function() {
+            let governorate = this.value;
+            let citySelect = document.getElementById("address-city");
+            citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
+
+            if (governorate && citiesByGovernorate[governorate]) {
+                citiesByGovernorate[governorate].forEach(function(city) {
+                    let option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
+        <% Address address = addressDao.getAddressById(id);%>
+
+        let city2 = "<%= address.getCity() %>";
+        let gove2 = "<%= address.getGovernorate() %>";
+        $("#address-governorate").val(gove2);
+        let citySelect = document.getElementById("address-city");
+        citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
+
+        if (gove2 && citiesByGovernorate[gove2]) {
+            citiesByGovernorate[gove2].forEach(function(city) {
+                let option = document.createElement("option");
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
+        $("#address-city").val(city2);
+        $("#address-type").val("<%= address.getType() %>");
+        $("#address-address").val("<%= address.getAddressDescription() %>");
+
         window.ga = function() {
             ga.q.push(arguments)
         };

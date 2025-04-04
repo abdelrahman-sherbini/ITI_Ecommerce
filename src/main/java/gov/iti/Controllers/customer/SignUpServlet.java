@@ -36,14 +36,17 @@ public class SignUpServlet extends HttpServlet{
             BeanUtils.populate(user, req.getParameterMap());
             BeanUtils.populate(defaultAddress, req.getParameterMap());
             user.setAddress(defaultAddress);
+            String dob = (String) req.getParameter("dob");
+            user.setDob(dob);
+ 
             User databaseUser  = userService.signUp(user);
 
             if (user != null) {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("LoggedUser", databaseUser);
                 
-                Writer out = resp.getWriter();
-                out.write((String) session.getAttribute("firstName"));
+                // Writer out = resp.getWriter();
+                // out.write((String) session.getAttribute("firstName"));
                 // send email
                 
                 // Redirect to home page or welcome page

@@ -21,7 +21,15 @@ public class CheckOutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String payment = req.getParameter("payment");
         User user = (User) req.getSession().getAttribute("activeUser");
-        int address_ID = Integer.parseInt(req.getParameter("address_ID"));
+        Message message ;
+        String address_I = req.getParameter("address_ID");
+        if(address_I == null || address_I.isEmpty()|| Integer.parseInt(address_I) <=0){
+            message = new Message("Choose a valid address!", "error", "alert-danger");
+            req.getSession().setAttribute("message", message);
+            resp.sendRedirect("/customer/checkout.jsp");
+            return;
+        }
+        int address_ID = Integer.parseInt(address_I);
         AddressDao addressDao = new AddressDao(ConnectionProvider.getConnection());
         Address address = addressDao.getAddressById(address_ID);
 

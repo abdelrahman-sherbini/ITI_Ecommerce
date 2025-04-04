@@ -419,7 +419,7 @@
 
     }
     RESHOP.initDeleteItem = function () {
-        $('.table-p__delete-link').on('click', function (e) {
+        $('.table-p__delete-link.extrameow').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
             var $miniCartCount = $(".total-item-round");
@@ -511,6 +511,28 @@
                 // Fade out and remove the row smoothly
                 $rows.children().fadeOut(300, function () {
                     
+                });
+            }).fail(function () {
+                alert("Failed to delete item. Please try again."); // Handle errors
+            });
+        });
+        $('#deleteAddress').on('click', function (e) {
+            e.preventDefault(); // Prevent default button behavior
+            $(this).off(); 
+
+            var $button = $(this);
+            var $row = $button.closest('tr'); // Find the closest parent div to remove
+            var address_id = $button.siblings('[name="addressID"]').val(); // Get cart item ID
+
+            if (!address_id) return;
+    
+            $.post("AddressServlet", {
+                operation: "deleteAddress",
+                address_id: address_id
+            }, function (response) {
+                // Fade out and remove the row smoothly
+                $row.fadeOut(300, function () {
+                    $(this).remove();
                 });
             }).fail(function () {
                 alert("Failed to delete item. Please try again."); // Handle errors
@@ -903,6 +925,36 @@
             $primarySlider.trigger('refresh.owl.carousel');
         }
     });
+
+    const citiesByGovernorate = {
+        "Cairo": ["Nasr City", "Heliopolis", "Maadi", "Zamalek", "Downtown", "6th of October"],
+        "Alexandria": ["Sidi Gaber", "Sporting", "Miami", "Stanley", "Agami"],
+        "Giza": ["Dokki", "Mohandessin", "Haram", "Sheikh Zayed"],
+        "Dakahlia": ["Mansoura", "Mit Ghamr", "Talkha"],
+        "Red Sea": ["Hurghada", "Safaga", "Marsa Alam"],
+        "Beheira": ["Damanhur", "Kafr El Dawwar", "Rashid"],
+        "Fayoum": ["Fayoum City", "Ibsheway"],
+        "Gharbia": ["Tanta", "El Mahalla El Kubra"],
+        "Ismailia": ["Ismailia City", "El Qantara"],
+        "Menoufia": ["Shebin El Kom", "Menouf"],
+        "Minya": ["Minya City", "Beni Mazar"],
+        "Qalyubia": ["Banha", "Shubra El Kheima"],
+        "New Valley": ["Kharga", "Dakhla"],
+        "Suez": ["Suez City"],
+        "Aswan": ["Aswan City", "Edfu"],
+        "Assiut": ["Assiut City", "Dairut"],
+        "Beni Suef": ["Beni Suef City"],
+        "Port Said": ["Port Said City"],
+        "Damietta": ["Damietta City", "New Damietta"],
+        "Sharkia": ["Zagazig", "10th of Ramadan"],
+        "South Sinai": ["Sharm El Sheikh", "Dahab", "Nuweiba"],
+        "Kafr El Sheikh": ["Kafr El Sheikh City"],
+        "Matrouh": ["Marsa Matrouh", "Siwa"],
+        "Luxor": ["Luxor City"],
+        "Qena": ["Qena City"],
+        "North Sinai": ["Arish", "Sheikh Zuweid"],
+        "Sohag": ["Sohag City"]
+    };
 
 
         RESHOP.initScrollUp();

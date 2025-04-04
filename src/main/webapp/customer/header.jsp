@@ -7,12 +7,13 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="gov.iti.Model.CartDao" %>
 <%@ page import="gov.iti.Dtos.Cart" %>
+<%@ page import="java.util.ArrayList" %>
 
 <%
-    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-    activeUser.setUserId(1);
-    session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setUserId(1);
+//    session.setAttribute("activeUser",activeUser);
+    User activeUser = (User) session.getAttribute("LoggedUser");
 
 
     Connection connection = ConnectionProvider.getConnection();
@@ -21,8 +22,12 @@
     CartDao cartDao = new CartDao(connection);
 
 
-    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-
+    List<Cart> cartList;
+    if(activeUser!=null)
+        cartList = cartDao.getCartListByUserId(activeUser.getUserId());
+    else{
+        cartList = new ArrayList<>();
+    }
 %>
 <!--====== Main Header ======-->
    <header class="header--style-1">
