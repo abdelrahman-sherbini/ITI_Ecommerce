@@ -179,7 +179,10 @@ $("#editProfileForm").on("submit", function (e) {
   validatorsMap.forEach(({ validator, message }, element) => {
     validateWith(validator, element, message);
   });
-
+  
+  if (setOfInvalidElements.size !== 0) {
+    return;
+  }
   // Check if all required fields are filled
   if (form.checkValidity()) {
       form.submit();
