@@ -473,7 +473,7 @@
                 alert("Failed to delete item. Please try again."); // Handle errors
             });
         });
-        $('#deleteWish').on('click', function (e) {
+        $('.deleteWish').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
 
@@ -516,7 +516,7 @@
                 alert("Failed to delete item. Please try again."); // Handle errors
             });
         });
-        $('#deleteAddress').on('click', function (e) {
+        $('.deleteAddress').on('click', function (e) {
             e.preventDefault(); // Prevent default button behavior
             $(this).off(); 
 

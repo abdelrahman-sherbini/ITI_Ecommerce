@@ -227,7 +227,7 @@
                                                     </td>
                                                     <% }%>
                                                     <td>
-                                                        <button type="button" id="deleteAddress" class="far fa-trash-alt table-p__delete-link  btn--e-transparent-platinum-b-2"></button>
+                                                        <button type="button" class="far fa-trash-alt table-p__delete-link deleteAddress btn--e-transparent-platinum-b-2"></button>
                                                         <input type="hidden" name="addressID" value="<%=address.getAddress_id()%>">
                                                     </td>
                                                 </tr>
