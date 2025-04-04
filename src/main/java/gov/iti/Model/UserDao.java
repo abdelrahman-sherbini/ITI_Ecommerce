@@ -70,6 +70,8 @@ public class UserDao {
 	
 			user = new User();
 				user.setUserId(userId);
+				user.setUserFirstName(userSignUp.getFirstName());
+				user.setUserLastName(userSignUp.getLastName());
 				user.setUserName(userSignUp.getFirstName() + " " + userSignUp.getLastName());
 				user.setUserEmail(userSignUp.getEmail());
 				user.setUserPassword(userSignUp.getPassword());
@@ -77,6 +79,7 @@ public class UserDao {
 				user.setUserGender(userSignUp.getGender().toString());
 				user.setJob(userSignUp.getJob());
 				user.setDefaultAddress(addressId);
+				user.setDob(userSignUp.getDob());
         }
 
         
@@ -94,7 +97,7 @@ public class UserDao {
 	public User getUserByEmailPassword(String userEmail, String userPassword) {
 		User user = null;
 		try {
-			String query = "select * from user where email = ? and password = ?";
+			String query = "select *,CONCAT(first_name, ' ', last_name) AS name from user where email = ? and password = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setString(1, userEmail);
 			psmt.setString(2, userPassword);
@@ -104,6 +107,8 @@ public class UserDao {
 				user = new User();
 
 				user.setUserId(set.getInt("user_id"));
+				user.setUserFirstName(set.getString("first_name"));
+				user.setUserLastName(set.getString("last_name"));
 				user.setUserName(set.getString("name"));
 				user.setUserEmail(set.getString("email"));
 				user.setUserPassword(set.getString("password"));
@@ -112,6 +117,9 @@ public class UserDao {
 				user.setRegisterDate(set.getTimestamp("register_date"));
 				user.setJob(set.getString("job"));
 				user.setDefaultAddress(set.getInt("default_address"));
+				if (set.getDate("dob") != null) {
+					user.setDob(set.getDate("dob").toLocalDate());
+				} 
 
 			}
 
@@ -138,6 +146,7 @@ public class UserDao {
 				user.setUserId(set.getInt("user_id"));
 				user.setUserFirstName(set.getString("first_name"));
 				user.setUserLastName(set.getString("last_name"));
+				user.setUserName(set.getString("first_name") + " "  + set.getString("last_name"));
 				user.setUserEmail(set.getString("email"));
 				user.setUserPassword(set.getString("password"));
 				user.setUserPhone(set.getString("phone"));
@@ -145,7 +154,9 @@ public class UserDao {
 				user.setRegisterDate(set.getTimestamp("register_date"));
 				user.setJob(set.getString("job"));
 				user.setDefaultAddress(set.getInt("default_address"));
-
+				if (set.getDate("dob") != null) {
+					user.setDob(set.getDate("dob").toLocalDate());
+				} 
 			}
 
 		} catch (Exception e) {

@@ -7,11 +7,11 @@
 <%@ page import="java.sql.Connection" %>
 
 <%
-    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-    activeUser.setDefaultAddress(7);
-    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    //User activeUser = (User) session.getAttribute("activeUser");
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setDefaultAddress(7);
+//    activeUser.setUserId(1);
+//    session.setAttribute("LoggedUser",activeUser);
+    User activeUser = (User) session.getAttribute("LoggedUser");
 //
 //
     Connection connection = ConnectionProvider.getConnection();

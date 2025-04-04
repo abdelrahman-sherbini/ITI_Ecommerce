@@ -13,13 +13,14 @@
 <%@ page import="gov.iti.Model.*" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="java.util.ArrayList" %>
 <%
-  User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-  activeUser.setUserId(1);
-  session.setAttribute("activeUser",activeUser);
+//  User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//  activeUser.setUserId(1);
+//  session.setAttribute("activeUser",activeUser);
 //    User activeUser = (User) session.getAttribute("activeUser");
 
-
+  User activeUser = (User) session.getAttribute("LoggedUser");
   Connection connection = ConnectionProvider.getConnection();
 
   CategoryDao catDao = new CategoryDao(connection);
@@ -30,9 +31,12 @@
   CartDao cartDao = new CartDao(connection);
 
   OrderDao orderDao = new OrderDao(connection);
-
-  List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-
+  List<Cart> cartList;
+  if(activeUser!=null)
+   cartList = cartDao.getCartListByUserId(activeUser.getUserId());
+  else{
+    cartList = new ArrayList<>();
+  }
   List<Order> orderList = orderDao.getAllOrder();
 
   OrderedProductDao ordProdDao = new OrderedProductDao(connection);

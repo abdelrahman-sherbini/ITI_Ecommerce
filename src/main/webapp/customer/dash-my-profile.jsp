@@ -1,3 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+
+<%
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setDefaultAddress(7);
+//    activeUser.setUserId(1);
+//   session.setAttribute("activeUser",activeUser);
+   User activeUser = (User) session.getAttribute("LoggedUser");
+//
+//
+    Connection connection = ConnectionProvider.getConnection();
+//
+//    CategoryDao catDao = new CategoryDao(connection);
+//    List<Category> categoryList = catDao.getAllCategories();
+//
+//    ProductDao productDao = new ProductDao(connection);
+//
+//    CartDao cartDao = new CartDao(connection);
+//
+    AddressDao addressDao = new AddressDao(connection);
+//    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
+    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
+
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>

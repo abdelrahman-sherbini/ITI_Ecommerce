@@ -7,10 +7,10 @@
 <%@ page import="java.sql.Connection" %>
 
 <%
-    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-    activeUser.setDefaultAddress(3);
-    activeUser.setUserId(1);
-
+//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
+//    activeUser.setDefaultAddress(3);
+//    activeUser.setUserId(1);
+    User activeUser = (User) session.getAttribute("LoggedUser");
     Connection connection = ConnectionProvider.getConnection();
 
     AddressDao addressDao = new AddressDao(connection);
