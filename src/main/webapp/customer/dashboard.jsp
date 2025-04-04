@@ -1,3 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+
+    User activeUser = (User) session.getAttribute("LoggedUser");
+
+    Connection connection = ConnectionProvider.getConnection();
+    OrderDao orderDao = new OrderDao(connection);
+    OrderedProductDao orderedProductDao = new OrderedProductDao(connection);
+    ProductDao productDao = new ProductDao(connection);
+    CategoryDao catDao = new CategoryDao(connection);
+    List<Order> orderList = orderDao.getAllOrderByUserId(activeUser.getUserId());
+    AddressDao addressDao = new AddressDao(connection);
+    Address address = null;
+    if(activeUser.getDefaultAddress()>0){
+        address    = addressDao.getAddressById(activeUser.getDefaultAddress());
+
+    }
+
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -77,7 +104,7 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
                                             <ul class="dash__f-list">
                                                 <li>
 
@@ -123,15 +150,18 @@
 
                                                                 <a href="dash-edit-profile.jsp">Edit</a></div>
 
-                                                            <span class="dash__text">John Doe</span>
+                                                            <span class="dash__text"><%=activeUser.getUserName()%></span>
 
-                                                            <span class="dash__text">johndoe@domain.com</span>
+                                                            <span class="dash__text"><%=activeUser.getUserEmail()%></span>
                                                             <div class="dash__link dash__link--secondary u-s-m-t-8">
 
                                                                 <a data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a></div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <% if (address != null) { %>
+                                                <div class="col-lg-4 u-s-m-b-30">
+
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
                                                         <div class="dash__pad-3">
@@ -142,25 +172,14 @@
 
                                                                 <a href="dash-address-book.jsp">Edit</a></div>
 
-                                                            <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+                                                            <span class="dash__text"><%=address.getAddressDescription() +" - " + address.getCity() + " - " + address.getGovernorate()%></span>
 
-                                                            <span class="dash__text">(+0) 900901904</span>
+                                                            <span class="dash__text">(+02) <%=activeUser.getUserPhone()%></span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4 u-s-m-b-30">
-                                                    <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
-                                                        <div class="dash__pad-3">
-                                                            <h2 class="dash__h2 u-s-m-b-8">BILLING ADDRESS</h2>
+                                                <% }  %>
 
-                                                            <span class="dash__text-2 u-s-m-b-8">Default Billing Address</span>
-
-                                                            <span class="dash__text">4247 Ashford Drive Virginia - VA-20006 - USA</span>
-
-                                                            <span class="dash__text">(+0) 900901904</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,78 +196,43 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                <%
+                                                    BigDecimal total =BigDecimal.valueOf(0);
+                                                    for (Order order : orderList) {
+
+
+                                                %>
                                                     <tr>
-                                                        <td>3054231326</td>
-                                                        <td>26/13/2016</td>
+                                                        <td><%=order.getId()%></td>
+                                                        <td><%=order.getDate()%></td>
                                                         <td>
                                                             <div class="dash__table-img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
+                                                                <%
+                                                                    List<OrderedProduct> ordProdList = orderedProductDao.getAllOrderedProduct(order.getId());
+                                                                    for (OrderedProduct orderProduct : ordProdList) {
+                                                                        Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
+                                                                        Category category = catDao.getCategoryById(prod.getCategoryId());
+                                                                        total = total.add (orderProduct.getPrice());
+                                                                %>
+                                                                <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt="">
+                                                                <%
+                                                                    }
+                                                                %>
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <div class="dash__table-total">
 
-                                                                <span>$126.00</span>
+                                                                <span>$<%=total%></span>
                                                                 <div class="dash__link dash__link--brand">
 
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
+                                                                    <a href="dash-manage-order.jsp?orderId=<%=order.getId()%>">MANAGE</a></div>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>3054231326</td>
-                                                        <td>26/13/2016</td>
-                                                        <td>
-                                                            <div class="dash__table-img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/electronic/product14.jpg" alt=""></div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dash__table-total">
-
-                                                                <span>$126.00</span>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3054231326</td>
-                                                        <td>26/13/2016</td>
-                                                        <td>
-                                                            <div class="dash__table-img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dash__table-total">
-
-                                                                <span>$126.00</span>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3054231326</td>
-                                                        <td>26/13/2016</td>
-                                                        <td>
-                                                            <div class="dash__table-img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/women/product10.jpg" alt=""></div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dash__table-total">
-
-                                                                <span>$126.00</span>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                <%
+                                                    }
+                                                %>
                                                 </tbody>
                                             </table>
                                         </div>
