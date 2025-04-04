@@ -20,7 +20,7 @@ public class AddressServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String operation = req.getParameter("operation");
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
         UserDao userDao = new UserDao(ConnectionProvider.getConnection());
         AddressDao addressDao = new AddressDao(ConnectionProvider.getConnection());
         Message message ;

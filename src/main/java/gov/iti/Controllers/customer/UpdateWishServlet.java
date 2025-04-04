@@ -16,7 +16,7 @@ import java.io.IOException;
 public class UpdateWishServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
 
         String operation = req.getParameter("operation");
         WishlistDao wishlistDao = new WishlistDao(ConnectionProvider.getConnection());

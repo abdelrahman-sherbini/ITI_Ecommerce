@@ -20,7 +20,7 @@ public class CheckOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String payment = req.getParameter("payment");
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
         Message message ;
         String address_I = req.getParameter("address_ID");
         if(address_I == null || address_I.isEmpty()|| Integer.parseInt(address_I) <=0){

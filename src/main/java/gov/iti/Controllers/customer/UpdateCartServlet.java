@@ -19,7 +19,7 @@ public class UpdateCartServlet extends HttpServlet {
 
 
         String operation = req.getParameter("operation");
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
 
         CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
         if (operation.equals("delete")) {
@@ -44,7 +44,7 @@ public class UpdateCartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int deleteCartItem = Integer.parseInt(req.getParameter("deleteCart"));
         CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
         if(deleteCartItem == 1){
             cartDao.removeAllProduct(user.getUserId());
             resp.sendRedirect("cart.jsp");
