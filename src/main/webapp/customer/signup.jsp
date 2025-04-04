@@ -128,7 +128,8 @@
 
                                                 <label class="gl-label" for="reg-phone">PHONE *</label>
                                                 <div class="gl-error" id="reg-phone-error"></div>
-                                                <input class="input-text input-text--primary-style" type="tel" id="reg-phone" name="phone" placeholder="phone number" required></div>
+                                                <input class="input-text input-text--primary-style" type="tel" id="reg-phone" name="phone" placeholder="phone number" required>
+                                            </div>
                                             
                                                 <div class="u-s-m-b-30">
 

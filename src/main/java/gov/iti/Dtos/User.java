@@ -13,7 +13,7 @@ public class User {
 	private String userPassword;
 	private String userPhone;
 	private String userGender;
-
+	private float credit;
 
 	private LocalDate dob;
 	private Timestamp registerDate;
@@ -151,7 +151,21 @@ public class User {
 		this.userLastName = userLastName;
 	}
 
+    public float getCredit() {
+        return credit;
+    }
 
+    public void setCredit(String creditStr) {
+        if (creditStr == null || creditStr.trim().isEmpty()) {
+            this.credit = 0.0f; // or leave it unset
+        } else {
+            try {
+                this.credit = Float.parseFloat(creditStr);
+            } catch (NumberFormatException e) {
+                this.credit = 0.0f; // or handle error accordingly
+            }
+        }
+    }
 
 	
 }

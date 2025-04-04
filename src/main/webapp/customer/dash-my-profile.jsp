@@ -7,10 +7,7 @@
 <%@ page import="java.sql.Connection" %>
 
 <%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setDefaultAddress(7);
-//    activeUser.setUserId(1);
-//   session.setAttribute("activeUser",activeUser);
+
    User activeUser = (User) session.getAttribute("LoggedUser");
 //
 //
@@ -108,7 +105,7 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
                                             <ul class="dash__f-list">
                                                 <li>
 
@@ -135,41 +132,12 @@
                                         </div>
                                     </div>
                                     <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                        <div class="dash__pad-1">
-                                            <ul class="dash__w-list">
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
-
-                                                        <span class="dash__w-text">4</span>
-
-                                                        <span class="dash__w-name">Orders Placed</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Cancel Orders</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Wishlist</span></div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <jsp:include page="orderPlacedProfile.jsp"/>
                                     </div>
                                     <!--====== End - Dashboard Features ======-->
                                 </div>
                                 <div class="col-lg-9 col-md-12">
+                                    <%@include file="Components/alert_message.jsp"%>
                                     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                         <div class="dash__pad-2">
                                             <h1 class="dash__h1 u-s-m-b-14">My Profile</h1>
@@ -179,12 +147,12 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Full Name</h2>
 
-                                                    <span class="dash__text">John Doe</span>
+                                                    <span class="dash__text"><%=activeUser.getUserName()%></span>
                                                 </div>
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
 
-                                                    <span class="dash__text">johndoe@domain.com</span>
+                                                    <span class="dash__text"><%=activeUser.getUserEmail()%></span>
                                                     <div class="dash__link dash__link--secondary">
 
                                                         <a href="#">Change</a></div>
@@ -192,7 +160,7 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Phone</h2>
 
-                                                    <span class="dash__text">Please enter your mobile</span>
+                                                    <span class="dash__text"><%=activeUser.getUserPhone()%></span>
                                                     <div class="dash__link dash__link--secondary">
 
                                                         <a href="#">Add</a></div>
@@ -200,12 +168,12 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Birthday</h2>
 
-                                                    <span class="dash__text">1991-02-02</span>
+                                                    <span class="dash__text"><%=activeUser.getDob().toString()%></span>
                                                 </div>
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Gender</h2>
 
-                                                    <span class="dash__text">Male</span>
+                                                    <span class="dash__text"><%=activeUser.getUserGender()%></span>
                                                 </div>
                                             </div>
                                             <div class="row">
