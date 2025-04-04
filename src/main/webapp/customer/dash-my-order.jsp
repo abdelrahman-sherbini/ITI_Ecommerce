@@ -1,3 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+
+    User activeUser = (User) session.getAttribute("LoggedUser");
+
+    Connection connection = ConnectionProvider.getConnection();
+    OrderDao orderDao = new OrderDao(connection);
+    OrderedProductDao orderedProductDao = new OrderedProductDao(connection);
+    ProductDao productDao = new ProductDao(connection);
+    CategoryDao catDao = new CategoryDao(connection);
+    List<Order> orderList = orderDao.getAllOrderByUserId(activeUser.getUserId());
+
+
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -77,7 +99,7 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%>></span>
                                             <ul class="dash__f-list">
                                                 <li>
 
@@ -104,37 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                        <div class="dash__pad-1">
-                                            <ul class="dash__w-list">
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
-
-                                                        <span class="dash__w-text">4</span>
-
-                                                        <span class="dash__w-name">Orders Placed</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Cancel Orders</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Wishlist</span></div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <jsp:include page="orderPlacedProfile.jsp"/>
                                     </div>
                                     <!--====== End - Dashboard Features ======-->
                                 </div>
@@ -142,8 +134,8 @@
                                     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                         <div class="dash__pad-2">
                                             <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
-
                                             <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
+                                            <%@include file="Components/alert_message.jsp"%>
                                             <form class="m-order u-s-m-b-30">
                                                 <div class="m-order__select-wrapper">
 
@@ -157,26 +149,38 @@
                                                     </select></div>
                                             </form>
                                             <div class="m-order__list">
+                                                <%
+                                                    for (Order order : orderList) {
+
+
+                                                %>
                                                 <div class="m-order__get">
                                                     <div class="manage-o__header u-s-m-b-30">
                                                         <div class="dash-l-r">
                                                             <div>
-                                                                <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                                <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                                <div class="manage-o__text-2 u-c-secondary">Order #<%=order.getId()%></div>
+                                                                <div class="manage-o__text u-c-silver">Placed on <%=order.getDate()%></div>
                                                             </div>
                                                             <div>
                                                                 <div class="dash__link dash__link--brand">
 
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
+                                                                    <a href="dash-manage-order.jsp?orderId=<%=order.getId()%>">MANAGE</a></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="manage-o__description">
+                                                    <%
+                                                        List<OrderedProduct> ordProdList = orderedProductDao.getAllOrderedProduct(order.getId());
+                                                        for (OrderedProduct orderProduct : ordProdList) {
+                                                            Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
+                                                            Category category = catDao.getCategoryById(prod.getCategoryId());
+
+                                                    %>
+                                                    <div class="manage-o__description shop-p__meta-wrap">
                                                         <div class="description__container">
                                                             <div class="description__img-wrap">
 
-                                                                <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
-                                                            <div class="description-title">Yellow Wireless Headphone</div>
+                                                                <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
+                                                            <div class="description-title"><%=prod.getProductName()%></div>
                                                         </div>
                                                         <div class="description__info-wrap">
                                                             <div>
@@ -186,91 +190,21 @@
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary"><%=orderProduct.getQuantity()%></span></span></div>
                                                             <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Total:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary">$<%=orderProduct.getPrice()%></span></span></div>
                                                         </div>
                                                     </div>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </div>
-                                                <div class="m-order__get">
-                                                    <div class="manage-o__header u-s-m-b-30">
-                                                        <div class="dash-l-r">
-                                                            <div>
-                                                                <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                                <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="manage-o__description">
-                                                        <div class="description__container">
-                                                            <div class="description__img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></div>
-                                                            <div class="description-title">New Dress D Nice Elegant</div>
-                                                        </div>
-                                                        <div class="description__info-wrap">
-                                                            <div>
-
-                                                                <span class="manage-o__badge badge--shipped">Shipped</span></div>
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Total:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="m-order__get">
-                                                    <div class="manage-o__header u-s-m-b-30">
-                                                        <div class="dash-l-r">
-                                                            <div>
-                                                                <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                                <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="dash-manage-order.jsp">MANAGE</a></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="manage-o__description">
-                                                        <div class="description__container">
-                                                            <div class="description__img-wrap">
-
-                                                                <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                                                            <div class="description-title">New Fashion D Nice Elegant</div>
-                                                        </div>
-                                                        <div class="description__info-wrap">
-                                                            <div>
-
-                                                                <span class="manage-o__badge badge--delivered">Delivered</span></div>
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Total:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </div>
                                     </div>

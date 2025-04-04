@@ -38,6 +38,11 @@ public class UserService {
         return allPhoneNumbers.contains(phone);
     }
 
+    public boolean ValidatePhoneExcept(String phone,int uid){
+        List<String> allPhoneNumbers = dao.getAllPhoneNumbersExcept(uid);
+        return allPhoneNumbers.contains(phone);
+    }
+
     public User logIn(UserSignIn userSignIn){
        User user = dao.getUserByEmail(userSignIn.getEmail());
        

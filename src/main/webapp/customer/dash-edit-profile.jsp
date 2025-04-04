@@ -1,3 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page errorPage="404.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="gov.iti.Helper.ConnectionProvider" %>
+<%@ page import="gov.iti.Dtos.*" %>
+<%@ page import="gov.iti.Model.*" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.math.BigDecimal" %>
+<%
+
+    User activeUser = (User) session.getAttribute("LoggedUser");
+
+    Connection connection = ConnectionProvider.getConnection();
+
+    UserDao userDao = new UserDao(connection);
+%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -77,7 +93,7 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
                                             <ul class="dash__f-list">
                                                 <li>
 
@@ -104,37 +120,7 @@
                                         </div>
                                     </div>
                                     <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                        <div class="dash__pad-1">
-                                            <ul class="dash__w-list">
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
-
-                                                        <span class="dash__w-text">4</span>
-
-                                                        <span class="dash__w-name">Orders Placed</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Cancel Orders</span></div>
-                                                </li>
-                                                <li>
-                                                    <div class="dash__w-wrap">
-
-                                                        <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
-
-                                                        <span class="dash__w-text">0</span>
-
-                                                        <span class="dash__w-name">Wishlist</span></div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <jsp:include page="orderPlacedProfile.jsp"/>
                                     </div>
                                     <!--====== End - Dashboard Features ======-->
                                 </div>
@@ -143,80 +129,71 @@
                                         <div class="dash__pad-2">
                                             <h1 class="dash__h1 u-s-m-b-14">Edit Profile</h1>
 
-                                            <span class="dash__text u-s-m-b-30">Looks like you haven't update your profile</span>
+                                            <span class="dash__text u-s-m-b-30">Looks like you haven't updated your profile</span>
                                             <div class="dash__link dash__link--secondary u-s-m-b-30">
 
                                                 <a data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a></div>
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <form class="dash-edit-p">
+                                                    <form class="dash-edit-p" id="editProfileForm" action="UpdateUserServlet" method="POST">
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" for="reg-fname">FIRST NAME *</label>
-
-                                                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" placeholder="John"></div>
+                                                                <div class="gl-error" id="reg-fname-error"></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="fname" id="reg-fname" value="<%=activeUser.getUserFirstName()%>" required ></div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" for="reg-lname">LAST NAME *</label>
-
-                                                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" placeholder="Doe"></div>
+                                                                <div class="gl-error" id="reg-lname-error"></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="lname" id="reg-lname" value="<%=activeUser.getUserLastName()%>" required></div>
                                                         </div>
+                                                        <div class="gl-inline">
+                                                            <div class="u-s-m-b-30">
+
+                                                                <label class="gl-label" for="reg-credit">CREDIT *</label>
+                                                                <div class="gl-error" id="reg-credit-error"></div>
+                                                                <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="credit" placeholder="credit limit" value="<%=activeUser.getCredit()%>"></div>
+                                                            <div class="u-s-m-b-30">
+
+                                                                <label class="gl-label" for="reg-job">JOB</label>
+                                                                <div class="gl-error" id="reg-job-error"></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="job" id="reg-job" value="<%=activeUser.getJob()%>"></div>
+                                                        </div>
+
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
 
                                                                 <!--====== Date of Birth Select-Box ======-->
 
                                                                 <span class="gl-label">BIRTHDAY</span>
-                                                                <div class="gl-dob"><select class="select-box select-box--primary-style">
-                                                                        <option selected>Month</option>
-                                                                        <option value="male">January</option>
-                                                                        <option value="male">February</option>
-                                                                        <option value="male">March</option>
-                                                                        <option value="male">April</option>
-                                                                    </select><select class="select-box select-box--primary-style">
-                                                                        <option selected>Day</option>
-                                                                        <option value="01">01</option>
-                                                                        <option value="02">02</option>
-                                                                        <option value="03">03</option>
-                                                                        <option value="04">04</option>
-                                                                    </select><select class="select-box select-box--primary-style">
-                                                                        <option selected>Year</option>
-                                                                        <option value="1991">1991</option>
-                                                                        <option value="1992">1992</option>
-                                                                        <option value="1993">1993</option>
-                                                                        <option value="1994">1994</option>
-                                                                    </select></div>
-                                                                <!--====== End - Date of Birth Select-Box ======-->
+                                                                <input class="input-text input-text--primary-style" type="text" readonly value="<%=activeUser.getDob()%>" >
                                                             </div>
                                                             <div class="u-s-m-b-30">
 
-                                                                <label class="gl-label" for="gender">GENDER</label><select class="select-box select-box--primary-style u-w-100" id="gender">
-                                                                    <option selected>Select</option>
-                                                                    <option value="male">Male</option>
-                                                                    <option value="male">Female</option>
-                                                                </select></div>
+                                                                <label class="gl-label" >GENDER</label>
+                                                                <input class="input-text input-text--primary-style" type="text" readonly value="<%=activeUser.getUserGender()%>" >
+                                                            </div>
                                                         </div>
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
-                                                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
+                                                                <label class="gl-label" for="reg-email">E-MAIL *</label>
+                                                                <div class="gl-error" id="reg-email-error"></div>
+<%--                                                                <span class="dash__text">johndoe@domain.com</span>--%>
+                                                                <input class="input-text input-text--primary-style" type="email" name="email" id="reg-email" value="<%=activeUser.getUserEmail()%>" required >
 
-                                                                <span class="dash__text">johndoe@domain.com</span>
-                                                                <div class="dash__link dash__link--secondary">
-
-                                                                    <a href="#">Change</a></div>
                                                             </div>
                                                             <div class="u-s-m-b-30">
-                                                                <h2 class="dash__h2 u-s-m-b-8">Phone</h2>
+                                                                <label class="gl-label" for="reg-phone">PHONE *</label>
+                                                                <div class="gl-error" id="reg-phone-error"></div>
+                                                                <input class="input-text input-text--primary-style" type="tel" name="phone" id="reg-phone"  value="<%=activeUser.getUserPhone()%>" required >
 
-                                                                <span class="dash__text">Please enter your mobile</span>
-                                                                <div class="dash__link dash__link--secondary">
 
-                                                                    <a href="#">Add</a></div>
+
                                                             </div>
                                                         </div>
 
-                                                        <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                                                        <button class="btn btn--e-brand-b-2" id="editProfileFormButton" type="submit">SAVE</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -289,6 +266,7 @@
     <!--====== App ======-->
     <script src="js/app.js"></script>
 
+    <script src="js/editProfile.js"></script>
     <!--====== Noscript ======-->
     <noscript>
         <div class="app-setting">

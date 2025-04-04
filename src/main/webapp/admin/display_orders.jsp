@@ -63,6 +63,7 @@
 							<option value="Shipped">Shipped</option>
 							<option value="Out For Delivery">Out For Delivery</option>
 							<option value="Delivered">Delivered</option>
+							<option value="Canceled">Canceled</option>
 					</select></td>
 					<td>
 						<%

@@ -13,7 +13,7 @@
 	<!-- update product -->
 	<%
 	int product_id = Integer.parseInt(request.getParameter("product_id"));
-	ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
+
 	Product product = productDao.getProductsByProductId(product_id);
 	%>
 	<div class="container mt-3">

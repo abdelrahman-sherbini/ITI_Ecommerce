@@ -80,6 +80,7 @@ public class UserDao {
 				user.setJob(userSignUp.getJob());
 				user.setDefaultAddress(addressId);
 				user.setDob(userSignUp.getDob());
+				user.setCredit(String.valueOf(userSignUp.getCredit()));
         }
 
         
@@ -120,6 +121,7 @@ public class UserDao {
 				if (set.getDate("dob") != null) {
 					user.setDob(set.getDate("dob").toLocalDate());
 				} 
+				user.setCredit(String.valueOf(set.getDouble("credit")));
 
 			}
 
@@ -157,6 +159,7 @@ public class UserDao {
 				if (set.getDate("dob") != null) {
 					user.setDob(set.getDate("dob").toLocalDate());
 				} 
+				user.setCredit(String.valueOf(set.getDouble("credit")));
 			}
 
 		} catch (Exception e) {
@@ -175,6 +178,8 @@ public class UserDao {
 			while (set.next()) {
 				User user = new User();
 				user.setUserId(set.getInt("user_id"));
+				user.setUserFirstName(set.getString("first_name"));
+				user.setUserLastName(set.getString("last_name"));
 				user.setUserName(set.getString("name"));
 				user.setUserEmail(set.getString("email"));
 				user.setUserPassword(set.getString("password"));
@@ -183,8 +188,10 @@ public class UserDao {
 				user.setRegisterDate(set.getTimestamp("register_date"));
 				user.setJob(set.getString("job"));
 				user.setDefaultAddress(set.getInt("default_address"));
-
-
+				if (set.getDate("dob") != null) {
+					user.setDob(set.getDate("dob").toLocalDate());
+				}
+				user.setCredit(String.valueOf(set.getDouble("credit")));
 				list.add(user);
 			}
 		} catch (Exception e) {
@@ -204,6 +211,8 @@ public class UserDao {
 			if (set.next()) {
 				user = new User();
 				user.setUserId(set.getInt("user_id"));
+				user.setUserFirstName(set.getString("first_name"));
+				user.setUserLastName(set.getString("last_name"));
 				user.setUserName(set.getString("name"));
 				user.setUserEmail(set.getString("email"));
 				user.setUserPassword(set.getString("password"));
@@ -212,8 +221,10 @@ public class UserDao {
 				user.setRegisterDate(set.getTimestamp("register_date"));
 				user.setJob(set.getString("job"));
 				user.setDefaultAddress(set.getInt("default_address"));
-
-
+				if (set.getDate("dob") != null) {
+					user.setDob(set.getDate("dob").toLocalDate());
+				}
+				user.setCredit(String.valueOf(set.getDouble("credit")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,18 +260,13 @@ public class UserDao {
 
 	public void updateUser(User user) {
 		try {
-			String query = "update user set name = ?, email = ?, phone = ?, gender = ?, default_address = ?, job = ? where user_id = ?";
+			String query = "update user set first_name = ?,last_name = ?,credit = ?, email = ?, phone = ?, job = ? where user_id = ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
-			psmt.setString(1, user.getUserName());
-			psmt.setString(2, user.getUserEmail());
-			psmt.setString(3, user.getUserPhone());
-			psmt.setString(4, user.getUserGender());
-			if (user.getDefaultAddress() == 0) {
-				psmt.setNull(5, java.sql.Types.INTEGER);
-			} else {
-				psmt.setInt(5, user.getDefaultAddress());
-			}
-			// psmt.setInt(5,user.getDefaultAddress());
+			psmt.setString(1, user.getUserFirstName());
+			psmt.setString(2, user.getUserLastName());
+			psmt.setFloat(3, user.getCredit());
+			psmt.setString(4, user.getUserEmail());
+			psmt.setString(5, user.getUserPhone());
 			psmt.setString(6, user.getJob());
 			psmt.setInt(7, user.getUserId());
 
@@ -362,6 +368,22 @@ public class UserDao {
 			String query = "select phone from user";
 			Statement statement = this.con.createStatement();
 			ResultSet set = statement.executeQuery(query);
+			while (set.next()) {
+				list.add(set.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<String> getAllPhoneNumbersExcept(int uid) {
+		List<String> list = new ArrayList<>();
+		try {
+			String query = "select phone from user where id != ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, uid);
+			ResultSet set = psmt.executeQuery(query);
 			while (set.next()) {
 				list.add(set.getString(1));
 			}

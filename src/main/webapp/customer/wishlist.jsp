@@ -156,8 +156,8 @@
                                         <div class="w-r__wrap-2">
 
                                             <a
-                                                id="add-to-cart-btn-wishlist"
-                                                class="w-r__link btn--e-brand-b-2"
+
+                                                class="w-r__link btn--e-brand-b-2 add-to-cart-btn-wishlist"
                                                data-toggle="modal"
                                                data-name="<%=prod.getProductName()%>"
                                                data-image="images/product/electronic/<%=prod.getProductImages()%>"
@@ -168,7 +168,7 @@
                                             <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=<%=prod.getProductId()%>">VIEW</a>
 
 <%--                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>--%>
-                                        <button type="button" id="deleteWish" class="w-r__link btn--e-transparent-platinum-b-2">Remove</button>
+                                        <button type="button" class="w-r__link deleteWish btn--e-transparent-platinum-b-2">Remove</button>
                                         <input type="hidden" name="wishItem" value="<%=wishlist.getWishlistId()%>">
                                     </div>
                                 </div>

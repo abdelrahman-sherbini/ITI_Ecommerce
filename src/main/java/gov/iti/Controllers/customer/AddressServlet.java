@@ -20,7 +20,7 @@ public class AddressServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String operation = req.getParameter("operation");
-        User user = (User) req.getSession().getAttribute("activeUser");
+        User user = (User) req.getSession().getAttribute("LoggedUser");
         UserDao userDao = new UserDao(ConnectionProvider.getConnection());
         AddressDao addressDao = new AddressDao(ConnectionProvider.getConnection());
         Message message ;
@@ -35,7 +35,7 @@ public class AddressServlet extends HttpServlet {
 
             addressDao.insertAddress(address, user.getUserId());
             if(dash != null && !dash.isEmpty()){
-                message = new Message("Added address successfully!", "error", "alert-success");
+                message = new Message("Added address successfully!", "success", "alert-success");
                 req.getSession().setAttribute("message", message);
                 resp.sendRedirect("dash-address-book.jsp");
             }
@@ -57,7 +57,7 @@ public class AddressServlet extends HttpServlet {
 
 
             addressDao.updateAddress(address_id,address);
-            message = new Message("Updated address successfully!", "error", "alert-success");
+            message = new Message("Updated address successfully!", "success", "alert-success");
             req.getSession().setAttribute("message", message);
             resp.sendRedirect("dash-address-book.jsp");
 
@@ -80,7 +80,8 @@ public class AddressServlet extends HttpServlet {
             if(user2 != null) {
                 user2.setDefaultAddress(address_id);
                 userDao.updateUserDefaultAddresss(user2);
-                message = new Message("Default address successfully!", "error", "alert-success");
+                req.getSession().setAttribute("LoggedUser", user2);
+                message = new Message("Default address successfully!", "success", "alert-success");
                 req.getSession().setAttribute("message", message);
                 resp.sendRedirect("dash-address-book.jsp");
             }else{
