@@ -1,6 +1,11 @@
 package gov.iti.Controllers.admin;
 
 
+import gov.iti.Dtos.Message;
+import gov.iti.Entities.Admin;
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Services.AdminService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,19 +14,15 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import gov.iti.Dtos.Admin;
-import gov.iti.Dtos.Message;
-import gov.iti.Helper.ConnectionProvider;
-import gov.iti.Model.AdminDao;
-
 @WebServlet(name = "AdminServlet" ,value = "/admin/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
-		
+		EntityManager em = EntityManagerProvider.getEntityManager();
+		AdminService adminService = new AdminService(em);
 		String operation = request.getParameter("operation");
-		AdminDao adminDao = new AdminDao(ConnectionProvider.getConnection());
+
 		HttpSession session = request.getSession();
 		Message message = null;
 		
@@ -33,7 +34,8 @@ public class AdminServlet extends HttpServlet {
 			String phone = request.getParameter("phone");
 			
 			Admin admin = new Admin(name, email, phone, password);
-			boolean flag = adminDao.saveAdmin(admin);
+			boolean flag =adminService.createAdmin(admin);
+;
 
 			if(flag) {
 				message = new Message("New admin register successfully!", "success", "alert-success");
@@ -44,7 +46,7 @@ public class AdminServlet extends HttpServlet {
 		}else if(operation.trim().equals("delete")) {
 			
 			int id = Integer.parseInt(request.getParameter("id"));
-			boolean flag = adminDao.deleteAdmin(id);
+			boolean flag = adminService.deleteAdmin(id);
 			if(flag) {
 				message = new Message("Admin deleted successfully!", "success", "alert-success");
 			}else {
@@ -52,7 +54,7 @@ public class AdminServlet extends HttpServlet {
 			}
 		}
 		session.setAttribute("message", message);
-		response.sendRedirect("display_admin.jsp");
+		response.sendRedirect("display_admin");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {

@@ -1,4 +1,5 @@
-<%@ include file="Components/common_imports.jsp" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,7 @@
 	<%@include file="Components/navbar.jsp"%>
 
 	<!-- update product -->
-	<%
-	int product_id = Integer.parseInt(request.getParameter("product_id"));
 
-	Product product = productDao.getProductsByProductId(product_id);
-	%>
 	<div class="container mt-3">
 		<div class="row ">
 			<div class="col">
@@ -23,36 +20,36 @@
 					<div class="card-header text-center">
 						<h3>Edit Product</h3>
 					</div>
-					<form action="AddOperationServlet?product_id=<%=product_id%>" method="post"
+					<form action="AddOperationServlet?product_id=${product.id}" method="post"
 						name="updateProductForm" enctype="multipart/form-data">
 						<div class="card-body">
 							<input type="hidden" name="operation" value="updateProduct">
 							<div class="row">
 								<div class="col-md-6 mb-2">
 									<label class="form-label"><b>Product Name</b></label> <input
-										type="text" name="name" value="<%=product.getProductName()%>"
+										type="text" name="name" value="${product.name}"
 										class="form-control">
 								</div>
 								<div class="col-md-6 mb-2">
 									<label class="form-label"><b>Unit Price</b></label> <input
 										class="form-control" type="number" name="price"
-										value="<%=product.getProductPrice()%>" required>
+										value="${product.price}" required>
 								</div>
 							</div>
 							<div class="mb-2">
 								<label class="form-label"><b>Product Description</b></label>
-								<textarea class="form-control" name="description" rows="3"><%=product.getProductDescription()%></textarea>
+								<textarea class="form-control" name="description" rows="3">${product.description}</textarea>
 							</div>
 							<div class="row">
 								<div class="col-md-6 mb-2">
 									<label class="form-label"><b>Product Quantity</b></label> <input
 										type="number" name="quantity"
-										value="<%=product.getProductQunatity()%>" class="form-control">
+										value="${product.quantity}" class="form-control">
 								</div>
 								<div class="col-md-6 mb-2">
 									<label class="form-label"><b>Discount Percentage</b></label> <input
 										type="number" name="discount" onblur="validate()"
-										value="<%=product.getProductDiscount()%>" class="form-control">
+										value="${product.discount}" class="form-control">
 								</div>
 							</div>
 							<div class="row">
@@ -65,25 +62,23 @@
 									<select
 										name="categoryType" class="form-control">
 										<option value="0">--Select Category--</option>
-										<%
-										for (Category c : categoryList) {
-										%>
-										<option value="<%=c.getCategoryId()%>">
-											<%=c.getCategoryName()%></option>
-										<%
-										}
-										%>
+										<c:forEach var="categorie" items="${categories}">
+
+										<option value="${categorie.id}">
+												${categorie.name}</option>
+
+										</c:forEach>
 									</select>
 									<input type="hidden" name="category"
-										value="<%=product.getCategoryId()%>">
+										value="${product.category.id}">
 								</div>
 							</div>
 							<div class="mb-3">
-								<label class="form-label"><b>Uploaded Image:&nbsp;</b></label><%=product.getProductImages()%>
-								&emsp;<img src="\customer\images\product\<%=product.getProductImages()%>"
+								<label class="form-label"><b>Uploaded Image:&nbsp;</b></label>${product.image}
+								&emsp;<img src="/customer/images/product/${product.category.name}/${product.image}"
 									style="width: 80px; height: 80px; width: auto;"> <input
 									type="hidden" name="image"
-									value="<%=product.getProductImages()%>">
+									value="${product.image}">
 							</div>
 						</div>
 						<div class="card-footer text-center">

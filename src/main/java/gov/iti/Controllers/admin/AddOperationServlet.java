@@ -1,27 +1,27 @@
 package gov.iti.Controllers.admin;
 
+import gov.iti.Dtos.Message;
+import gov.iti.Entities.Category;
+import gov.iti.Helper.ConnectionProvider;
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Model.CategoryDao;
 import gov.iti.Model.OrderedProductDao;
+import gov.iti.Model.ProductDao;
+import gov.iti.Services.CategoryService;
+import gov.iti.Services.OrderedProductService;
+import gov.iti.Services.ProductService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-
-import gov.iti.Dtos.Category;
-import gov.iti.Dtos.Message;
-import gov.iti.Dtos.Product;
-import gov.iti.Helper.ConnectionProvider;
-import gov.iti.Model.CategoryDao;
-import gov.iti.Model.ProductDao;
+import java.util.List;
 
 
 @MultipartConfig
@@ -31,6 +31,10 @@ public class AddOperationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		EntityManager em = EntityManagerProvider.getEntityManager();
+		ProductService productService = new ProductService(em);
+		OrderedProductService orderedProductService = new OrderedProductService(em);
+		CategoryService categoryService = new CategoryService(em);
 
 		String operation = request.getParameter("operation");
 		CategoryDao catDao = new CategoryDao(ConnectionProvider.getConnection());
@@ -44,8 +48,10 @@ public class AddOperationServlet extends HttpServlet {
 
 			String categoryName = request.getParameter("category_name");
 			Part part = request.getPart("category_img");
-			Category category = new Category(categoryName, part.getSubmittedFileName());
-			boolean flag = catDao.saveCategory(category);
+			gov.iti.Entities.Category category = new gov.iti.Entities.Category(categoryName,part.getSubmittedFileName());
+//			Category category = new Category(categoryName, part.getSubmittedFileName());
+			boolean flag = categoryService.createCategory(category);
+
 
 			String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 					+ part.getSubmittedFileName();
@@ -58,116 +64,150 @@ public class AddOperationServlet extends HttpServlet {
 				message = new Message("Something went wrong! Try again!!", "error", "alert-danger");
 			}
 			session.setAttribute("message", message);
-			response.sendRedirect("admin.jsp");
+			response.sendRedirect("admin");
 
 		} else if (operation.trim().equals("addProduct")) {
 
 			// add product to database
-			String pName = request.getParameter("name");
-			String pDesc = request.getParameter("description");
-			BigDecimal pPrice = new BigDecimal(request.getParameter("price"));
-			int pDiscount = Integer.parseInt(request.getParameter("discount"));
-			if (pDiscount < 0 || pDiscount > 100) {
-				pDiscount = 0;
+			String name = request.getParameter("name");
+			BigDecimal price = new BigDecimal(request.getParameter("price"));
+			String description = request.getParameter("description");
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			Long discount = Long.parseLong(request.getParameter("discount"));
+			if (discount < 0 || discount > 100) {
+				discount = 0L;
 			}
-			int pQuantity = Integer.parseInt(request.getParameter("quantity"));
 			Part part = request.getPart("photo");
-			int categoryType = Integer.parseInt(request.getParameter("categoryType"));
+			Long category_id = Long.parseLong(request.getParameter("categoryType"));
 
-			Product product = new Product(pName, pDesc, pPrice, pDiscount, pQuantity, part.getSubmittedFileName(),
-					categoryType);
-			boolean flag = pdao.saveProduct(product);
+			if (category_id == 0) {
+				category_id = Long.parseLong(request.getParameter("category"));
+			}
 
-			String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
-					+ part.getSubmittedFileName();
-			writeImage(part, path);
+			gov.iti.Entities.Category category = categoryService.getCategory(category_id);
+
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product(  name, description, price, discount, quantity, part.getSubmittedFileName(), category);
+			boolean flag = productService.addProduct(p);
+				// product image upload
+				String path = request.getServletContext().getRealPath("/") + "customer/images/product/"+category.getName() + File.separator
+						+ part.getSubmittedFileName();
+				writeImage(part, path);
+
+
+
 			if (flag) {
 				message = new Message("Product added successfully!!", "success", "alert-success");
 			} else {
 				message = new Message("Something went wrong! Try again!!", "error", "alert-danger");
 			}
 			session.setAttribute("message", message);
-			response.sendRedirect("admin.jsp");
+			response.sendRedirect("admin");
 			
 		} else if (operation.trim().equals("updateCategory")) {
 
-			int category_id = Integer.parseInt(request.getParameter("category_id"));
+			Long category_id = Long.parseLong(request.getParameter("category_id"));
+
 			String name = request.getParameter("category_name");
 			Part part = request.getPart("category_img");
 			if (part.getSubmittedFileName().isEmpty()) {
 				String image = request.getParameter("image");
-				Category category = new Category(category_id, name, image);
-				catDao.updateCategory(category);
+
+				gov.iti.Entities.Category category = new gov.iti.Entities.Category(category_id,name,image);
+
+				 categoryService.updateCategory(category);
 			} else {
-				Category category = new Category(category_id, name, part.getSubmittedFileName());
-				catDao.updateCategory(category);
+				gov.iti.Entities.Category category = new gov.iti.Entities.Category(category_id,name,part.getSubmittedFileName());
+
+				categoryService.updateCategory(category);
 				String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
 						+ part.getSubmittedFileName();
 				writeImage(part, path);
 			}
 			message = new Message("Category updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
-			response.sendRedirect("display_category.jsp");
+			List<Category> categories = categoryService.getAllCategories();
+			request.getServletContext().setAttribute("categories", categories);
+			response.sendRedirect("display_category");
 			
 		} else if (operation.trim().equals("deleteCategory")) {
 
-			int category_id = Integer.parseInt(request.getParameter("category_id"));
-			catDao.deleteCategory(category_id);
-			response.sendRedirect("display_category.jsp");
+			Long category_id = Long.parseLong(request.getParameter("category_id"));
+			categoryService.deleteCategory(category_id);
+			List<Category> categories = categoryService.getAllCategories();
+			request.getServletContext().setAttribute("categories", categories);
+			response.sendRedirect("display_category");
 
 		} else if (operation.trim().equals("updateProduct")) {
 
-			int product_id = Integer.parseInt(request.getParameter("product_id"));
+			Long product_id = Long.parseLong(request.getParameter("product_id"));
 			String name = request.getParameter("name");
 			BigDecimal price = new BigDecimal(request.getParameter("price"));
 			String description = request.getParameter("description");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			int discount = Integer.parseInt(request.getParameter("discount"));
+			Long discount = Long.parseLong(request.getParameter("discount"));
 			if (discount < 0 || discount > 100) {
-				discount = 0;
+				discount = 0L;
 			}
 			Part part = request.getPart("product_img");
-			int category_id = Integer.parseInt(request.getParameter("categoryType"));
+			Long category_id = Long.parseLong(request.getParameter("categoryType"));
 
 			if (category_id == 0) {
-				category_id = Integer.parseInt(request.getParameter("category"));
+				category_id = Long.parseLong(request.getParameter("category"));
 			}
+			gov.iti.Entities.Category category = categoryService.getCategory(category_id);
 			if (part.getSubmittedFileName().isEmpty()) {
 				String image = request.getParameter("image");
-				Product product = new Product(product_id, name, description, price, discount, quantity, image, category_id);
-				pdao.updateProduct(product);
-			} else {
 
-				Product product = new Product(product_id, name, description, price, discount, quantity,
-						part.getSubmittedFileName(), category_id);
-				pdao.updateProduct(product);
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price, discount, quantity, image, category);
+				productService.updateProduct(p);
+			} else {
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price, discount, quantity, part.getSubmittedFileName(), category);
+				productService.updateProduct(p);
 				// product image upload
-				String path = request.getServletContext().getRealPath("/") + "customer/images/product" + File.separator
+				String path = request.getServletContext().getRealPath("/") + "customer/images/product/"+category.getName() + File.separator
 						+ part.getSubmittedFileName();
 				writeImage(part, path);
 			}
 			message = new Message("Product updated successfully!!", "success", "alert-success");
 			session.setAttribute("message", message);
-			response.sendRedirect("display_products.jsp");
+
+			response.sendRedirect("display_products");
 
 		} else if (operation.trim().equals("deleteProduct")) {
 
 			int product_id = Integer.parseInt(request.getParameter("product_id"));
-			if(orderedProductDao.isOrdered(product_id)) {
+
+
+			gov.iti.Entities.Product product = productService.getProductById(product_id);
+
+			if(orderedProductService.isOrdered(product) ) {
 				message = new Message("Product cannot be deleted, it is still in orders!!", "error", "alert-danger");
 				session.setAttribute("message", message);
-				response.sendRedirect("display_products.jsp");
+				response.sendRedirect("display_products");
 			}else{
-
-			pdao.deleteProduct(product_id);
-			response.sendRedirect("display_products.jsp");
+			productService.deleteProduct(product);
+				message = new Message("Product deleted successfully", "success", "alert-success");
+				session.setAttribute("message", message);
+			response.sendRedirect("display_products");
 			}
 
 		}
+		em.close();
 
 	}
 
 	private void writeImage(Part part, String path) {
+		File targetDir = new File(path).getParentFile();
+
+// Check if the directory exists, and if not, create it
+		if (!targetDir.exists()) {
+			if (targetDir.mkdirs()) {
+				System.out.println("Directory created: " + targetDir.getAbsolutePath());
+			} else {
+				System.out.println("Failed to create directory: " + targetDir.getAbsolutePath());
+			}
+		}
+
 		try {
 			FileOutputStream fos = new FileOutputStream(path);
 			InputStream is = part.getInputStream();

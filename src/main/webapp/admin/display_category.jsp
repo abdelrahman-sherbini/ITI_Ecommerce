@@ -1,4 +1,5 @@
-<%@ include file="Components/common_imports.jsp" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,20 +20,17 @@
 				<th>Category Name</th>
 				<th>Action</th>
 			</tr>
-			<%
-			for (Category c : categoryList) {
-			%>
+
+			<c:forEach var="categorie" items="${categories}">
 			<tr class="text-center">
-				<td><img src="\customer\images\product\<%=c.getCategoryImage()%>"
+				<td><img src="/customer/images/product/${categorie.image}"
 					style="width: 60px; height: 60px; width: auto;"></td>
-				<td><%=c.getCategoryName()%></td>
-				<td><a href="update_category.jsp?category_id=<%=c.getCategoryId()%>" role="button" class="btn btn-secondary">Update</a>&emsp;<a
-					href="AddOperationServlet?category_id=<%=c.getCategoryId()%>&operation=deleteCategory"
+				<td>${categorie.name}</td>
+				<td><a href="update_category?category_id=${categorie.id}" role="button" class="btn btn-secondary">Update</a>&emsp;<a
+					href="AddOperationServlet?category_id=${categorie.id}&operation=deleteCategory"
 					class="btn btn-danger" role="button">Delete</a></td>
 			</tr>
-			<%
-			}
-			%>
+			</c:forEach>
 		</table>
 	</div>
 

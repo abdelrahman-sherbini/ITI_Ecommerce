@@ -1,4 +1,5 @@
-<%@ include file="Components/common_imports.jsp" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,22 +22,17 @@
 				<th>Register Date</th>
 				<th>Action</th>
 			</tr>
-			<%
-			List<User> userList = userDao.getAllUser();
-			for (User u : userList) {
-			%>
+			<c:forEach var="user" items="${users}">
 			<tr>
-				<td><%=u.getUserName()%></td>
-				<td><%=u.getUserEmail()%></td>
-				<td><%=u.getUserPhone()%></td>
-				<td><%=u.getUserGender()%></td>
-				<td><%=u.getJob()%></td>
-				<td><%=u.getRegisterDate()%></td>
+				<td>${user.firstName} ${user.lastName}</td>
+				<td>${user.email}</td>
+				<td>${user.phone}</td>
+				<td>${user.gender}</td>
+				<td>${user.job}</td>
+				<td>${user.registerDate}</td>
 <%--				<td><a href="UpdateUserServlet?operation=deleteUser&uid=<%=u.getUserId()%>" role="button" class="btn btn-danger">Remove</a></td>--%>
 			</tr>
-			<%
-			}
-			%>
+			</c:forEach>
 		</table>
 	</div>
 
