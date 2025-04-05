@@ -1,11 +1,12 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page import="java.math.BigDecimal" %>
-<%@ include file="Components/common_imports.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>View Order's</title>
-<%@include file="Components/common_css_js.jsp"%>
+	<%@include file="Components/common_css_js.jsp"%>
 </head>
 <body>
 	<!--navbar -->
@@ -14,17 +15,17 @@
 	<!-- order details -->
 
 	<div class="container-fluid px-3 py-3">
-		<%
-		if (orderList == null || orderList.size() == 0) {
-		%>
+		<c:if test="${empty orders || empty orders}">
 		<div class="container mt-5 mb-5 text-center">
 			<img src="Images/empty-cart.png" style="max-width: 200px;"
 				class="img-fluid">
 			<h4 class="mt-3">Zero Order found</h4>
 		</div>
-		<%
-		} else {
-		%>
+			</c:if>
+
+		<c:if test="${not empty orders}">
+
+
 		<div class="container-fluid">
 			<table class="table table-hover">
 				<tr class="table-primary" style="font-size: 18px;">
@@ -37,26 +38,22 @@
 					<th>Status</th>
 					<th colspan="2" class="text-center">Action</th>
 				</tr>
-				<%
-				for (Order order : orderList) {
-					List<OrderedProduct> ordProdList = ordProdDao.getAllOrderedProduct(order.getId());
-					for (OrderedProduct orderProduct : ordProdList) {
-						Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
+				<c:forEach var="order" items="${orders}">
+				<c:forEach var="orderedProduct" items="${order.orderedProducts}">
 
-				%>
-				<form action="UpdateOrderServlet?oid=<%=order.getId()%>"
+				<form action="UpdateOrderServlet?oid=${order.id}"
 					method="post">
 				<tr>
 					<td class="text-center"><img
-						src="\customer\images\product\<%=prod.getProductImages()%>"
+						src="/customer/images/product/${orderedProduct.product.category.name}/${orderedProduct.product.image}"
 						style="width: 50px; height: 50px; width: auto;"></td>
-					<td><%=order.getId()%></td>
-					<td><%=prod.getProductName()%><br>Quantity: <%=orderProduct.getQuantity()%><br>Total
-						Price: &#8377;<%=orderProduct.getPrice().multiply(BigDecimal.valueOf(orderProduct.getQuantity()))%></td>
-					<td><%=userDao.getUserName(order.getUserId())%><br>Mobile No. <%=userDao.getUserPhone(order.getUserId())%><br><%=order.getAddress() +" "+order.getCity()%></td>
-					<td><%=order.getDate()%></td>
+					<td>${order.id}</td>
+					<td>${orderedProduct.product.name}<br>Quantity: ${orderedProduct.quantity}<br>Total
+						Price:<fmt:formatNumber value="${orderedProduct.price}" type="currency" currencySymbol="$" /> </td>
+					<td>${order.user.firstName} ${order.user.lastName}<br>Mobile No. ${order.user.phone}<br>${order.address} ${order.city}</td>
+					<td>${order.date}</td>
 					<td><%= "COD"%></td>
-					<td><%=order.getStatus()%></td>
+					<td>${order.status}</td>
 					<td><select id="operation" name="status" class="form-select">
 							<option>--Select Operation--</option>
 							<option value="Order Confirmed">Order Confirmed</option>
@@ -66,30 +63,24 @@
 							<option value="Canceled">Canceled</option>
 					</select></td>
 					<td>
-						<%
-						if (order.getStatus().equals("Delivered")) {
-						%>
-						<button type="submit" class="btn btn-success disabled">Update</button>
-						<%
-						} else {
-						%>
-						<button type="submit" class="btn btn-secondary">Update</button> 
-						<%
-						 }
-						 %>
+
+						<c:choose>
+							<c:when test="${order.status == 'Delivered'}">
+								<button type="submit" class="btn btn-success disabled">Update</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" class="btn btn-secondary">Update</button>
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 				</form>
-				<%
-				}
-				}
-				%>
+				</c:forEach>
+				</c:forEach>
 			</table>
 
 		</div>
-		<%
-		}
-		%>
+		</c:if>
 	</div>
 
 		<!-- add  modal-->

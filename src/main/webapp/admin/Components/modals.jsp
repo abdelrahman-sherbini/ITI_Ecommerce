@@ -85,14 +85,12 @@ aria-labelledby="addProductModalLabel" aria-hidden="true">
                         <label class="form-label"><b>Select Category Type</b></label> <select
                             name="categoryType" class="form-control">
                             <option value="0">--Select Category--</option>
-                            <%
-                                for (Category c : categoryList) {
-                            %>
-                            <option value="<%=c.getCategoryId()%>">
-                                <%=c.getCategoryName()%></option>
-                            <%
-                                }
-                            %>
+                            <c:forEach var="categorie" items="${categories}">
+
+                                <option value="${categorie.id}">
+                                        ${categorie.name}</option>
+
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

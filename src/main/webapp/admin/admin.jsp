@@ -1,5 +1,5 @@
-<%@ include file="Components/common_imports.jsp" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,14 +42,14 @@ a {
 				<img src="Images/admin.png" style="max-width: 180px;"
 					class="img-fluid">
 				<h3>
-					Welcome "<%= activeAdmin.getName()%>"
+					Welcome "${activeAdmin.name}"
 				</h3>
 			</div>
 		</div>
 		<div class="container">
 			<div class="row px-3 py-3">
 				<div class="col-md-4">
-					<a href="display_category.jsp">
+					<a href="display_category">
 						<div class="card text-bg-light mb-3 text-center">
 							<div class="card-body">
 								<img src="Images/categories.png" style="max-width: 80px;"
@@ -60,7 +60,7 @@ a {
 					</a>
 				</div>
 				<div class="col-md-4">
-					<a href="display_products.jsp">
+					<a href="display_products">
 						<div class="card text-bg-light mb-3 text-center">
 							<div class="card-body">
 								<img src="Images/products.png" style="max-width: 80px;"
@@ -71,7 +71,7 @@ a {
 					</a>
 				</div>
 				<div class="col-md-4">
-					<a href="display_orders.jsp">
+					<a href="display_orders">
 						<div class="card text-bg-light mb-3 text-center">
 							<div class="card-body">
 								<img src="Images/order.png" style="max-width: 80px;"
@@ -86,7 +86,7 @@ a {
 		<div class="container">
 			<div class="row px-3">
 				<div class="col-md-4 offset-md-2">
-					<a href="display_users.jsp">
+					<a href="display_users">
 						<div class="card text-bg-light mb-3 text-center">
 							<div class="card-body">
 								<img src="Images/users.png" style="max-width: 80px;"
@@ -97,7 +97,7 @@ a {
 					</a>
 				</div>
 				<div class="col-md-4">
-					<a href="display_admin.jsp">
+					<a href="display_admin">
 						<div class="card text-bg-light mb-3 text-center">
 							<div class="card-body">
 								<img src="Images/add-admin.png" style="max-width: 80px;"

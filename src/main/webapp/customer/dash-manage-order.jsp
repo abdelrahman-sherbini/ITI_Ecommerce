@@ -240,7 +240,7 @@
                                                     <div class="description__info-wrap">
                                                         <div>
 
-                                                            <span class="manage-o__badge badge--processing">Processing</span></div>
+                                                            <span class="manage-o__badge badge--processing"><%=order.getStatus()%></span></div>
                                                         <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:

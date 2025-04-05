@@ -1,4 +1,5 @@
-<%@ include file="Components/common_imports.jsp" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,23 +68,25 @@ label {
 								<th>Phone</th>
 								<th>Action</th>
 							</tr>
-							<%
-							for (Admin a : adminList) {
-							%>
+
+							<c:forEach var="admin" items="${admins}">
 							<tr class="text-center">
-								<td><%=a.getName() %></td>
-								<td><%=a.getEmail() %></td>
-								<td><%=a.getPhone() %></td>
-								<td><a href="AdminServlet?operation=delete&id=<%=a.getId()%>" role="button" class="btn btn-danger">Remove</a></td>
+								<td>${admin.name}</td>
+								<td>${admin.email}</td>
+								<td>${admin.phone}</td>
+								<td><a href="AdminServlet?operation=delete&id=${admin.id}" role="button" class="btn btn-danger">Remove</a></td>
 							</tr>
-							<%
-							}
-							%>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- add  modal-->
+	<%@include file="Components/modals.jsp"%>
+
+	<!-- end of modal -->
+
 </body>
 </html>
