@@ -114,9 +114,9 @@
                 <configuration>
                     <username>admin</username>
                     <password>admin</password>
-                    <url>http://localhost:8080/manager/text</url>
+                    <url>http://localhost:9090/manager/text</url>
                     <server>localhost</server>
-                    <path>/</path>
+                    <path>/shop</path>
                 </configuration>
             </plugin>
         </plugins>
