@@ -380,10 +380,10 @@ public class UserDao {
 	public List<String> getAllPhoneNumbersExcept(int uid) {
 		List<String> list = new ArrayList<>();
 		try {
-			String query = "select phone from user where id != ?";
+			String query = "select phone from user where user_id != ?";
 			PreparedStatement psmt = this.con.prepareStatement(query);
 			psmt.setInt(1, uid);
-			ResultSet set = psmt.executeQuery(query);
+			ResultSet set = psmt.executeQuery();
 			while (set.next()) {
 				list.add(set.getString(1));
 			}

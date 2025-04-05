@@ -12,7 +12,7 @@ const nameRegex = /^[a-zA-Z]{2,15}$/; // start with capital letter min 2 char ma
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^(01)[1250][0-9]{8}$/;
 
-let setOfInvalidElements = new Set();
+var setOfInvalidElements = new Set();
 
 const validatorsMap = new Map();
 function attachValidation(elementToValidate, validator, message) {
@@ -44,7 +44,7 @@ function validateWith(validator, element, message) {
     if (errorMsg) {
       errorDiv.innerHTML = errorMsg;
       setOfInvalidElements.add(element);
-    } else {
+    } else if(errorDiv.innerHTML == message) {
       errorDiv.innerHTML = "";
       errorDiv.removeAttribute("style");
       setOfInvalidElements.delete(element);
@@ -115,7 +115,7 @@ function notEmptyValidator(value) {
                 setOfInvalidElements.add(email);
                 errorElement.innerHTML = "*This email is already taken.";
                 
-            } else {
+            } else if(errorElement.innerHTML == "*This email is already taken.") {
                 setOfInvalidElements.delete(email);
                 errorElement.innerHTML = "";
             }
@@ -149,7 +149,7 @@ function fetchPhone() {
           if (isInvalid) {
               setOfInvalidElements.add(phone);
               errorElement.innerHTML = "*This phone number is already taken.";
-          } else {
+          } else if(errorElement.innerHTML == "*This phone number is already taken.") {
               setOfInvalidElements.delete(phone);
               errorElement.innerHTML = "";
           }
@@ -179,12 +179,13 @@ $("#editProfileForm").on("submit", function (e) {
   validatorsMap.forEach(({ validator, message }, element) => {
     validateWith(validator, element, message);
   });
-  
+
   if (setOfInvalidElements.size !== 0) {
     return;
   }
   // Check if all required fields are filled
   if (form.checkValidity()) {
+      // console.log("meow")
       form.submit();
 
   } else {
