@@ -3,21 +3,26 @@ package gov.iti.Helper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceUtil;
 
 public class EntityManagerProvider {
 
-    private static final EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
-    static {
-        try {
-            emf = Persistence.createEntityManagerFactory("shop-persistence-unit");
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError("Initial EntityManagerFactory creation failed: " + ex);
+    public static EntityManagerFactory getEntityManagerFactory() {
+        if (emf == null) {
+            synchronized (PersistenceUtil.class) {
+                if (emf == null) {
+                    // Initialize the EntityManagerFactory using the persistence unit name
+                    emf = Persistence.createEntityManagerFactory("shop-persistence-unit");
+                }
+            }
         }
+        return emf;
     }
 
     public static EntityManager getEntityManager() {
-        return emf.createEntityManager();
+        return getEntityManagerFactory().createEntityManager();
     }
 
     public static void close() {
