@@ -3,7 +3,6 @@ package gov.iti.Helper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.PersistenceUtil;
 
 public class EntityManagerProvider {
 
@@ -11,7 +10,7 @@ public class EntityManagerProvider {
 
     public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null) {
-            synchronized (PersistenceUtil.class) {
+            synchronized (EntityManagerProvider.class) {
                 if (emf == null) {
                     // Initialize the EntityManagerFactory using the persistence unit name
                     emf = Persistence.createEntityManagerFactory("shop-persistence-unit");
@@ -28,6 +27,11 @@ public class EntityManagerProvider {
     public static void close() {
         if (emf != null && emf.isOpen()) {
             emf.close();
+        }
+    }
+    public static void closeEntityManager(EntityManager em) {
+        if (em != null && em.isOpen()) {
+            em.close();
         }
     }
 }

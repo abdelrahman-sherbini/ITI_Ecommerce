@@ -192,8 +192,7 @@ public class AddOperationServlet extends HttpServlet {
 			}
 
 		}
-		em.close();
-
+		EntityManagerProvider.closeEntityManager(em);
 	}
 
 	private void writeImage(Part part, String path) {

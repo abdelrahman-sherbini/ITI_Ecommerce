@@ -25,6 +25,6 @@ public class UpdateCategory extends HttpServlet {
 
         req.getRequestDispatcher("/admin/update_category.jsp").forward(req, resp);
 
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
     }
 }

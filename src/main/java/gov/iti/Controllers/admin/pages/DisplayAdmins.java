@@ -22,7 +22,7 @@ public class DisplayAdmins  extends HttpServlet {
         AdminService adminService = new AdminService(em);
         List<Admin> admins = adminService.getAllAdmins();
         req.setAttribute("admins", admins);
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
         req.getRequestDispatcher("display_admin.jsp").forward(req, resp);
 
     }

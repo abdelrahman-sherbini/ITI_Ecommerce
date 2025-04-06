@@ -54,6 +54,9 @@ public class AdminServlet extends HttpServlet {
 			}
 		}
 		session.setAttribute("message", message);
+
+		EntityManagerProvider.closeEntityManager(em);
+
 		response.sendRedirect("display_admin");
 	}
 	
