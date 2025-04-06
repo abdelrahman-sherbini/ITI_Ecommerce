@@ -7,6 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -38,6 +40,21 @@ public class User {
     @Column(name = "register_date", nullable = false)
     private Instant registerDate;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Cart> carts = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserAddress> userAddresses = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserAuth> userAuths = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Wishlist> wishlists = new LinkedHashSet<>();
+
     @PrePersist
     public void prePersist() {
         if (this.registerDate == null) {
@@ -58,6 +75,46 @@ public class User {
 
     @Column(name = "dob")
     private LocalDate dob;
+
+    public Set<Wishlist> getWishlists() {
+        return wishlists;
+    }
+
+    public void setWishlists(Set<Wishlist> wishlists) {
+        this.wishlists = wishlists;
+    }
+
+    public Set<UserAuth> getUserAuths() {
+        return userAuths;
+    }
+
+    public void setUserAuths(Set<UserAuth> userAuths) {
+        this.userAuths = userAuths;
+    }
+
+    public Set<UserAddress> getUserAddresses() {
+        return userAddresses;
+    }
+
+    public void setUserAddresses(Set<UserAddress> userAddresses) {
+        this.userAddresses = userAddresses;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
+    }
 
     public Long getId() {
         return id;
