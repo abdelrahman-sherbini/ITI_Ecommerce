@@ -24,6 +24,6 @@ public class DisplayUsers extends HttpServlet {
         req.setAttribute("users",users);
         req.getRequestDispatcher("display_users.jsp").forward(req,resp);
 
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
     }
 }

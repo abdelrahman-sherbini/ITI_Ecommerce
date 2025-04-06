@@ -25,6 +25,6 @@ public class DisplayOrders extends HttpServlet {
         req.setAttribute("orders",orders);
         req.getRequestDispatcher("/admin/display_orders.jsp").forward(req, resp);
 
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
     }
 }

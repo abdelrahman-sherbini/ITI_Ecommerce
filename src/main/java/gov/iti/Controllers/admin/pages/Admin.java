@@ -20,6 +20,8 @@ public class Admin extends HttpServlet {
         EntityManager em = EntityManagerProvider.getEntityManager();
         CategoryService categoryService = new CategoryService(em);
         List<Category> categories = categoryService.getAllCategories();
+
+        EntityManagerProvider.closeEntityManager(em);
         req.getServletContext().setAttribute("categories", categories);
         req.getRequestDispatcher("admin.jsp").forward(req, resp);
     }

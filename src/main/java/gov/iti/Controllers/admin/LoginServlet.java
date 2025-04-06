@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-				  em.close();
+				  EntityManagerProvider.closeEntityManager(em);
 	}
 
 }

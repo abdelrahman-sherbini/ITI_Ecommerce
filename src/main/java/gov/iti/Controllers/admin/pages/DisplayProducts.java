@@ -25,6 +25,6 @@ public class DisplayProducts extends HttpServlet {
         req.setAttribute("products",products);
         req.getRequestDispatcher("/admin/display_products.jsp").forward(req, resp);
 
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
     }
 }

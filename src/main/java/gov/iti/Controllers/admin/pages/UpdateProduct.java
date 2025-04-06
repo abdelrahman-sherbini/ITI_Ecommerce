@@ -25,6 +25,6 @@ public class UpdateProduct extends HttpServlet {
 
         req.getRequestDispatcher("/admin/update_product.jsp").forward(req, resp);
 
-        em.close();
+        EntityManagerProvider.closeEntityManager(em);
     }
 }

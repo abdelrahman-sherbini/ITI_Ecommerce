@@ -32,7 +32,7 @@ public class UpdateOrderServlet extends HttpServlet {
 		order.setStatus(status);
 		orderService.updateOrder(order);
 
-		em.close();
+		EntityManagerProvider.closeEntityManager(em);
 		response.sendRedirect("display_orders");
 	}
 
