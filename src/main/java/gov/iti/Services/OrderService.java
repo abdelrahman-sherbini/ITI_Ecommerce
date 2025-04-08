@@ -23,7 +23,8 @@ public class OrderService {
 
 
     public Order getOrder(int id) {
-        return entityManager.find(Order.class, id);
+
+        return crudService.find(id);
     }
     public List<Order> getAllOrders() {
         return crudService.getAll();

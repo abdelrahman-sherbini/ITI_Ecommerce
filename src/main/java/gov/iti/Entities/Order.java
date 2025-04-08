@@ -31,7 +31,7 @@ public class Order {
 
     @Column(name = "governorate", nullable = false)
     private String governorate;
-
+    
     @Column(name = "status", nullable = false, length = 100)
     private String status;
 
