@@ -51,7 +51,7 @@
                                                     <a href="cart.jsp">Cart</a></li>
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Account</a></li>
+                                                    <a href="dashboard">Account</a></li>
                                                 <li>
 
                                                     <a href="shop-side-version-2.jsp">Manufacturer</a></li>

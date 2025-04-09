@@ -14,11 +14,11 @@ public class AdminService {
         crudService = new CRUDService<>(entityManager,Admin.class);
     }
 
-    public Admin getAdmin(int id) {
+    public Admin getAdmin(Long id) {
         return crudService.find( id);
 //        return entityManager.find(Admin.class, id);
     }
-    public boolean deleteAdmin(int id) {
+    public boolean deleteAdmin(Long id) {
         Admin admin1 = getAdmin(id);
         return crudService.delete(admin1);
 

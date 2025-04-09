@@ -77,11 +77,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>
@@ -122,7 +122,7 @@
 
                                                         <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
+                                                        <input class="input-text input-text--primary-style" type="text" name="address" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                                     </div>
                                                     <div class="u-s-m-b-30">
 

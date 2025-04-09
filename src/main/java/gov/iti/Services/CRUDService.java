@@ -2,6 +2,7 @@ package gov.iti.Services;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
@@ -81,5 +82,22 @@ public class CRUDService<T> {
         }
 
         return entities;
+    }
+
+    public boolean deleteAll() {
+        String jpql = "DELETE FROM " + entityClass.getSimpleName() + " a";
+
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery(jpql);
+            int deletedCount = query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 }

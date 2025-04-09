@@ -24,7 +24,7 @@ public class UpdateOrderServlet extends HttpServlet {
 		EntityManager em = EntityManagerProvider.getEntityManager();
 
 
-		int oid = Integer.parseInt(request.getParameter("oid"));
+		Long oid = Long.parseLong(request.getParameter("oid"));
 		String status = request.getParameter("status");
 
 		OrderService orderService = new OrderService(em);

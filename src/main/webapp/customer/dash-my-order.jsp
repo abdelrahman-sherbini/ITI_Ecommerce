@@ -1,25 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-
-    User activeUser = (User) session.getAttribute("LoggedUser");
-
-    Connection connection = ConnectionProvider.getConnection();
-    OrderDao orderDao = new OrderDao(connection);
-    OrderedProductDao orderedProductDao = new OrderedProductDao(connection);
-    ProductDao productDao = new ProductDao(connection);
-    CategoryDao catDao = new CategoryDao(connection);
-    List<Order> orderList = orderDao.getAllOrderByUserId(activeUser.getUserId());
-
-
-    UserDao userDao = new UserDao(connection);
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
+<%--@elvariable id="order" type="gov.iti.Entities.Order"--%>
+<%--@elvariable id="ordProd" type="gov.iti.Entities.OrderedProduct"--%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -99,11 +84,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%>></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>
@@ -149,38 +134,30 @@
                                                     </select></div>
                                             </form>
                                             <div class="m-order__list">
-                                                <%
-                                                    for (Order order : orderList) {
 
-
-                                                %>
+                                                <c:forEach var="order" items="${LoggedUser.orders}">
                                                 <div class="m-order__get">
                                                     <div class="manage-o__header u-s-m-b-30">
                                                         <div class="dash-l-r">
                                                             <div>
-                                                                <div class="manage-o__text-2 u-c-secondary">Order #<%=order.getId()%></div>
-                                                                <div class="manage-o__text u-c-silver">Placed on <%=order.getDate()%></div>
+                                                                <div class="manage-o__text-2 u-c-secondary">Order #${order.id}</div>
+                                                                <div class="manage-o__text u-c-silver">Placed on ${order.date}</div>
                                                             </div>
                                                             <div>
                                                                 <div class="dash__link dash__link--brand">
 
-                                                                    <a href="dash-manage-order.jsp?orderId=<%=order.getId()%>">MANAGE</a></div>
+                                                                    <a href="dash-manage-order?orderId=${order.id}">MANAGE</a></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <%
-                                                        List<OrderedProduct> ordProdList = orderedProductDao.getAllOrderedProduct(order.getId());
-                                                        for (OrderedProduct orderProduct : ordProdList) {
-                                                            Product prod = productDao.getProductsByProductId(orderProduct.getProduct_id());
-                                                            Category category = catDao.getCategoryById(prod.getCategoryId());
 
-                                                    %>
+                                                <c:forEach var="ordProd" items="${order.orderedProducts}">
                                                     <div class="manage-o__description shop-p__meta-wrap">
                                                         <div class="description__container">
                                                             <div class="description__img-wrap">
 
-                                                                <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
-                                                            <div class="description-title"><%=prod.getProductName()%></div>
+                                                                <img class="u-img-fluid" src="images/product/${ordProd.product.category.name}/${ordProd.product.image}" alt=""></div>
+                                                            <div class="description-title">${ordProd.product.name}</div>
                                                         </div>
                                                         <div class="description__info-wrap">
                                                             <div>
@@ -190,21 +167,18 @@
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary"><%=orderProduct.getQuantity()%></span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary">${ordProd.quantity}</span></span></div>
                                                             <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Total:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">$<%=orderProduct.getPrice()%></span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary"><fmt:formatNumber value="${ordProd.price}" type="currency" currencySymbol="$" /></span></span></div>
                                                         </div>
                                                     </div>
-                                                    <%
-                                                        }
-                                                    %>
+
+                                                </c:forEach>
                                                 </div>
-                                                <%
-                                                    }
-                                                %>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>

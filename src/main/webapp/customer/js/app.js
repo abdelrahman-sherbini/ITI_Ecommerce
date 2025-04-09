@@ -875,10 +875,10 @@
     function setupEditShippingAddress() {
         $('.ship-b__edit').on('click',function () {
             $.ajax({
-                url: 'edit-ship-address.jsp',
+                url: 'edit-ship-address',
                 method: 'GET',
                 success: function(response) {
-                    $('#edit-ship-address').html(response);
+                    $('#edit-ship-addresss').html(response);
                 },
                 error: function() {
                     console.error('Failed to load edit-ship-address');

@@ -81,7 +81,7 @@
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>

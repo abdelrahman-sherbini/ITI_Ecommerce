@@ -1,31 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
 
-<%
-
-   User activeUser = (User) session.getAttribute("LoggedUser");
-//
-//
-    Connection connection = ConnectionProvider.getConnection();
-//
-//    CategoryDao catDao = new CategoryDao(connection);
-//    List<Category> categoryList = catDao.getAllCategories();
-//
-//    ProductDao productDao = new ProductDao(connection);
-//
-//    CartDao cartDao = new CartDao(connection);
-//
-    AddressDao addressDao = new AddressDao(connection);
-//    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
-
-    UserDao userDao = new UserDao(connection);
-%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -105,11 +83,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a class="dash-active" href="dash-my-profile.jsp">My Profile</a></li>
@@ -147,12 +125,12 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Full Name</h2>
 
-                                                    <span class="dash__text"><%=activeUser.getUserName()%></span>
+                                                    <span class="dash__text">${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                                 </div>
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
 
-                                                    <span class="dash__text"><%=activeUser.getUserEmail()%></span>
+                                                    <span class="dash__text">${LoggedUser.email}</span>
                                                     <div class="dash__link dash__link--secondary">
 
                                                         <a href="#">Change</a></div>
@@ -160,7 +138,7 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Phone</h2>
 
-                                                    <span class="dash__text"><%=activeUser.getUserPhone()%></span>
+                                                    <span class="dash__text">${LoggedUser.phone}</span>
                                                     <div class="dash__link dash__link--secondary">
 
                                                         <a href="#">Add</a></div>
@@ -168,12 +146,12 @@
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Birthday</h2>
 
-                                                    <span class="dash__text"><%=activeUser.getDob().toString()%></span>
+                                                    <span class="dash__text">${LoggedUser.dob}</span>
                                                 </div>
                                                 <div class="col-lg-4 u-s-m-b-30">
                                                     <h2 class="dash__h2 u-s-m-b-8">Gender</h2>
 
-                                                    <span class="dash__text"><%=activeUser.getUserGender()%></span>
+                                                    <span class="dash__text">${LoggedUser.gender}</span>
                                                 </div>
                                             </div>
                                             <div class="row">

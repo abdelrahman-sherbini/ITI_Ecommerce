@@ -1,38 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
 
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setDefaultAddress(7);
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    //User activeUser = (User) session.getAttribute("activeUser");
-//
-//
-    User activeUser = (User) session.getAttribute("LoggedUser");
-    Connection connection = ConnectionProvider.getConnection();
-//
-//    CategoryDao catDao = new CategoryDao(connection);
-//    List<Category> categoryList = catDao.getAllCategories();
-//
-//    ProductDao productDao = new ProductDao(connection);
-//
-//    CartDao cartDao = new CartDao(connection);
-//
-    AddressDao addressDao = new AddressDao(connection);
-//    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
+<%--@elvariable id="address" type="gov.iti.Entities.UserAddress"--%>
 
-    UserDao userDao = new UserDao(connection);
-%>
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-body">
             <div class="checkout-modal2">
                 <div class="u-s-m-b-30">
                     <div class="dash-l-r">
@@ -58,50 +31,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <%
-
-                            for (Address address : addressList) {
-
-
-
-                        %>
+                        <c:forEach var="address" items="${addressList}">
                         <tr>
                             <td>
 
                                 <!--====== Radio Box ======-->
                                 <div class="radio-box">
-                                    <input class="addressID" type="hidden" value="<%=address.getAddress_id()%>">
-                                    <input type="radio" id="address-1" name="default-address" value="<%=address.getAddressDescription()%> <%=address.getCity()%> <%=address.getGovernorate()%>" >
+                                    <input class="addressID" type="hidden" value="${address.id}">
+                                    <input type="radio" id="address-1" name="default-address" value="${address.address} - ${address.city} - ${address.governorate}" >
                                     <div class="radio-box__state radio-box__state--primary">
 
                                         <label class="radio-box__label" for="address-1"></label></div>
                                 </div>
                                 <!--====== End - Radio Box ======-->
                             </td>
-                            <td><%=userDao.getUserName(activeUser.getUserId())%></td>
-                            <td><%=address.getAddressDescription()%></td>
-                            <td><%=address.getCity()%></td>
-                            <td><%=address.getGovernorate()%></td>
-                            <td><%=address.getType()%></td>
-                            <td><%=userDao.getUserPhone(activeUser.getUserId())%></td>
-                            <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
+                            <td>${LoggedUser.firstName} ${LoggedUser.lastName}</td>
+                            <td>${address.address}</td>
+                            <td>${address.city}</td>
+                            <td>${address.governorate}</td>
+                            <td>${address.type} </td>
+                            <td>${LoggedUser.phone}</td>
+                            <c:choose>
+                                <c:when test="${LoggedUser.defaultAddress.id == address.id}">
+                                    <td>
+                                        <div class="gl-text">Default Shipping Address</div>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
 
-                            <td>
-                                <div class="gl-text">Default Shipping Address</div>
-                            </td>
-                            <% }else{%>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
 
-                            <td>
-
-                            </td>
-                            <% }%>
                         </tr>
 
 
-                        <%
-                            }
-
-                        %>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -111,9 +77,7 @@
 
                     <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button></div>
                 <%--                            </form>--%>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 <script>
@@ -122,7 +86,7 @@
         if(  $('input[name="first_time"]').val() ==1 ){
             $('input[name="first_time"]').val(0)
             $('.addressID').each(function() {
-            if ($(this).val() == <%= activeUser.getDefaultAddress() %>) {
+            if ($(this).val() == ${LoggedUser.defaultAddress.id}) {
                 // Find the next radio button and check it
                 $(this).next('input[type="radio"]').prop('checked', true);
                 let selectedAddress = $('input[name="default-address"]:checked').val();

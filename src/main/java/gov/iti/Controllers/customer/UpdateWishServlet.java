@@ -1,9 +1,11 @@
 package gov.iti.Controllers.customer;
 
-import gov.iti.Dtos.User;
-import gov.iti.Helper.ConnectionProvider;
-import gov.iti.Model.CartDao;
-import gov.iti.Model.WishlistDao;
+
+import gov.iti.Entities.User;
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Services.UserDBService;
+import gov.iti.Services.WishListService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,15 +19,21 @@ public class UpdateWishServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("LoggedUser");
+        EntityManager entityManager = EntityManagerProvider.getEntityManager();
+        WishListService wishListService = new WishListService(entityManager);
+        UserDBService userDBService = new UserDBService(entityManager);
 
         String operation = req.getParameter("operation");
-        WishlistDao wishlistDao = new WishlistDao(ConnectionProvider.getConnection());
         if (operation.equals("delete")) {
-            int wishItem = Integer.parseInt(req.getParameter("wishItem"));
-            wishlistDao.deleteWishlist(wishItem);
+            Long wishItem = Long.parseLong(req.getParameter("wishItem"));
+            wishListService.deleteWishList(wishItem);
+
         }else if(operation.equals("deleteAll")){
-            wishlistDao.deleteAllWishlist(user.getUserId());
+            userDBService.removeAllWishes(user.getId());
+
         }
+
+        EntityManagerProvider.closeEntityManager(entityManager);
     }
 
     @Override

@@ -1,39 +1,7 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
-
-    User activeUser = (User) session.getAttribute("LoggedUser");
-    Connection connection = ConnectionProvider.getConnection();
-
-    CategoryDao catDao = new CategoryDao(connection);
-    List<Category> categoryList = catDao.getAllCategories();
-
-    ProductDao productDao = new ProductDao(connection);
-
-    CartDao cartDao = new CartDao(connection);
-
-    OrderDao orderDao = new OrderDao(connection);
-
-    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-    if(cartList.isEmpty()){
-        request.getRequestDispatcher("empty-cart.jsp").forward(request,response);
-    }
-    List<Order> orderList = orderDao.getAllOrder();
-
-    OrderedProductDao ordProdDao = new OrderedProductDao(connection);
-
-    UserDao userDao = new UserDao(connection);
-%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -91,7 +59,7 @@
                                         <a href="index.jsp">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="cart.jsp">Cart</a></li>
+                                        <a href="cart">Cart</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -127,33 +95,24 @@
                                 <div class="table-responsive">
                                     <table class="table-p">
                                         <tbody>
-                                        <%
-                                            BigDecimal totalPrice = BigDecimal.valueOf(0);
-                                            for (Cart cart : cartList) {
-
-                                                Product prod  = productDao.getProductsByProductId(cart.getProductId());
-                                                Category category = catDao.getCategoryById(prod.getCategoryId());
-                                                int quantity = cart.getQuantity();
-                                                totalPrice = totalPrice.add (prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( quantity)));
-                                                int id = cart.getCartId();
-
-                                        %>
+                                        <%--@elvariable id="cart" type="gov.iti.Entities.Cart"--%>
+                                        <c:forEach var="cart" items="${cartList}">
                                             <!--====== Row ======-->
                                             <tr>
                                                 <td>
                                                     <div class="table-p__box">
                                                         <div class="table-p__img-wrap">
 
-                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
+                                                            <img class="u-img-fluid" src="images/product/${cart.product.category.name}/${cart.product.image}" alt=""></div>
                                                         <div class="table-p__info">
 
                                                             <span class="table-p__name">
 
-                                                                <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
+                                                                <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
 
                                                             <span class="table-p__category">
 
-                                                                <a href="shop-side-version-2.jsp?id=<%=category.getCategoryId()%>"><%=category.getCategoryName()%></a></span>
+                                                                <a href="shop-side-version-2.jsp?id=${cart.product.category.id}">${cart.product.category.name}</a></span>
                                                             <ul class="table-p__variant-list">
                                                                 <li>
 
@@ -167,7 +126,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="table-p__price">$<%=prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></td>
+                                                    <span class="table-p__price"><fmt:formatNumber value="${cart.total}" type="currency" currencySymbol="$" /></span></td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
 
@@ -175,9 +134,9 @@
                                                         <div class="input-counter">
 
                                                             <span class="input-counter__minus fas fa-minus"></span>
-                                                            <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
-                                                            <input type="hidden" name="priceItem" value="<%=prod.getProductPriceAfterDiscount()%>">
-                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="<%=cart.getQuantity()%>" data-min="1" data-max="1000">
+                                                            <input type="hidden" name="cartItem" value="${cart.id}">
+                                                            <input type="hidden" name="priceItem" value="${cart.product.productPriceAfterDiscount}">
+                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="${cart.quantity}" data-min="1" data-max="1000">
 
                                                             <span class="input-counter__plus fas fa-plus"></span>
                                                         </div>
@@ -189,16 +148,13 @@
 
 <%--                                                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a>--%>
                                                         <button type="button" class="far fa-trash-alt table-p__delete-link extrameow border-0 bg-transparent btn--e-transparent-platinum-b-2"></button>
-                                                        <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
+                                                        <input type="hidden" name="cartItem" value="${cart.id}">
                                                     </div>
                                                 </td>
                                             </tr>
                                             <!--====== End - Row ======-->
 
-                                        <%
-                                            }
-
-                                        %>
+                                        </c:forEach>
 
                                         </tbody>
                                     </table>
@@ -238,7 +194,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
-                                <form class="f-cart" action="checkout.jsp" method="GET">
+                                <form class="f-cart" action="checkout" method="GET">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 u-s-m-b-30">
                                             <div class="f-cart__pad-box">
@@ -306,11 +262,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>SUBTOTAL</td>
-                                                                <td id="subTotal">$<%=totalPrice%></td>
+                                                                <td id="subTotal"><fmt:formatNumber value="${LoggedUser.totalPrice}" type="currency" currencySymbol="$" /></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>GRAND TOTAL</td>
-                                                                <td id="total">$<%=totalPrice.add(BigDecimal.valueOf(4))%></td>
+                                                                <td id="total"><fmt:formatNumber value="${LoggedUser.totalPricePlusTax}" type="currency" currencySymbol="$" /></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

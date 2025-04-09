@@ -45,7 +45,7 @@ public class AdminServlet extends HttpServlet {
 
 		}else if(operation.trim().equals("delete")) {
 			
-			int id = Integer.parseInt(request.getParameter("id"));
+			Long id = Long.parseLong(request.getParameter("id"));
 			boolean flag = adminService.deleteAdmin(id);
 			if(flag) {
 				message = new Message("Admin deleted successfully!", "success", "alert-success");

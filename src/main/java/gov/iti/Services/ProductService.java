@@ -18,7 +18,7 @@ public class ProductService {
         return crudService.getAll();
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(Long id) {
         return crudService.find(id);
 
 
