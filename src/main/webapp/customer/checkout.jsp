@@ -1,35 +1,8 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
-
-    User activeUser = (User) session.getAttribute("LoggedUser");
-    Connection connection = ConnectionProvider.getConnection();
-
-    CategoryDao catDao = new CategoryDao(connection);
-    List<Category> categoryList = catDao.getAllCategories();
-
-    ProductDao productDao = new ProductDao(connection);
-
-    CartDao cartDao = new CartDao(connection);
-
-    AddressDao addressDao = new AddressDao(connection);
-    List<Cart> cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
-    if(cartList.isEmpty()){
-        request.getRequestDispatcher("empty-cart.jsp").forward(request,response);
-    }
-    UserDao userDao = new UserDao(connection);
-%>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -88,7 +61,7 @@
                                         <a href="index.jsp">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="checkout.jsp">Checkout</a></li>
+                                        <a href="checkout">Checkout</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -347,41 +320,29 @@
                                     <div class="o-summary">
                                         <div class="o-summary__section u-s-m-b-30">
                                             <div class="o-summary__item-wrap gl-scroll">
-                                                <%
-                                                    BigDecimal totalPrice = BigDecimal.valueOf(0);
-                                                    for (Cart cart : cartList) {
-
-                                                        Product prod  = productDao.getProductsByProductId(cart.getProductId());
-                                                        Category category = catDao.getCategoryById(prod.getCategoryId());
-                                                        int quantity = cart.getQuantity();
-                                                        totalPrice = totalPrice.add (prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( quantity)));
-                                                        int id = cart.getCartId();
-
-                                                %>
+                                                <%--@elvariable id="cart" type="gov.iti.Entities.Cart"--%>
+                                                <c:forEach var="cart" items="${cartList}">
                                                 <div class="o-card">
                                                     <div class="o-card__flex">
                                                         <div class="o-card__img-wrap">
 
-                                                            <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
+                                                            <img class="u-img-fluid" src="images/product/${cart.product.category.name}/${cart.product.image}" alt=""></div>
                                                         <div class="o-card__info-wrap">
 
                                                             <span class="o-card__name">
 
-                                                                <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
+                                                                <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
 
-                                                            <span class="o-card__quantity">Quantity x <%=cart.getQuantity()%></span>
+                                                            <span class="o-card__quantity">Quantity x ${cart.quantity}</span>
 
-                                                            <span class="o-card__price">$<%=prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></div>
+                                                            <span class="o-card__price"><fmt:formatNumber value="${cart.total}" type="currency" currencySymbol="$" /></span></div>
                                                     </div>
 
 <%--                                                    <a class="o-card__del far fa-trash-alt"></a>--%>
 <%--                                                    <button type="button" class="o-card__del far fa-trash-alt"></button>--%>
 <%--                                                    <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">--%>
                                                 </div>
-                                                <%
-                                                    }
-
-                                                %>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="o-summary__section u-s-m-b-30">
@@ -419,11 +380,11 @@
                                                         </tr>
                                                         <tr>
                                                             <td>SUBTOTAL</td>
-                                                            <td>$<%=totalPrice%></td>
+                                                            <td><fmt:formatNumber value="${LoggedUser.totalPrice}" type="currency" currencySymbol="$" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>GRAND TOTAL</td>
-                                                            <td>$<%=totalPrice.add(BigDecimal.valueOf(4))%></td>
+                                                            <td><fmt:formatNumber value="${LoggedUser.totalPricePlusTax}" type="currency" currencySymbol="$" /></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -434,7 +395,7 @@
                                                 <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
                                                 <input type="hidden" name="first_time" value="1">
                                                 <form class="checkout-f__payment" action="CheckOutServlet" method="post">
-                                                    <input type="hidden" name="address_ID" value="<%=activeUser.getDefaultAddress()%>">
+                                                    <input type="hidden" name="address_ID" value="${LoggedUser.defaultAddress.id}">
                                                     <div class="u-s-m-b-10">
 
                                                         <!--====== Radio Box ======-->
@@ -548,7 +509,13 @@
 
         <!--====== Shipping Address Add Modal ======-->
         <div class="modal fade" id="edit-ship-address">
-            <jsp:include page="edit-ship-address.jsp"/>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body" id="edit-ship-addresss">
+<%--            <jsp:include page="edit-ship-address"/>--%>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <!--====== End - Shipping Address Add Modal ======-->
@@ -570,7 +537,7 @@
 
                                         <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
+                                        <input class="input-text input-text--primary-style" type="text" name="address" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                     </div>
                                     <div class="u-s-m-b-30">
 

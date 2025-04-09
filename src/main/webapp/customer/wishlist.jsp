@@ -1,34 +1,8 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
 
-    User activeUser = (User) session.getAttribute("LoggedUser");
-    Connection connection = ConnectionProvider.getConnection();
-
-    CategoryDao catDao = new CategoryDao(connection);
-    List<Category> categoryList = catDao.getAllCategories();
-
-    ProductDao productDao = new ProductDao(connection);
-
-    WishlistDao wishlistDao = new WishlistDao(connection);
-
-    OrderDao orderDao = new OrderDao(connection);
-    List<Wishlist> wishList  =  wishlistDao.getListByUserId(activeUser.getUserId());
-    if(wishList.isEmpty()){
-        request.getRequestDispatcher("empty-wishlist.jsp").forward(request,response);
-    }
-
-%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -84,7 +58,7 @@
                                         <a href="index.jsp">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="wishlist.jsp">Wishlist</a></li>
+                                        <a href="wishlist">Wishlist</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -117,40 +91,47 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <%
-
-                                    for (Wishlist wishlist : wishList) {
-
-                                        Product prod  = productDao.getProductsByProductId(wishlist.getProductId());
-                                        Category category = catDao.getCategoryById(prod.getCategoryId());
-
-
-
-                                %>
+                                <%--@elvariable id="wishlist" type="gov.iti.Entities.Wishlist"--%>
+                                <c:forEach var="wishlist" items="${wishlists}">
                                 <!--====== Wishlist Product ======-->
                                 <div class="w-r u-s-m-b-30">
                                     <div class="w-r__container">
                                         <div class="w-r__wrap-1">
                                             <div class="w-r__img-wrap">
 
-                                                <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></div>
+                                                <img class="u-img-fluid" src="images/product/${wishlist.product.category.name}/${wishlist.product.image}" alt=""></div>
                                             <div class="w-r__info">
 
                                                 <span class="w-r__name">
 
-                                                    <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
+                                                    <a href="product-detail.jsp?id=${wishlist.product.id}">${wishlist.product.name}</a></span>
 
                                                 <span class="w-r__category">
 
-                                                    <a href="shop-side-version-2.jsp<%=category.getCategoryId()%>"><%=category.getCategoryName()%></a></span>
-                                                <% if(prod.getProductPriceAfterDiscount().equals(prod.getProductPrice())){ %>
-                                                <span class="w-r__price">$<%=prod.getProductPrice()%></span>
-                                            <% }else{%>
+                                                    <a href="shop-side-version-2.jsp?id=${wishlist.product.category.id}">${wishlist.product.category.name}</a></span>
 
-                                                <span class="w-r__price">$<%=prod.getProductPriceAfterDiscount()%>
+                                                <c:choose>
+                                                    <c:when test="${wishlist.product.productPriceAfterDiscount == wishlist.product.price}">
+                                                        <span class="w-r__price">$${wishlist.product.price}</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="w-r__price">
+                                                            $${wishlist.product.productPriceAfterDiscount}
+                                                            <span class="w-r__discount">
+                                                                $${wishlist.product.price}
+                                                            </span>
+                                                        </span>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                                    <span class="w-r__discount">$<%=prod.getProductPrice()%></span></span>
-                                                <% }%>
+<%--                                                <% if(prod.getProductPriceAfterDiscount().equals(prod.getProductPrice())){ %>--%>
+<%--                                                <span class="w-r__price">$<%=prod.getProductPrice()%></span>--%>
+<%--                                            <% }else{%>--%>
+
+<%--                                                <span class="w-r__price">$<%=prod.getProductPriceAfterDiscount()%>--%>
+
+<%--                                                    <span class="w-r__discount">$<%=prod.getProductPrice()%></span></span>--%>
+<%--                                                <% }%>--%>
                                             </div>
                                         </div>
                                         <div class="w-r__wrap-2">
@@ -159,27 +140,24 @@
 
                                                 class="w-r__link btn--e-brand-b-2 add-to-cart-btn-wishlist"
                                                data-toggle="modal"
-                                               data-name="<%=prod.getProductName()%>"
-                                               data-image="images/product/electronic/<%=prod.getProductImages()%>"
-                                               data-price="<%=prod.getProductPriceAfterDiscount()%>"
-                                               data-id="<%=prod.getProductId()%>"
+                                               data-name="${wishlist.product.name}"
+                                               data-image="images/product/${wishlist.product.category.name}/${wishlist.product.image}"
+                                               data-price="${wishlist.product.productPriceAfterDiscount}"
+                                               data-id="${wishlist.product.id}"
                                                >ADD TO CART</a>
 
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=<%=prod.getProductId()%>">VIEW</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=${wishlist.product.id}">VIEW</a>
 
 <%--                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>--%>
                                         <button type="button" class="w-r__link deleteWish btn--e-transparent-platinum-b-2">Remove</button>
-                                        <input type="hidden" name="wishItem" value="<%=wishlist.getWishlistId()%>">
+                                        <input type="hidden" name="wishItem" value="${wishlist.id}">
                                     </div>
                                 </div>
 
 
                                 </div>
                                 <!--====== End - Wishlist Product ======-->
-                                <%
-                                    }
-
-                                %>
+                                </c:forEach>
                             </div>
                             <div class="col-lg-12">
                                 <div class="route-box">
@@ -244,7 +222,7 @@
 
                                         <a class="s-option__link btn--e-white-brand-shadow" data-dismiss="modal">CONTINUE SHOPPING</a>
 
-                                        <a class="s-option__link btn--e-white-brand-shadow" href="cart.jsp">VIEW CART</a>
+                                        <a class="s-option__link btn--e-white-brand-shadow" href="cart">VIEW CART</a>
 
                                         <a class="s-option__link btn--e-brand-shadow" href="checkout.jsp">PROCEED TO CHECKOUT</a></div>
                                 </div>

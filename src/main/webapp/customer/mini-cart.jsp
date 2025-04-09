@@ -5,93 +5,45 @@
   Time: 11:55 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
-<%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.util.ArrayList" %>
-<%
-//  User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//  activeUser.setUserId(1);
-//  session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
 
-  User activeUser = (User) session.getAttribute("LoggedUser");
-  Connection connection = ConnectionProvider.getConnection();
-
-  CategoryDao catDao = new CategoryDao(connection);
-  List<Category> categoryList = catDao.getAllCategories();
-
-  ProductDao productDao = new ProductDao(connection);
-
-  CartDao cartDao = new CartDao(connection);
-
-  OrderDao orderDao = new OrderDao(connection);
-  List<Cart> cartList;
-  if(activeUser!=null)
-   cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-  else{
-    cartList = new ArrayList<>();
-  }
-  List<Order> orderList = orderDao.getAllOrder();
-
-  OrderedProductDao ordProdDao = new OrderedProductDao(connection);
-
-  UserDao userDao = new UserDao(connection);
-%>
 <!--====== Mini Product Container ======-->
 <div class="mini-product-container gl-scroll u-s-m-b-15">
 
 
-  <%
-    BigDecimal totalPrice = BigDecimal.valueOf(0);
-
-    for (Cart cart : cartList) {
-
-      Product prod  = productDao.getProductsByProductId(cart.getProductId());
-      Category category = catDao.getCategoryById(prod.getCategoryId());
-      int quantity = cart.getQuantity();
-      totalPrice = totalPrice.add (prod.getProductPrice().multiply(BigDecimal.valueOf( quantity)));
-      int id = cart.getCartId();
-
-  %>
+<c:forEach var="cart" items="${LoggedUser.carts}">
   <!--====== Card for mini cart ======-->
   <div class="card-mini-product">
     <div class="mini-product">
       <div class="mini-product__image-wrapper">
 
-        <a class="mini-product__link" href="product-detail.jsp?id=<%=prod.getProductId()%>">
+        <a class="mini-product__link" href="product-detail.jsp?id=${cart.product.id}">
 
-          <img class="u-img-fluid" src="images/product/<%=category.getCategoryName()%>/<%=prod.getProductImages()%>" alt=""></a></div>
+          <img class="u-img-fluid" src="images/product/${cart.product.category.name}/${cart.product.image}" alt=""></a></div>
       <div class="mini-product__info-wrapper">
 
                                                     <span class="mini-product__category">
 
-                                                        <a href="shop-side-version-2.jsp?id=<%=category.getCategoryId()%>"><%=category.getCategoryName()%></a></span>
+                                                        <a href="shop-side-version-2.jsp?id=${cart.product.category.id}">${cart.product.category.name}</a></span>
 
         <span class="mini-product__name">
 
-                                                        <a href="product-detail.jsp?id=<%=prod.getProductId()%>"><%=prod.getProductName()%></a></span>
+                                                        <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
 
-        <span class="mini-product__quantity"><%=cart.getQuantity()%> x</span>
+        <span class="mini-product__quantity">${cart.quantity} x</span>
 
-        <span class="mini-product__price">$<%=prod.getProductPrice().multiply(BigDecimal.valueOf( cart.getQuantity())) %></span></div>
+        <span class="mini-product__price"><fmt:formatNumber value="${cart.total}" type="currency" currencySymbol="$" /></span></div>
     </div>
 
     <%--                                            <a class="mini-product__delete-link far fa-trash-alt"></a>--%>
     <button type="button" class="mini-product__delete-link far fa-trash-alt border-0 bg-transparent"></button>
-    <input type="hidden" name="cartItem" value="<%=cart.getCartId()%>">
+    <input type="hidden" name="cartItem" value="${cart.id}">
   </div>
   <!--====== End - Card for mini cart ======-->
+</c:forEach>
 
-  <%
-    }
-
-  %>
 
 </div>
 <!--====== End - Mini Product Container ======-->
@@ -102,12 +54,12 @@
   <div class="mini-total">
 
     <span class="subtotal-text">SUBTOTAL</span>
-    <span class="subtotal-value">$<%=totalPrice%></span></div>
+    <span class="subtotal-value"><fmt:formatNumber value="${LoggedUser.totalPrice}" type="currency" currencySymbol="$" /></span></div>
   <div class="mini-action">
 
     <a class="mini-link btn--e-brand-b-2" href="checkout.jsp">PROCEED TO CHECKOUT</a>
 
-    <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.jsp">VIEW CART</a></div>
+    <a class="mini-link btn--e-transparent-secondary-b-2" href="cart">VIEW CART</a></div>
 </div>
 <!--====== End - Mini Product Statistics ======-->
 <script>

@@ -3,6 +3,7 @@ package gov.iti.Entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class Order {
     @Column(name = "order_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false,cascade = {CascadeType.PERSIST ,CascadeType.MERGE} )
     @JoinColumn(name = "payment_id", nullable = false)
     private gov.iti.Entities.Payment payment;
 
@@ -31,7 +32,7 @@ public class Order {
 
     @Column(name = "governorate", nullable = false)
     private String governorate;
-
+    
     @Column(name = "status", nullable = false, length = 100)
     private String status;
 
@@ -46,8 +47,32 @@ public class Order {
         }
     }
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST ,CascadeType.MERGE} )
     private Set<gov.iti.Entities.OrderedProduct> orderedProducts = new LinkedHashSet<>();
+
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+        for (gov.iti.Entities.OrderedProduct orderedProduct : orderedProducts) {
+            totalPrice  = totalPrice.add( orderedProduct.getPrice());
+        }
+        return totalPrice;
+    }
+
+    public BigDecimal getTotalPricePlusTax() {
+        BigDecimal totalPrice = BigDecimal.valueOf(4);
+        for (gov.iti.Entities.OrderedProduct orderedProduct : orderedProducts) {
+            totalPrice  = totalPrice.add( orderedProduct.getPrice());
+        }
+        return totalPrice;
+    }
+
+    @Transient
+    private BigDecimal totalPrice;
+
+
+    @Transient
+    private BigDecimal totalPricePlusTax;
+
 
     public Long getId() {
         return id;

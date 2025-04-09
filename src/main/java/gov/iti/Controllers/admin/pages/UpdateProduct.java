@@ -17,7 +17,7 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EntityManager em = EntityManagerProvider.getEntityManager();
-        int id = Integer.parseInt(req.getParameter("product_id"));
+        Long id = Long.parseLong(req.getParameter("product_id"));
 
         ProductService productService = new ProductService(em);
         Product product = productService.getProductById(id);

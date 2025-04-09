@@ -1,9 +1,10 @@
 package gov.iti.Controllers.customer;
 
 import gov.iti.Dtos.Message;
-import gov.iti.Dtos.User;
-import gov.iti.Helper.ConnectionProvider;
-import gov.iti.Model.UserDao;
+import gov.iti.Entities.User;
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Services.UserDBService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,27 +18,34 @@ public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("LoggedUser");
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        UserDBService userDBService = new UserDBService(em);
+
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");
-        String credit = req.getParameter("credit");
+        Double credit =Double.parseDouble( req.getParameter("credit"));
         String job = req.getParameter("job");
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
-        user.setUserFirstName(fname);
-        user.setUserLastName(lname);
-        user.setUserEmail(email);
-        user.setUserPhone(phone);
+        user.setFirstName(fname);
+        user.setLastName(lname);
+        user.setEmail(email);
+        user.setPhone(phone);
         user.setJob(job);
         user.setCredit(credit);
 
-        UserDao userDao = new UserDao(ConnectionProvider.getConnection());
-        userDao.updateUser(user);
-
-        user = userDao.getUserByID(user.getUserId());
+       userDBService.updateUser(user);
+        user = userDBService.refreshUser(user);
+        user.getWishlists().size();
+        user.getWishlists().size();
+        user.getOrders().size();
         req.getSession().setAttribute("LoggedUser", user);
         Message message = new Message("Successfully updated user", "success", "alert-success");
         req.getSession().setAttribute("message", message);
         resp.sendRedirect("dash-my-profile.jsp");
+
+
+
 
 
     }

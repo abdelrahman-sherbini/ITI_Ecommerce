@@ -1,26 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-//    User activeUser = (User) session.getAttribute("activeUser");
-    User activeUser = (User) session.getAttribute("LoggedUser");
-
-    Connection connection = ConnectionProvider.getConnection();
-
-    AddressDao addressDao = new AddressDao(connection);
-
-    List<Address> addressList = addressDao.getAllAddressList(activeUser.getUserId());
-
-    UserDao userDao = new UserDao(connection);
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -100,11 +82,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>
@@ -150,19 +132,14 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <%
 
-                                                        for (Address address : addressList) {
-
-
-
-                                                    %>
+                                                    <c:forEach var="address" items="${LoggedUser.userAddresses}">
                                                     <tr>
                                                         <td>
 
                                                             <!--====== Radio Box ======-->
                                                             <div class="radio-box">
-                                                                <input type="radio"  name="address_id" value="<%=address.getAddress_id()%>" required >
+                                                                <input type="radio"  name="address_id" value="${address.id}" required >
                                                                 <div class="radio-box__state radio-box__state--primary">
 
                                                                     <label class="radio-box__label" ></label>
@@ -170,29 +147,28 @@
                                                             </div>
                                                             <!--====== End - Radio Box ======-->
                                                         </td>
-                                                        <td><%=address.getAddressDescription()%></td>
-                                                        <td><%=address.getCity()%></td>
-                                                        <td><%=address.getGovernorate()%></td>
-                                                        <td><%=address.getType()%></td>
-                                                        <% if(activeUser.getDefaultAddress() == address.getAddress_id()){ %>
+                                                        <td>${address.address}</td>
+                                                        <td>${address.city}</td>
+                                                        <td>${address.governorate}</td>
+                                                        <td>${address.type} </td>
+                                                        <c:choose>
+                                                            <c:when test="${LoggedUser.defaultAddress.id == address.id}">
+                                                                <td>
+                                                                    <div class="gl-text">Default Shipping Address</div>
+                                                                </td>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <td>
 
-                                                        <td>
-                                                            <div class="gl-text">Default Shipping Address</div>
-                                                        </td>
-                                                        <% }else{%>
+                                                                </td>
+                                                            </c:otherwise>
+                                                        </c:choose>
 
-                                                        <td>
-
-                                                        </td>
-                                                        <% }%>
 
                                                     </tr>
 
 
-                                                    <%
-                                                        }
-
-                                                    %>
+                                                    </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -1,10 +1,11 @@
 package gov.iti.Entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -40,13 +41,38 @@ public class User {
     @Column(name = "register_date", nullable = false)
     private Instant registerDate;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    @Fetch(FetchMode.JOIN)
     private Set<Cart> carts = new LinkedHashSet<>();
+
+    @Transient
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+        for (Cart cart : carts) {
+            totalPrice = totalPrice.add (cart.getProduct().getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())));
+        }
+        return totalPrice;
+    }
+
+    @Transient
+    public BigDecimal getTotalPricePlusTax() {
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+        for (Cart cart : carts) {
+            totalPrice = totalPrice.add (cart.getProduct().getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( cart.getQuantity())));
+        }
+        return totalPrice.add(BigDecimal.valueOf(4));
+    }
+
+    @Transient
+    private BigDecimal totalPrice;
+
+    @Transient
+    private BigDecimal totalPricePlusTax;
 
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST ,CascadeType.MERGE})
     private Set<UserAddress> userAddresses = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")

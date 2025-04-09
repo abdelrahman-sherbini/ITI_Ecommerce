@@ -175,7 +175,7 @@ public class AddOperationServlet extends HttpServlet {
 
 		} else if (operation.trim().equals("deleteProduct")) {
 
-			int product_id = Integer.parseInt(request.getParameter("product_id"));
+			Long product_id = Long.parseLong(request.getParameter("product_id"));
 
 
 			gov.iti.Entities.Product product = productService.getProductById(product_id);

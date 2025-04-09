@@ -1,19 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.math.BigDecimal" %>
-<%
-
-    User activeUser = (User) session.getAttribute("LoggedUser");
-
-    Connection connection = ConnectionProvider.getConnection();
-
-    UserDao userDao = new UserDao(connection);
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
+<%--@elvariable id="order" type="gov.iti.Entities.Order"--%>
+<%--@elvariable id="ordProd" type="gov.iti.Entities.OrderedProduct"--%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -93,11 +84,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a class="dash-active" href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a class="dash-active" href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>
@@ -141,24 +132,24 @@
 
                                                                 <label class="gl-label" for="reg-fname">FIRST NAME *</label>
                                                                 <div class="gl-error" id="reg-fname-error"></div>
-                                                                <input class="input-text input-text--primary-style" type="text" name="fname" id="reg-fname" value="<%=activeUser.getUserFirstName()%>" required ></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="fname" id="reg-fname" value="${LoggedUser.firstName}" required ></div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" for="reg-lname">LAST NAME *</label>
                                                                 <div class="gl-error" id="reg-lname-error"></div>
-                                                                <input class="input-text input-text--primary-style" type="text" name="lname" id="reg-lname" value="<%=activeUser.getUserLastName()%>" required></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="lname" id="reg-lname" value="${LoggedUser.lastName}" required></div>
                                                         </div>
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" for="reg-credit">CREDIT *</label>
                                                                 <div class="gl-error" id="reg-credit-error"></div>
-                                                                <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="credit" placeholder="credit limit" value="<%=activeUser.getCredit()%>"></div>
+                                                                <input class="input-text input-text--primary-style" type="number" min="500" id="reg-credit" name="credit" placeholder="credit limit" value="${LoggedUser.credit}"></div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" for="reg-job">JOB</label>
                                                                 <div class="gl-error" id="reg-job-error"></div>
-                                                                <input class="input-text input-text--primary-style" type="text" name="job" id="reg-job" value="<%=activeUser.getJob()%>"></div>
+                                                                <input class="input-text input-text--primary-style" type="text" name="job" id="reg-job" value="${LoggedUser.job}"></div>
                                                         </div>
 
                                                         <div class="gl-inline">
@@ -167,12 +158,12 @@
                                                                 <!--====== Date of Birth Select-Box ======-->
 
                                                                 <span class="gl-label">BIRTHDAY</span>
-                                                                <input class="input-text input-text--primary-style" type="text" readonly value="<%=activeUser.getDob()%>" >
+                                                                <input class="input-text input-text--primary-style" type="text" readonly value="${LoggedUser.dob}" >
                                                             </div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label" >GENDER</label>
-                                                                <input class="input-text input-text--primary-style" type="text" readonly value="<%=activeUser.getUserGender()%>" >
+                                                                <input class="input-text input-text--primary-style" type="text" readonly value="${LoggedUser.gender}" >
                                                             </div>
                                                         </div>
                                                         <div class="gl-inline">
@@ -180,13 +171,13 @@
                                                                 <label class="gl-label" for="reg-email">E-MAIL *</label>
                                                                 <div class="gl-error" id="reg-email-error"></div>
 <%--                                                                <span class="dash__text">johndoe@domain.com</span>--%>
-                                                                <input class="input-text input-text--primary-style" type="email" name="email" id="reg-email" value="<%=activeUser.getUserEmail()%>" required >
+                                                                <input class="input-text input-text--primary-style" type="email" name="email" id="reg-email" value="${LoggedUser.email}" required >
 
                                                             </div>
                                                             <div class="u-s-m-b-30">
                                                                 <label class="gl-label" for="reg-phone">PHONE *</label>
                                                                 <div class="gl-error" id="reg-phone-error"></div>
-                                                                <input class="input-text input-text--primary-style" type="tel" name="phone" id="reg-phone"  value="<%=activeUser.getUserPhone()%>" required >
+                                                                <input class="input-text input-text--primary-style" type="tel" name="phone" id="reg-phone"  value="${LoggedUser.phone}" required >
 
 
 

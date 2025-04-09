@@ -1,8 +1,13 @@
 package gov.iti.Controllers.customer;
 
-import gov.iti.Dtos.*;
-import gov.iti.Helper.ConnectionProvider;
-import gov.iti.Model.*;
+
+import gov.iti.Dtos.Message;
+import gov.iti.Entities.*;
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Services.AddressService;
+import gov.iti.Services.OrderService;
+import gov.iti.Services.UserDBService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @WebServlet(name = "CheckOutServlet" ,value = "/customer/CheckOutServlet")
 public class CheckOutServlet extends HttpServlet {
@@ -21,6 +27,11 @@ public class CheckOutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String payment = req.getParameter("payment");
         User user = (User) req.getSession().getAttribute("LoggedUser");
+        EntityManager em = EntityManagerProvider.getEntityManager();
+        AddressService addressService = new AddressService(em);
+        UserDBService userDBService = new UserDBService(em);
+        OrderService orderService = new OrderService(em);
+
         Message message ;
         String address_I = req.getParameter("address_ID");
         if(address_I == null || address_I.isEmpty()|| Integer.parseInt(address_I) <=0){
@@ -29,49 +40,55 @@ public class CheckOutServlet extends HttpServlet {
             resp.sendRedirect("/customer/checkout.jsp");
             return;
         }
-        int address_ID = Integer.parseInt(address_I);
-        AddressDao addressDao = new AddressDao(ConnectionProvider.getConnection());
-        Address address = addressDao.getAddressById(address_ID);
-
-        OrderDao orderDao = new OrderDao(ConnectionProvider.getConnection());
-        OrderedProductDao orderedProductDao = new OrderedProductDao(ConnectionProvider.getConnection());
-        CartDao cartDao = new CartDao(ConnectionProvider.getConnection());
-        ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
-        List<Cart> cartList = cartDao.getCartListByUserId(user.getUserId());
+        Long address_ID = Long.parseLong(address_I);
+        UserAddress address= addressService.getAddressByID(address_ID);
 
 
-        BigDecimal totalPrice = BigDecimal.valueOf(0);
-        for (Cart cart : cartList) {
-            Product prod  = productDao.getProductsByProductId(cart.getProductId());
-            int quantity = cart.getQuantity();
-            totalPrice = totalPrice.add (prod.getProductPriceAfterDiscount().multiply(BigDecimal.valueOf( quantity)));
-        }
+
+        Set<Cart> cartList = user.getCarts();
+
+
+        BigDecimal totalPrice = user.getTotalPrice();
+
 
         Payment payment1 = new Payment();
         payment1.setAmount(totalPrice);
         payment1.setMethod(payment);
-        payment1.setUser_id(user.getUserId());
+        payment1.setUser(user);
         payment1.setStatus("paid");
 
-        PaymentDao paymentDao = new PaymentDao(ConnectionProvider.getConnection());
-        int paymentID =0;
-        if(paymentDao.insertPayment(payment1)){
-            paymentID = payment1.getPayment_id();
-        }
+        Set<OrderedProduct> orderedProducts = new HashSet<>();
 
-        Order order = new Order(address.getAddressDescription(),address.getCity(),address.getGovernorate(),paymentID,"Order Confirmed",null, user.getUserId());
-        int orderID = orderDao.insertOrder(order);
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setPayment(payment1);
+        order.setStatus("Order Confirmed");
+        order.setAddress(address.getAddress());
+        order.setCity(address.getCity());
+        order.setGovernorate(address.getGovernorate());
 
         for(Cart cart : cartList){
             OrderedProduct orderedProduct = new OrderedProduct();
-            orderedProduct.setOrderId(orderID);
-            orderedProduct.setProduct_id(cart.getProductId());
+            orderedProduct.setProduct(cart.getProduct());
             orderedProduct.setQuantity(cart.getQuantity());
-            orderedProduct.setPrice(productDao.getProductsByProductId(cart.getProductId()).getProductPriceAfterDiscount().multiply(BigDecimal.valueOf(cart.getQuantity())));
-            orderedProductDao.insertOrderedProduct(orderedProduct);
+            orderedProduct.setPrice(cart.getTotal());
+            orderedProduct.setOrder(order);
+            orderedProducts.add(orderedProduct);
         }
-        cartDao.removeAllProduct(user.getUserId());
-        resp.sendRedirect("/customer/checkout.jsp?done=true");
+
+        order.setOrderedProducts(orderedProducts);
+
+        if(orderService.addOrder(order)){
+
+        if(userDBService.removeAllCarts(user.getId())){
+            user = userDBService.refreshUser(user);
+            req.getSession().setAttribute("LoggedUser", user);
+        }
+        }
+
+
+        resp.sendRedirect("/customer/checkout?done=true");
 
 
     }

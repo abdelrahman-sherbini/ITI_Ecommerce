@@ -21,9 +21,13 @@ public class OrderService {
         return crudService.update(order);
     }
 
+    public boolean addOrder(Order order) {
+        return crudService.create(order);
+    }
 
-    public Order getOrder(int id) {
-        return entityManager.find(Order.class, id);
+    public Order getOrder(Long id) {
+
+        return crudService.find(id);
     }
     public List<Order> getAllOrders() {
         return crudService.getAll();

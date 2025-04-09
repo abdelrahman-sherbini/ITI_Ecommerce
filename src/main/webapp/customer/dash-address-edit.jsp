@@ -1,33 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.*" %>
-<%@ page import="gov.iti.Model.*" %>
-<%@ page import="java.sql.Connection" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%--@elvariable id="LoggedUser" type="gov.iti.Entities.User"--%>
+<%--@elvariable id="address" type="gov.iti.Entities.UserAddress"--%>
 
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setDefaultAddress(3);
-//    activeUser.setUserId(1);
-    User activeUser = (User) session.getAttribute("LoggedUser");
-    Connection connection = ConnectionProvider.getConnection();
-
-    AddressDao addressDao = new AddressDao(connection);
-    Message message ;
-    if(request.getParameter("id")==null){
-        message = new Message("Empty address to edit!", "error", "alert-danger");
-        request.getSession().setAttribute("message", message);
-        response.sendRedirect("dash-address-book.jsp");
-    }
-     int id = Integer.parseInt(request.getParameter("id"));
-    if(!addressDao.checkAddress(id,activeUser.getUserId())){
-        message = new Message("Address does not exist!", "error", "alert-danger");
-        request.getSession().setAttribute("message", message);
-        response.sendRedirect("dash-address-book.jsp");
-    }
-    UserDao userDao = new UserDao(connection);
-%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -86,7 +63,7 @@
                                         <a href="index.jsp">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="dash-address-edit.jsp">My Account</a></li>
+                                        <a href="dash-address-edit">My Account</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -110,11 +87,11 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, <%=activeUser.getUserName()%></span>
+                                            <span class="dash__text u-s-m-b-16">Hello, ${LoggedUser.firstName} ${LoggedUser.lastName}</span>
                                             <ul class="dash__f-list">
                                                 <li>
 
-                                                    <a href="dashboard.jsp">Manage My Account</a></li>
+                                                    <a href="dashboard">Manage My Account</a></li>
                                                 <li>
 
                                                     <a href="dash-my-profile.jsp">My Profile</a></li>
@@ -150,13 +127,13 @@
                                             <form class="dash-address-manipulation" action="AddressServlet" method="post">
 
                                                 <input type="hidden" name="operation" value="updateAddress">
-                                                <input type="hidden" name="address_id" value="<%= id %>">
+                                                <input type="hidden" name="address_id" value="${address.id}">
                                                 <div class="gl-inline">
                                                     <div class="u-s-m-b-30">
 
                                                         <label class="gl-label" for="address-address">ADDRESS DESCRIPTION *</label>
 
-                                                        <input class="input-text input-text--primary-style" type="text" name="addressDescription" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
+                                                        <input class="input-text input-text--primary-style" type="text" name="address" id="address-address" placeholder="ADDRESS DESCRIPTION" required>
                                                     </div>
                                                     <div class="u-s-m-b-30">
 
@@ -293,10 +270,9 @@
                 });
             }
         });
-        <% Address address = addressDao.getAddressById(id);%>
 
-        let city2 = "<%= address.getCity() %>";
-        let gove2 = "<%= address.getGovernorate() %>";
+        let city2 = "${address.city}";
+        let gove2 = "${address.governorate}";
         $("#address-governorate").val(gove2);
         let citySelect = document.getElementById("address-city");
         citySelect.innerHTML = "<option disabled value=''>Select City</option>"; // Reset cities
@@ -310,8 +286,8 @@
             });
         }
         $("#address-city").val(city2);
-        $("#address-type").val("<%= address.getType() %>");
-        $("#address-address").val("<%= address.getAddressDescription() %>");
+        $("#address-type").val("${address.type}");
+        $("#address-address").val("${address.address}");
 
         window.ga = function() {
             ga.q.push(arguments)

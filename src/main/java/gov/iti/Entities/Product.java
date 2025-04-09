@@ -37,7 +37,7 @@ public class Product {
     @Column(name = "image", length = 100)
     private String image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 

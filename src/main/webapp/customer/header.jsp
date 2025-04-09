@@ -1,34 +1,4 @@
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@ page errorPage="404.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="gov.iti.Helper.ConnectionProvider" %>
-<%@ page import="gov.iti.Dtos.User" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="gov.iti.Model.CartDao" %>
-<%@ page import="gov.iti.Dtos.Cart" %>
-<%@ page import="java.util.ArrayList" %>
-
-<%
-//    User activeUser = new User("Alice Johnson","alice@example.com","","1234567890","Female");
-//    activeUser.setUserId(1);
-//    session.setAttribute("activeUser",activeUser);
-    User activeUser = (User) session.getAttribute("LoggedUser");
-
-
-    Connection connection = ConnectionProvider.getConnection();
-
-
-    CartDao cartDao = new CartDao(connection);
-
-
-    List<Cart> cartList;
-    if(activeUser!=null)
-        cartList = cartDao.getCartListByUserId(activeUser.getUserId());
-    else{
-        cartList = new ArrayList<>();
-    }
-%>
 <!--====== Main Header ======-->
    <header class="header--style-1">
 
@@ -80,7 +50,7 @@
                                 <ul style="width:120px">
                                     <li>
 
-                                        <a href="dashboard.jsp"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                        <a href="dashboard"><i class="fas fa-user-circle u-s-m-r-6"></i>
 
                                             <span>Account</span></a></li>
                                     <li>
@@ -982,7 +952,7 @@
                                     </li>
                                     <li class="has-dropdown has-dropdown--ul-left-100">
 
-                                        <a href="dashboard.jsp">Dashboard<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
+                                        <a href="dashboard">Dashboard<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
 
                                         <!--====== Dropdown ======-->
 
@@ -990,7 +960,7 @@
                                         <ul style="width:200px">
                                             <li class="has-dropdown has-dropdown--ul-left-100">
 
-                                                <a href="dashboard.jsp">Manage My Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
+                                                <a href="dashboard">Manage My Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
 
                                                 <!--====== Dropdown ======-->
 
@@ -1004,7 +974,7 @@
                                                         <a href="dash-address-book.jsp">Edit Address Book</a></li>
                                                     <li>
 
-                                                        <a href="dash-manage-order.jsp">Manage Order</a></li>
+                                                        <a href="dash-manage-order">Manage Order</a></li>
                                                 </ul>
                                                 <!--====== End - Dropdown ======-->
                                             </li>
@@ -1131,10 +1101,10 @@
                                     </li>
                                     <li>
 
-                                        <a href="cart.jsp">Cart</a></li>
+                                        <a href="cart">Cart</a></li>
                                     <li>
 
-                                        <a href="wishlist.jsp">Wishlist</a></li>
+                                        <a href="wishlist">Wishlist</a></li>
                                     <li>
 
                                         <a href="checkout.jsp">Checkout</a></li>
@@ -1197,8 +1167,8 @@
                 <div class="menu-init" id="navigation3">
 
                     <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop" type="button"></button>
-
-                    <span class="total-item-round"><%=cartList.size()%></span>
+                    <%--@elvariable id="user" type="gov.iti.Entities.User"--%>
+                    <span class="total-item-round">${LoggedUser.carts.size()}</span>
 
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
@@ -1212,18 +1182,18 @@
                                 <a href="index.jsp"><i class="fas fa-home u-c-brand"></i></a></li>
                             <li>
 
-                                <a href="wishlist.jsp"><i class="far fa-heart"></i></a></li>
+                                <a href="wishlist"><i class="far fa-heart"></i></a></li>
                             <li class="has-dropdown">
 
                                 <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
 
-                                    <span class="total-item-round"><%=cartList.size()%></span></a>
+                                    <span class="total-item-round">${LoggedUser.carts.size()}</span></a>
 
                                 <!--====== Dropdown ======-->
 
                                 <span class="js-menu-toggle"></span>
                                 <div class="mini-cart">
-                                    <jsp:include page="mini-cart.jsp"/>
+<%--                                    <jsp:include page="mini-cart.jsp"/>--%>
 
                                 </div>
                                 <!--====== End - Dropdown ======-->
