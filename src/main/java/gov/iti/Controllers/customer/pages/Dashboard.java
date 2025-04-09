@@ -26,10 +26,6 @@ public class Dashboard extends HttpServlet {
 
         user.getOrders().size();
         user.getUserAddresses().size();
-        System.out.println(user.getUserAddresses().size());
-        user.getUserAddresses().forEach(userAddress -> {
-            System.out.println(userAddress.getAddress());
-        });
         user.getWishlists().size();
         req.getSession().setAttribute("LoggedUser", user);
         req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
