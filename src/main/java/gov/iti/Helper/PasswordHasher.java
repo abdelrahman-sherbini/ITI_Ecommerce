@@ -60,14 +60,5 @@ public class PasswordHasher {
         }
     }
 
-    // Example usage
-    public static void main(String[] args) {
-        String password = "mySecretPassword";
-        String hashed = hashPassword(password);
-        System.out.println("Hashed password: " + hashed);
-
-        // Test verification
-        System.out.println("Password match: " + verifyPassword("mySecretPassword", hashed));
-        System.out.println("Password match (wrong): " + verifyPassword("wrongPassword", hashed));
-    }
+    
 }

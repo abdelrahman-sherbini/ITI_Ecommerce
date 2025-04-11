@@ -20,6 +20,15 @@ public class UserAuth {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public UserAuth(){
+
+    }
+    public UserAuth(User user, String selector, String validator){
+        this.user = user;
+        this.selector = selector;
+        this.validator = validator;
+    }
+
     public Long getId() {
         return id;
     }

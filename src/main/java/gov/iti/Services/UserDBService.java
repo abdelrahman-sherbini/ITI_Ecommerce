@@ -6,13 +6,13 @@ import gov.iti.Entities.Wishlist;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDBService {
     private EntityManager entityManager;
     private CRUDService<User> crudService;
+
     // Constructor to inject EntityManager
     public UserDBService(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -31,6 +31,7 @@ public class UserDBService {
         String jpql = "DELETE FROM Cart a WHERE a.user = :user";
         return removeAll(userId, jpql);
     }
+
     public User refreshUser(User user) {
 
         try {
@@ -96,7 +97,6 @@ public class UserDBService {
     private boolean removeAll(Long userId, String jpql) {
         User user = crudService.find(userId);
 
-
         try {
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery(jpql);
@@ -104,7 +104,7 @@ public class UserDBService {
 
             int deletedCount = query.executeUpdate();
             entityManager.getTransaction().commit();
-            return deletedCount>0;
+            return deletedCount > 0;
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive())
                 entityManager.getTransaction().rollback();
@@ -113,8 +113,50 @@ public class UserDBService {
 
         }
     }
+
     public boolean updateUser(User user) {
         return crudService.update(user);
+    }
+
+    public boolean addUser(User user) {
+        return crudService.create(user);
+
+    }
+
+    public User getUserByEmail(String email) {
+
+        String jpql = "SELECT u FROM User u WHERE u.email = :email";
+        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        query.setParameter("email", email);
+        return query.getResultStream().findFirst().orElse(null);
+
+    }
+
+    public List<String> getAllEmails() {
+       
+        String jpql = "SELECT u.email FROM User u";
+        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
+        return query.getResultList();
+    }
+
+    public List<String> getAllPhoneNumbers(){
+
+        String jpql = "SELECT u.phone FROM User u";
+        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
+        return query.getResultList();
+
+    }
+
+    public List<String> getAllPhoneNumbersExcept(Long uid) {
+     
+        String jpql = "SELECT u.phone FROM User u WHERE u.id != :uid";
+    
+        
+        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
+        query.setParameter("uid", uid);
+    
+        
+        return query.getResultList();
     }
 
 }

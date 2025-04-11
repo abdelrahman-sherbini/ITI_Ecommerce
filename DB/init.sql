@@ -85,7 +85,7 @@ CREATE TABLE `user`(
     `gender` VARCHAR(255) NULL,
     `register_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `job` VARCHAR(100) NULL,
-    `credit` FLOAT(53) NOT NULL,
+    `credit` double NOT NULL,
     `default_address` BIGINT UNSIGNED  NULL,
     `dob` DATE NULL
     );

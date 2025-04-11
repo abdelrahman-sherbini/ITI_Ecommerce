@@ -6,11 +6,17 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import gov.iti.Dtos.AuthToken;
-import gov.iti.Dtos.User;
+
+
 import gov.iti.Dtos.UserSignIn;
+import gov.iti.Entities.User;
+import gov.iti.Entities.UserAuth;
+import gov.iti.Helper.EntityManagerProvider;
 import gov.iti.Helper.HashGenerator;
-import gov.iti.Services.UserService;
+import gov.iti.Helper.PasswordHasher;
+import gov.iti.Services.AuthService;
+import gov.iti.Services.UserDBService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -22,34 +28,46 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "CustomerLoginServlet", value = "/customer/login")
 public class LoginServlet extends HttpServlet {
 
-    private UserService userService;
+    
+    private EntityManager em;
+    private UserDBService userDBService;
+    private AuthService authService;
 
     @Override
     public void init() throws ServletException {
-        userService = new UserService();
+        em = EntityManagerProvider.getEntityManager();
+        userDBService = new UserDBService(em);
+        authService = new AuthService(em);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         UserSignIn userSignIn = new UserSignIn();
+        
 
         try {
             BeanUtils.populate(userSignIn, req.getParameterMap());
-            User databaseUser = userService.logIn(userSignIn);
+            User databaseUser = logIn(userSignIn);
 
             if (databaseUser != null) {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("LoggedUser",databaseUser);
+                System.out.println(req.getParameter("rememberMe"));
+                System.out.println(userSignIn.getRememberMe());
                 // remmber me checked
-                if (userSignIn.getRememberMe()) {
+                if (userSignIn.getRememberMeAsBoolean()) {
                     String selector = RandomStringUtils.randomAlphanumeric(12);
                     String rawValidator = RandomStringUtils.randomAlphanumeric(64);
-                    int user_id = databaseUser.getUserId();
+                    
                     String hashValidator = HashGenerator.generateSHA256(rawValidator);
 
-                    AuthToken authToken = new AuthToken(user_id, selector, hashValidator);
-                    userService.generateAuthToken(authToken);
+                    UserAuth  authToken = new UserAuth(databaseUser, selector, hashValidator);
+                    
+                    boolean flag = authService.addAuth(authToken);
+                    System.out.println(flag);
+                    
                     Cookie cookieSelector = new Cookie("selector", selector);
                     cookieSelector.setMaxAge(604800);
 
@@ -76,9 +94,20 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Servlet is working!");
+    private User logIn(UserSignIn userSignInDto){
+        User user = userDBService.getUserByEmail(userSignInDto.getEmail());
+       
+       if(user != null){
+        boolean verify =PasswordHasher.verifyPassword(userSignInDto.getPassword(), user.getPassword());
+        System.out.println(verify);
+        if(verify){
+            return user;
+        }else{
+            return null;
+        }
+       }else{
+        return null;
+       }
     }
 
 }

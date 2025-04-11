@@ -1,8 +1,12 @@
 package gov.iti.Controllers.customer;
 
 import java.io.IOException;
+import java.util.List;
 
+import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Services.UserDBService;
 import gov.iti.Services.UserService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,21 +15,23 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ValidateEmail" ,value = "/customer/email")
 public class ValidateEmailServlet extends HttpServlet {
-    private UserService userService;
+    private EntityManager entityManager;
+    private UserDBService userDBService;
 
     @Override
     public void init() throws ServletException {
-        userService = new UserService(); 
+        entityManager = EntityManagerProvider.getEntityManager();
+        userDBService = new UserDBService(entityManager);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
+        List<String> emails = userDBService.getAllEmails();
 
-        // Check if email exists in the simulated database
-        boolean isInvalid = userService.ValidateEmail(email);
+        
+        boolean isInvalid = emails.contains(email);
 
-        // Send boolean response
         response.setContentType("application/json");
         response.getWriter().write(String.valueOf(isInvalid));
     }
