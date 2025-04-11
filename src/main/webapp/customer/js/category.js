@@ -1,38 +1,68 @@
 $(document).ready(function() {
+    let currentPage = 1;
+    const productsPerPage = 12;
+    let allProducts = [];
+    let currentCategoryId = 0;
+
     loadCategories();
-    loadProducts(); // Initial load of all products
 
     function loadCategories() {
         $.ajax({
-            url: '/customer/CategoriesServlet', // Changed to relative URL
+            url: '/customer/CategoriesServlet',
             type: 'GET',
             dataType: 'json',
             success: function(categories) {
                 renderCategories(categories);
                 initFilterButtons();
+                loadProducts(0); // Initial load of all products
             },
             error: function(xhr, status, error) {
                 console.error("Error loading categories: " + error);
                 renderCategories(getDefaultCategories());
                 initFilterButtons();
+                loadProducts(0); // Initial load with default categories
             }
         });
     }
 
-    function loadProducts(categoryId = 0) {
+    function loadProducts(categoryId = 0, page = 1) {
+        currentCategoryId = categoryId;
+        currentPage = page;
+
         $.ajax({
-            url: '/customer/ProductsServlet', // Changed to relative URL
+            url: '/customer/ProductsServlet',
             type: 'GET',
             data: { categoryId: categoryId },
             dataType: 'json',
             success: function(products) {
-                renderProducts(products);
+                allProducts = products;
+                renderProducts(getPaginatedProducts(products, page));
+                updateLoadMoreButton(products.length);
             },
             error: function(xhr, status, error) {
                 console.error("Error loading products: " + error);
-                renderProducts(getDefaultProducts());
+                allProducts = getDefaultProducts();
+                renderProducts(getPaginatedProducts(allProducts, page));
+                updateLoadMoreButton(allProducts.length);
             }
         });
+    }
+
+    function getPaginatedProducts(products, page) {
+        const start = (page - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        return products.slice(0, end);
+    }
+
+    function updateLoadMoreButton(totalProducts) {
+        const $loadMoreBtn = $('.load-more button');
+        const displayedProducts = currentPage * productsPerPage;
+
+        if (displayedProducts >= totalProducts) {
+            $loadMoreBtn.hide();
+        } else {
+            $loadMoreBtn.show();
+        }
     }
 
     function renderCategories(categories) {
@@ -57,7 +87,7 @@ $(document).ready(function() {
     }
 
     function renderProducts(products) {
-        var container = $('.filter__grid-wrapper .row');
+        var container = $('#productRow');
         container.empty();
 
         products.forEach(function(product) {
@@ -65,7 +95,6 @@ $(document).ready(function() {
             var discountedPrice = product.productPriceAfterDiscount ||
                 (product.productPrice * (1 - product.productDiscount / 100)).toFixed(2);
 
-            // Use static-like structure with hardcoded ratings for consistency
             container.append(
                 '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item ' + filterClass + '">' +
                 '<div class="product-o product-o--hover-on product-o--radius">' +
@@ -108,6 +137,7 @@ $(document).ready(function() {
             );
         });
     }
+
     function getCategoryClass(categoryId) {
         const categoryMap = {
             1: 'headphone',
@@ -169,7 +199,14 @@ $(document).ready(function() {
             $(this).addClass('js-checked');
 
             var categoryId = $(this).data('category-id');
-            loadProducts(categoryId);
+            currentPage = 1; // Reset to first page when category changes
+            loadProducts(categoryId, currentPage);
+        });
+
+        // Add click handler for Load More button
+        $('.load-more button').on('click', function() {
+            currentPage++;
+            loadProducts(currentCategoryId, currentPage);
         });
     }
 });
