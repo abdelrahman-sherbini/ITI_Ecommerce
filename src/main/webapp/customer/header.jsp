@@ -176,11 +176,18 @@
                                     <div class="mega-menu-wrap">
                                         <div class="mega-menu-list">
                                             <ul>
-                                                <c:forEach var="category" items="${applicationScope.categories}" varStatus="loop">
-                                                    <li class="${loop.first ? 'js-active' : ''}">
+                                                <!-- Add All Products -->
+                                                <li>
+                                                    <a href="shop">
+                                                        <i class="fas fa-boxes u-s-m-r-6"></i>
+                                                        All Products
+                                                    </a>
+                                                </li>
+                                                <c:forEach var="category" items="${applicationScope.categories}">
+                                                    <li>
                                                         <a href="shop?category=${category.categoryId}">
                                                             <i class="${category.categoryImage} u-s-m-r-6"></i>
-                                                            <span>${category.categoryName}</span>
+                                                            <c:out value="${category.categoryName}"/>
                                                         </a>
                                                     </li>
                                                 </c:forEach>
@@ -211,6 +218,12 @@
 
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
+                            <li>
+                                <a href="shop">
+                                    <i class="fas fa-boxes u-s-m-r-6"></i>
+                                    All Products
+                                </a>
+                            </li>
                             <c:forEach var="category" items="${applicationScope.categories}">
                                 <li>
                                     <a href="shop?category=${category.categoryId}">

@@ -1,6 +1,11 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
+
     <meta charset="UTF-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,578 +60,31 @@
                                                 <h1 class="shop-w__h">CATEGORY</h1>
 
                                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-category" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse show" id="s-category">
-                                                <ul class="shop-w__category-list gl-scroll">
+                                            </div><div class="shop-w__wrap collapse show" id="s-category">
+                                            <ul class="shop-w__category-list gl-scroll">
+
+                                                <li class="has-list">
+                                                    <a href="/customer/shop"> <!-- No category parameter -->
+                                                        ALL PRODUCTS
+                                                    </a>
+                                                    <span class="category-list__text u-s-m-l-6">
+                                                            (${totalProductCount})
+                                                    </span>
+                                                </li>
+
+
+                                                <c:forEach items="${categories}" var="category">
                                                     <li class="has-list">
-
-                                                        <a href="#">Electronics</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(23)</span>
-
-                                                        <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
-                                                        <ul style="display:block">
-                                                            <li class="has-list">
-
-                                                                <a href="#">3D Printer & Supplies</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printer</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printing Pen</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printing Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printer Module Board</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Home Audio & Video</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">TV Boxes</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">TV Receiver & Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printing Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printer Module Board</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Media Players</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Earphones</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Mp3 Players</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Speakers & Radios</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Microphones</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Video Game Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Nintendo Video Games Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Sony Video Games Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Xbox Video Games Accessories</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Security & Protection</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Security Cameras</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Alarm System</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Security Gadgets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">CCTV Security Accessories</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Home Audio & Video</a>
-
-                                                                <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
-                                                                <ul style="display:block">
-                                                                    <li>
-
-                                                                        <a href="#">TV Boxes</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">TV Receiver & Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printing Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">3d Printer Module Board</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Photography & Camera</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Digital Cameras</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Sport Camera & Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Camera Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Lenses & Accessories</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Arduino Compatible</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Raspberry Pi & Orange Pi</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Module Board</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Smart Robot</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Board Kits</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">DSLR Camera</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Nikon Camera</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Canon Camera</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Sony Camera</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">DSLR Lenses</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Necessary Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Flash Cards</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Memory Cards</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Flash Pins</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Compact Discs</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
+                                                        <a href="/customer/shop?category=${category.categoryId}">
+                                                                ${category.categoryName}
+                                                        </a>
+                                                        <span class="category-list__text u-s-m-l-6">
+                    (${productCounts[category.categoryId]})
+                </span>
                                                     </li>
-                                                    <li class="has-list">
-
-                                                        <a href="#">Women's Clothing</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(5)</span>
-
-                                                        <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                        <ul>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Hot Categories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Dresses</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Blouses & Shirts</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">T-shirts</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Rompers</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Intimates</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Bras</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Brief Sets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Bustiers & Corsets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Panties</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Wedding & Events</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Wedding Dresses</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Evening Dresses</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Prom Dresses</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Flower Dresses</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Bottoms</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Skirts</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Shorts</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Leggings</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Jeans</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Outwear</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Blazers</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Basic Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Trench</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Leather & Suede</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Jackets</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Denim Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Trucker Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Windbreaker Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Leather Jackets</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Tech Accessories</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Headwear</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Baseball Caps</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Belts</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Other Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Bags</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Wallets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Watches</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Sunglasses</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="has-list">
-
-                                                        <a href="#">Men's Clothing</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(5)</span>
-
-                                                        <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                        <ul>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Hot Sale</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">T-Shirts</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Tank Tops</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Polo</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Shirts</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Outwear</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Hoodies</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Trench</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Parkas</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Sweaters</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Bottoms</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Casual Pants</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Cargo Pants</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Jeans</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Shorts</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Underwear</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Boxers</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Briefs</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Robes</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Socks</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Jackets</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Denim Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Trucker Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Windbreaker Jackets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Leather Jackets</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Sunglasses</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Pilot</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Wayfarer</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Square</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Round</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Eyewear Frames</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Scarves</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Hats</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Belts</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-list">
-
-                                                                <a href="#">Other Accessories</a>
-
-                                                                <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                                                <ul>
-                                                                    <li>
-
-                                                                        <a href="#">Bags</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Wallets</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Watches</a></li>
-                                                                    <li>
-
-                                                                        <a href="#">Tech Accessories</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="#">Food & Supplies</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(0)</span></li>
-                                                    <li>
-
-                                                        <a href="#">Furniture & Decor</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(0)</span></li>
-                                                    <li>
-
-                                                        <a href="#">Sports & Game</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(0)</span></li>
-                                                    <li>
-
-                                                        <a href="#">Beauty & Health</a>
-
-                                                        <span class="category-list__text u-s-m-l-6">(0)</span></li>
-                                                </ul>
-                                            </div>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="u-s-m-b-30">
@@ -664,19 +122,19 @@
                         <div class="col-lg-9 col-md-12">
                             <div class="shop-p">
                                 <div class="shop-p__toolbar u-s-m-b-30">
-                                    <div class="shop-p__meta-wrap u-s-m-b-60">
+<%--                                    <div class="shop-p__meta-wrap u-s-m-b-60">--%>
 
-                                        <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>
-                                        <div class="shop-p__meta-text-2">
+<%--                                        <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>--%>
+<%--                                        <div class="shop-p__meta-text-2">--%>
 
-                                            <span>Related Searches:</span>
+<%--                                            <span>Related Searches:</span>--%>
 
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">men's clothing</a>
+<%--                                            <a class="gl-tag btn--e-brand-shadow" href="#">men's clothing</a>--%>
 
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">mobiles & tablets</a>
+<%--                                            <a class="gl-tag btn--e-brand-shadow" href="#">mobiles & tablets</a>--%>
 
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>
-                                    </div>
+<%--                                            <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>--%>
+<%--                                    </div>--%>
                                     <div class="shop-p__tool-style">
                                         <div class="tool-style__group u-s-m-b-8">
 
@@ -705,424 +163,50 @@
                                 </div>
                                 <div class="shop-p__collection">
                                     <div class="row is-grid-active">
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/men/product6.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Men Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Fashion B Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                        <c:forEach items="${products}" var="product">
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                                <div class="product-m">
+                                                    <div class="product-m__thumb">
+                                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp?id=${product.productId}">
+                                                            <img class="aspect__img" src="${fn:split(product.productImages, ',')[0]}" alt="${product.productName}">
+                                                        </a>
+                                                        <div class="product-m__quick-look">
+                                                            <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a>
+                                                        </div>
+                                                        <div class="product-m__add-cart">
+                                                            <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-m__content">
+                                                        <div class="product-m__category">
+                                                            <a href="customer/shop?category=${product.categoryId}">
+                                                                    ${categoryNames[product.categoryId]}
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-m__name">
+                                                            <a href="product-detail.jsp?id=${product.productId}">${product.productName}</a>
+                                                        </div>
+                                                        <div class="product-m__rating gl-rating-style"></div>
+                                                        <div class="product-m__price">
+                                                            <fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>
+                                                            <c:if test="${product.productDiscount > 0}">
+                            <span class="product-m__discount">
+                                <fmt:formatNumber value="${product.productPrice}" type="currency" currencySymbol="$"/>
+                            </span>
+                                                            </c:if>
+                                                        </div>
+                                                        <div class="product-m__hover">
+                                                            <div class="product-m__preview-description">
+                                                                <span>${product.productDescription}</span>
+                                                            </div>
+                                                            <div class="product-m__wishlist">
+                                                                <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/women/product5.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Women Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Dress A Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/women/product6.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Women Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Dress B Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/women/product7.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Women Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Dress C Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/men/product9.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Men Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Fashion E Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/men/product10.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Men Clothing</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">New Fashion F Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product2.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Red Wireless Headphone</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product3.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Yellow Wireless Headphone</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00
-
-                                                        <span class="product-m__discount">$22.00</span></div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product4.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Hover Skateboard Scooter</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00
-
-                                                        <span class="product-m__discount">$22.00</span></div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product5.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Hover Red Skateboard Scooter</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00
-
-                                                        <span class="product-m__discount">$22.00</span></div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product6.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Canon DSLR Camera 4k</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00
-
-                                                        <span class="product-m__discount">$22.00</span></div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product7.jpg" alt=""></a>
-                                                    <div class="product-m__quick-look">
-
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
-                                                    <div class="product-m__add-cart">
-
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></div>
-                                                    <div class="product-m__name">
-
-                                                        <a href="product-detail.jsp">Nikon DSLR Camera 4k</a></div>
-                                                    <div class="product-m__rating gl-rating-style"></div>
-                                                    <div class="product-m__price">$125.00
-
-                                                        <span class="product-m__discount">$22.00</span></div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
-                                                        <div class="product-m__wishlist">
-
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="u-s-p-y-60">

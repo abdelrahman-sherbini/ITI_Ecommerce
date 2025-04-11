@@ -2,7 +2,7 @@ package gov.iti.Dtos;
 
 public class Category {
 
-	private int categoryId;
+	private long categoryId;
 	private String categoryName;
 	private String categoryImage;
 	
@@ -23,11 +23,11 @@ public class Category {
 		this.categoryImage = categoryImage;
 	}
 
-	public int getCategoryId() {
+	public long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
 	}
 
