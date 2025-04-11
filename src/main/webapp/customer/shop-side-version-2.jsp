@@ -632,97 +632,6 @@
                                     <div class="u-s-m-b-30">
                                         <div class="shop-w shop-w--style">
                                             <div class="shop-w__intro-wrap">
-                                                <h1 class="shop-w__h">RATING</h1>
-
-                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-rating" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse show" id="s-rating">
-                                                <ul class="shop-w__list gl-scroll">
-                                                    <li>
-                                                        <div class="rating__check">
-
-                                                            <input type="checkbox">
-                                                            <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                                        </div>
-
-                                                        <span class="shop-w__total-text">(2)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating__check">
-
-                                                            <input type="checkbox">
-                                                            <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>& Up</span></div>
-                                                        </div>
-
-                                                        <span class="shop-w__total-text">(8)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating__check">
-
-                                                            <input type="checkbox">
-                                                            <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>& Up</span></div>
-                                                        </div>
-
-                                                        <span class="shop-w__total-text">(10)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating__check">
-
-                                                            <input type="checkbox">
-                                                            <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>& Up</span></div>
-                                                        </div>
-
-                                                        <span class="shop-w__total-text">(12)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating__check">
-
-                                                            <input type="checkbox">
-                                                            <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>& Up</span></div>
-                                                        </div>
-
-                                                        <span class="shop-w__total-text">(1)</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="u-s-m-b-30">
-                                        <div class="shop-w shop-w--style">
-                                            <div class="shop-w__intro-wrap">
-                                                <h1 class="shop-w__h">SHIPPING</h1>
-
-                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-shipping" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse show" id="s-shipping">
-                                                <ul class="shop-w__list gl-scroll">
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="free-shipping">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="free-shipping">Free Shipping</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="u-s-m-b-30">
-                                        <div class="shop-w shop-w--style">
-                                            <div class="shop-w__intro-wrap">
                                                 <h1 class="shop-w__h">PRICE</h1>
 
                                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
@@ -748,220 +657,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="u-s-m-b-30">
-                                        <div class="shop-w shop-w--style">
-                                            <div class="shop-w__intro-wrap">
-                                                <h1 class="shop-w__h">MANUFACTURER</h1>
 
-                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse show" id="s-manufacturer">
-                                                <ul class="shop-w__list-2">
-                                                    <li>
-                                                        <div class="list__content">
-
-                                                            <input type="checkbox" checked>
-
-                                                            <span>Calvin Klein</span></div>
-
-                                                        <span class="shop-w__total-text">(23)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="list__content">
-
-                                                            <input type="checkbox">
-
-                                                            <span>Diesel</span></div>
-
-                                                        <span class="shop-w__total-text">(2)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="list__content">
-
-                                                            <input type="checkbox">
-
-                                                            <span>Polo</span></div>
-
-                                                        <span class="shop-w__total-text">(2)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="list__content">
-
-                                                            <input type="checkbox">
-
-                                                            <span>Tommy Hilfiger</span></div>
-
-                                                        <span class="shop-w__total-text">(9)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="list__content">
-
-                                                            <input type="checkbox">
-
-                                                            <span>Ndoge</span></div>
-
-                                                        <span class="shop-w__total-text">(3)</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="u-s-m-b-30">
-                                        <div class="shop-w shop-w--style">
-                                            <div class="shop-w__intro-wrap">
-                                                <h1 class="shop-w__h">COLOR</h1>
-
-                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-color" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse show" id="s-color">
-                                                <ul class="shop-w__list gl-scroll">
-                                                    <li>
-                                                        <div class="color__check">
-
-                                                            <input type="checkbox" id="jet">
-
-                                                            <label class="color__check-label" for="jet" style="background-color: #333333"></label></div>
-
-                                                        <span class="shop-w__total-text">(2)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color__check">
-
-                                                            <input type="checkbox" id="folly">
-
-                                                            <label class="color__check-label" for="folly" style="background-color: #FF0055"></label></div>
-
-                                                        <span class="shop-w__total-text">(4)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color__check">
-
-                                                            <input type="checkbox" id="yellow">
-
-                                                            <label class="color__check-label" for="yellow" style="background-color: #FFFF00"></label></div>
-
-                                                        <span class="shop-w__total-text">(6)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color__check">
-
-                                                            <input type="checkbox" id="granite-gray">
-
-                                                            <label class="color__check-label" for="granite-gray" style="background-color: #605F5E"></label></div>
-
-                                                        <span class="shop-w__total-text">(8)</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color__check">
-
-                                                            <input type="checkbox" id="space-cadet">
-
-                                                            <label class="color__check-label" for="space-cadet" style="background-color: #1D3461"></label></div>
-
-                                                        <span class="shop-w__total-text">(10)</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="u-s-m-b-30">
-                                        <div class="shop-w shop-w--style">
-                                            <div class="shop-w__intro-wrap">
-                                                <h1 class="shop-w__h">SIZE</h1>
-
-                                                <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
-                                            </div>
-                                            <div class="shop-w__wrap collapse" id="s-size">
-                                                <ul class="shop-w__list gl-scroll">
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="xs">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="xs">XS</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(2)</span>
-                                                    </li>
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="small">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="small">Small</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(4)</span>
-                                                    </li>
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="medium">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="medium">Medium</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(6)</span>
-                                                    </li>
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="large">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="large">Large</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(8)</span>
-                                                    </li>
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="xl">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="xl">XL</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(10)</span>
-                                                    </li>
-                                                    <li>
-
-                                                        <!--====== Check Box ======-->
-                                                        <div class="check-box">
-
-                                                            <input type="checkbox" id="xxl">
-                                                            <div class="check-box__state check-box__state--primary">
-
-                                                                <label class="check-box__label" for="xxl">XXL</label></div>
-                                                        </div>
-                                                        <!--====== End - Check Box ======-->
-
-                                                        <span class="shop-w__total-text">(12)</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                  </div>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-12">
@@ -1029,9 +726,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Fashion B Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1065,9 +760,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Dress A Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1101,9 +794,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Dress B Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1137,9 +828,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Dress C Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1173,9 +862,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Fashion E Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1209,9 +896,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">New Fashion F Nice Elegant</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1245,9 +930,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Red Wireless Headphone</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
@@ -1281,9 +964,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Yellow Wireless Headphone</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00
 
                                                         <span class="product-m__discount">$22.00</span></div>
@@ -1319,9 +1000,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Hover Skateboard Scooter</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00
 
                                                         <span class="product-m__discount">$22.00</span></div>
@@ -1357,9 +1036,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Hover Red Skateboard Scooter</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00
 
                                                         <span class="product-m__discount">$22.00</span></div>
@@ -1395,9 +1072,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Canon DSLR Camera 4k</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00
 
                                                         <span class="product-m__discount">$22.00</span></div>
@@ -1433,9 +1108,7 @@
                                                     <div class="product-m__name">
 
                                                         <a href="product-detail.jsp">Nikon DSLR Camera 4k</a></div>
-                                                    <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
+                                                    <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">$125.00
 
                                                         <span class="product-m__discount">$22.00</span></div>
