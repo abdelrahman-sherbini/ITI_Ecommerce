@@ -4,7 +4,7 @@ import gov.iti.Dtos.Category;
 import gov.iti.Dtos.Product;
 import gov.iti.Helper.ConnectionProvider;
 import gov.iti.Model.CategoryDao;
-import gov.iti.Model.ProductDao; // Add this import
+import gov.iti.Model.ProductDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,35 +24,52 @@ public class ShopServlet extends HttpServlet {
 
         Connection con = ConnectionProvider.getConnection();
         CategoryDao categoryDao = new CategoryDao(con);
-        ProductDao productDao = new ProductDao(con); // Initialize ProductDao
+        ProductDao productDao = new ProductDao(con);
 
         // Get all categories
         List<Category> categories = categoryDao.getAllCategories();
         Map<Long, Integer> productCounts = categoryDao.getProductCountsByCategory();
 
-        // Get products based on category parameter
-        String categoryParam = request.getParameter("category");
+        // Pagination parameters
+        int page = 1;
+        int limit = 12; // Default items per page
+
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch (NumberFormatException e) { /* Use default */ }
+
+        try {
+            limit = Integer.parseInt(request.getParameter("limit"));
+        } catch (NumberFormatException e) { /* Use default */ }
+
+        int start = (page - 1) * limit;
+        int totalProductCount;
         List<Product> products;
         Map<Integer, String> categoryNames = new HashMap<>();
 
+        // Get products based on category parameter
+        String categoryParam = request.getParameter("category");
         if (categoryParam != null && !categoryParam.isEmpty()) {
             try {
                 int categoryId = Integer.parseInt(categoryParam);
-                products = productDao.getAllProductsByCategoryId(categoryId);
+                products = productDao.getAllProductsByCategoryId(categoryId, start, limit);
+                totalProductCount = productDao.getTotalProductCountByCategory(categoryId);
             } catch (NumberFormatException e) {
-                products = productDao.getAllProducts(); // Fallback to all products
+                products = productDao.getAllProducts(start, limit);
+                totalProductCount = productDao.productCount();
             }
         } else {
-            products = productDao.getAllProducts();
+            products = productDao.getAllProducts(start, limit);
+            totalProductCount = productDao.productCount();
         }
+
+        // Calculate total pages
+        int totalPages = (int) Math.ceil((double) totalProductCount / limit);
 
         // Build category names map
         for (Category category : categories) {
             categoryNames.put((int) category.getCategoryId(), category.getCategoryName());
         }
-
-        int totalProductCount = productDao.productCount();
-
 
         // Set attributes for JSP
         request.setAttribute("categories", categories);
@@ -60,6 +77,9 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("totalProductCount", totalProductCount);
         request.setAttribute("products", products);
         request.setAttribute("categoryNames", categoryNames);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("limit", limit);
+        request.setAttribute("totalPages", totalPages);
 
         request.getRequestDispatcher("/customer/shop-side-version-2.jsp").forward(request, response);
     }
