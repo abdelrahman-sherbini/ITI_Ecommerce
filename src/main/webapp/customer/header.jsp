@@ -26,7 +26,20 @@
 
                     <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button></form>
                 <!--====== End - Search Form ======-->
-
+                <% 
+    if (session.getAttribute("LoggedUser") != null) { 
+        gov.iti.Entities.User loggedUser = (gov.iti.Entities.User) session.getAttribute("LoggedUser");
+        String firstName = loggedUser.getFirstName();
+        if (firstName != null && !firstName.isEmpty()) {
+            firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+        }
+%>
+        <div class="gl-h1">
+            <span class="u-c-brand"><strong>Hello, <%= firstName %>!</strong></span>
+        </div>
+<% 
+    } 
+%>
 
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation">

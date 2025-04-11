@@ -36,7 +36,7 @@ public class UserDao {
         ps.setString(6, userSignUp.getGender() != null ? userSignUp.getGender().toString() : null);
         ps.setTimestamp(7, new java.sql.Timestamp(System.currentTimeMillis()));
         ps.setString(8, userSignUp.getJob());
-        ps.setFloat(9, userSignUp.getCredit());
+       // ps.setFloat(9, userSignUp.getCredit());
 
 		// Set DOB
         if (userSignUp.getDob() != null) {

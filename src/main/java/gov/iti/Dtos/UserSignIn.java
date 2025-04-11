@@ -3,7 +3,7 @@ package gov.iti.Dtos;
 public class UserSignIn {
     private String email;
     private String password;
-    private boolean rememberMe;
+    private String rememberMe;
     
     public String getEmail() {
         return email;
@@ -17,14 +17,14 @@ public class UserSignIn {
     public void setPassword(String password) {
         this.password = password;
     }
-    public boolean getRememberMe() {
+    public String getRememberMe() {
         return rememberMe;
     }
-    public boolean isRememberMe() {
-        return rememberMe;
+    public boolean getRememberMeAsBoolean() {
+        return "on".equalsIgnoreCase(rememberMe);
     }
-    public void setRememberMeMe(String rememberMe) {
-        this.rememberMe = Boolean.parseBoolean(rememberMe);
+    public void setRememberMe(String rememberMe) {
+        this.rememberMe = rememberMe;
     }
 
     

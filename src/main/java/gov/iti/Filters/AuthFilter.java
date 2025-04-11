@@ -1,17 +1,19 @@
 package gov.iti.Filters;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import gov.iti.Dtos.AuthToken;
-import gov.iti.Dtos.Message;
-import gov.iti.Helper.ConnectionProvider;
+
+import gov.iti.Entities.UserAuth;
+import gov.iti.Helper.EntityManagerProvider;
 import gov.iti.Helper.HashGenerator;
-import gov.iti.Model.AuthDao;
+import gov.iti.Services.AuthService;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -23,8 +25,18 @@ import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = { "/customer/checkout.jsp", "/customer/CheckOutServlet", "/customer/wishlist.jsp",
         "/customer/dashboard.jsp","/customer/dash-address-add.jsp","/customer/dash-address-book.jsp","/customer/dash-address-edit.jsp",
-        "/customer/dash-address-make-default.jsp" ,"/customer/dash-edit-profile.jsp","/customer/dash-my-profile.jsp","/customer/dashboard.jsp"})
+        "/customer/dash-address-make-default.jsp" ,"/customer/dash-edit-profile.jsp","/customer/dash-my-profile.jsp","/customer/dashboard.jsp", "/customer/dashboard", "/customer/wishlist"})
 public class AuthFilter implements Filter {
+
+    private EntityManager entityManager;
+    private AuthService authService;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // TODO Auto-generated method stub
+        Filter.super.init(filterConfig);
+        entityManager = EntityManagerProvider.getEntityManager();
+        authService = new AuthService(entityManager);
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -48,8 +60,8 @@ public class AuthFilter implements Filter {
                     }
                 }
                 if (!"".equals(selector) && !"".equals(rawValidator)) {
-                    AuthDao authDAO = new AuthDao(ConnectionProvider.getConnection());
-                    AuthToken token = authDAO.findBySelector(selector);
+                    //AuthDao authDAO = new AuthDao(ConnectionProvider.getConnection());
+                    UserAuth token = authService.findBySelector(selector);
 
                     if (token != null) {
                         String hashedValidatorDatabase = token.getValidator();
@@ -57,7 +69,7 @@ public class AuthFilter implements Filter {
 
                         if (hashedValidatorCookie.equals(hashedValidatorDatabase)) {
                             session = httpRequest.getSession();
-                            session.setAttribute("userId", token.getUserId());
+                            session.setAttribute("LoggedUser", token.getUser());
 
                             // update new token in database
                             String newSelector = RandomStringUtils.randomAlphanumeric(12);
@@ -67,7 +79,7 @@ public class AuthFilter implements Filter {
 
                             token.setSelector(newSelector);
                             token.setValidator(newHashedValidator);
-                            authDAO.update(token);
+                            authService.update(token);
 
                             // update cookie
                             Cookie cookieSelector = new Cookie("selector", newSelector);

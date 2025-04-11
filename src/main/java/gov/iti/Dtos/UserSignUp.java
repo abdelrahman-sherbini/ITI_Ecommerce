@@ -14,7 +14,7 @@ public class UserSignUp {
     private String phone;
     private String password;
     private String job;
-    private float credit;
+    private String credit;
     private String email;
     private Address address;
 
@@ -39,13 +39,13 @@ public class UserSignUp {
     }
 
     public void setDob(String dobStr) {
-   
+
         if (dobStr == null || dobStr.trim().isEmpty()) {
             this.dob = null;
         } else {
             try {
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dobStr);
-                this.dob = new java.sql.Date( date.getTime()) .toLocalDate();
+                this.dob = new java.sql.Date(date.getTime()).toLocalDate();
             } catch (DateTimeParseException e) {
                 this.dob = null; // Or handle error accordingly
             } catch (ParseException e) {
@@ -87,20 +87,12 @@ public class UserSignUp {
         this.job = job;
     }
 
-    public float getCredit() {
+    public String getCredit() {
         return credit;
     }
 
-    public void setCredit(String creditStr) {
-        if (creditStr == null || creditStr.trim().isEmpty()) {
-            this.credit = 0.0f; // or leave it unset
-        } else {
-            try {
-                this.credit = Float.parseFloat(creditStr);
-            } catch (NumberFormatException e) {
-                this.credit = 0.0f; // or handle error accordingly
-            }
-        }
+    public void setCredit(String credit) {
+        this.credit = credit;
     }
 
     public String getEmail() {
@@ -117,5 +109,17 @@ public class UserSignUp {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public double getCreditAsDouble() {
+        if (credit == null || credit.trim().isEmpty()) {
+            return 0.0;
+        }
+        try {
+            return Double.parseDouble(credit);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing credit: " + e.getMessage());
+            return 0.0;
+        }
     }
 }
