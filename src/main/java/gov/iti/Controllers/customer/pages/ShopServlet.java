@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,8 @@ public class ShopServlet extends HttpServlet {
         // Pagination parameters
         int page = 1;
         int limit = 12; // Default items per page
+        String sortParam = request.getParameter("sort");
+        String sortBy = "product_id DESC"; // Default sorting
 
         try {
             page = Integer.parseInt(request.getParameter("page"));
@@ -42,6 +45,43 @@ public class ShopServlet extends HttpServlet {
             limit = Integer.parseInt(request.getParameter("limit"));
         } catch (NumberFormatException e) { /* Use default */ }
 
+        // Price filter parameters
+        BigDecimal minPrice = null;
+        BigDecimal maxPrice = null;
+
+        try {
+            if (request.getParameter("minPrice") != null && !request.getParameter("minPrice").isEmpty()) {
+                minPrice = new BigDecimal(request.getParameter("minPrice"));
+            }
+            if (request.getParameter("maxPrice") != null && !request.getParameter("maxPrice").isEmpty()) {
+                maxPrice = new BigDecimal(request.getParameter("maxPrice"));
+            }
+        } catch (NumberFormatException e) {
+            // Handle invalid price input
+        }
+
+        // Determine sorting
+        if (sortParam != null) {
+            switch (sortParam) {
+                case "name_asc":
+                    sortBy = "name ASC";
+                    break;
+                case "price_asc":
+                    sortBy = "price ASC";
+                    break;
+                case "price_desc":
+                    sortBy = "price DESC";
+                    break;
+                case "discount_desc":
+                    sortBy = "discount DESC";
+                    break;
+                case "newest":
+                default:
+                    sortBy = "product_id DESC";
+                    break;
+            }
+        }
+
         int start = (page - 1) * limit;
         int totalProductCount;
         List<Product> products;
@@ -49,18 +89,37 @@ public class ShopServlet extends HttpServlet {
 
         // Get products based on category parameter
         String categoryParam = request.getParameter("category");
+
         if (categoryParam != null && !categoryParam.isEmpty()) {
             try {
                 int categoryId = Integer.parseInt(categoryParam);
-                products = productDao.getAllProductsByCategoryId(categoryId, start, limit);
-                totalProductCount = productDao.getTotalProductCountByCategory(categoryId);
+                if (minPrice != null && maxPrice != null) {
+                    products = productDao.getAllProductsByCategoryIdWithPriceRange(
+                            categoryId, start, limit, sortBy, minPrice, maxPrice);
+                    totalProductCount = productDao.getProductCountByCategoryWithPriceRange(
+                            categoryId, minPrice, maxPrice);
+                } else {
+                    products = productDao.getAllProductsByCategoryId(categoryId, start, limit, sortBy);
+                    totalProductCount = productDao.getTotalProductCountByCategory(categoryId);
+                }
             } catch (NumberFormatException e) {
-                products = productDao.getAllProducts(start, limit);
-                totalProductCount = productDao.productCount();
+                // Handle invalid category parameter
+                if (minPrice != null && maxPrice != null) {
+                    products = productDao.getAllProductsWithPriceRange(start, limit, sortBy, minPrice, maxPrice);
+                    totalProductCount = productDao.getProductCountWithPriceRange(minPrice, maxPrice);
+                } else {
+                    products = productDao.getAllProducts(start, limit, sortBy);
+                    totalProductCount = productDao.productCount();
+                }
             }
         } else {
-            products = productDao.getAllProducts(start, limit);
-            totalProductCount = productDao.productCount();
+            if (minPrice != null && maxPrice != null) {
+                products = productDao.getAllProductsWithPriceRange(start, limit, sortBy, minPrice, maxPrice);
+                totalProductCount = productDao.getProductCountWithPriceRange(minPrice, maxPrice);
+            } else {
+                products = productDao.getAllProducts(start, limit, sortBy);
+                totalProductCount = productDao.productCount();
+            }
         }
 
         // Calculate total pages
@@ -80,6 +139,9 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("limit", limit);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("sort", sortParam);
+        request.setAttribute("minPrice", request.getParameter("minPrice"));
+        request.setAttribute("maxPrice", request.getParameter("maxPrice"));
 
         request.getRequestDispatcher("/customer/shop-side-version-2.jsp").forward(request, response);
     }

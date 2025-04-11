@@ -87,18 +87,32 @@
                                             <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
                                         </div>
                                         <div class="shop-w__wrap collapse show" id="s-price">
-                                            <form class="shop-w__form-p">
+                                            <form id="priceFilterForm" method="get">
+                                                <input type="hidden" name="category" value="${param.category}">
+                                                <input type="hidden" name="page" value="1">
+                                                <input type="hidden" name="limit" value="${limit}">
+                                                <input type="hidden" name="sort" value="${param.sort}">
                                                 <div class="shop-w__form-p-wrap">
                                                     <div>
                                                         <label for="price-min"></label>
-                                                        <input class="input-text input-text--primary-style" type="text" id="price-min" placeholder="Min">
+                                                        <input class="input-text input-text--primary-style"
+                                                               type="number"
+                                                               id="price-min"
+                                                               name="minPrice"
+                                                               placeholder="Min"
+                                                               value="${param.minPrice}">
                                                     </div>
                                                     <div>
                                                         <label for="price-max"></label>
-                                                        <input class="input-text input-text--primary-style" type="text" id="price-max" placeholder="Max">
+                                                        <input class="input-text input-text--primary-style"
+                                                               type="number"
+                                                               id="price-max"
+                                                               name="maxPrice"
+                                                               placeholder="Max"
+                                                               value="${param.maxPrice}">
                                                     </div>
                                                     <div>
-                                                        <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button>
+                                                        <button class="btn btn--e-brand" type="submit">Apply</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -119,6 +133,8 @@
                                     <form id="limitForm" method="get">
                                         <input type="hidden" name="category" value="${param.category}">
                                         <input type="hidden" name="page" value="1">
+                                        <input type="hidden" name="minPrice" value="${param.minPrice}">
+                                        <input type="hidden" name="maxPrice" value="${param.maxPrice}">
                                         <div class="tool-style__form-wrap">
                                             <div class="u-s-m-b-8">
                                                 <select class="select-box select-box--transparent-b-2" name="limit" onchange="document.getElementById('limitForm').submit()">
@@ -129,19 +145,19 @@
                                                 </select>
                                             </div>
                                             <div class="u-s-m-b-8">
-                                                <select class="select-box select-box--transparent-b-2">
-                                                    <option selected>Sort By: Newest Items</option>
-                                                    <option>Sort By: Latest Items</option>
-                                                    <option>Sort By: Best Selling</option>
-                                                    <option>Sort By: Best Rating</option>
-                                                    <option>Sort By: Lowest Price</option>
-                                                    <option>Sort By: Highest Price</option>
+                                                <select class="select-box select-box--transparent-b-2" name="sort" onchange="document.getElementById('limitForm').submit()">
+                                                    <option value="newest" ${param.sort == 'newest' ? 'selected' : ''}>Sort By: Newest Items</option>
+                                                    <option value="name_asc" ${param.sort == 'name_asc' ? 'selected' : ''}>Sort By: Name (A-Z)</option>
+                                                    <option value="price_asc" ${param.sort == 'price_asc' ? 'selected' : ''}>Sort By: Lowest Price</option>
+                                                    <option value="price_desc" ${param.sort == 'price_desc' ? 'selected' : ''}>Sort By: Highest Price</option>
+                                                    <option value="discount_desc" ${param.sort == 'discount_desc' ? 'selected' : ''}>Sort By: Highest Discount</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
                             <div class="shop-p__collection">
                                 <div class="row is-grid-active">
                                     <c:forEach items="${products}" var="product">
@@ -160,7 +176,7 @@
                                                 </div>
                                                 <div class="product-m__content">
                                                     <div class="product-m__category">
-                                                        <a href="customer/shop?category=${product.categoryId}">
+                                                        <a href="/customer/shop?category=${product.categoryId}">
                                                                 ${categoryNames[product.categoryId]}
                                                         </a>
                                                     </div>
@@ -195,7 +211,7 @@
                                 <ul class="shop-p__pagination">
                                     <c:if test="${currentPage > 1}">
                                         <li>
-                                            <a href="/customer/shop?page=${currentPage - 1}&limit=${limit}&category=${param.category}">
+                                            <a href="/customer/shop?page=${currentPage - 1}&limit=${limit}&category=${param.category}&sort=${param.sort}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">
                                                 <i class="fas fa-angle-left"></i>
                                             </a>
                                         </li>
@@ -203,13 +219,13 @@
 
                                     <c:forEach begin="1" end="${totalPages}" var="i">
                                         <li class="${i == currentPage ? 'is-active' : ''}">
-                                            <a href="/customer/shop?page=${i}&limit=${limit}&category=${param.category}">${i}</a>
+                                            <a href="/customer/shop?page=${i}&limit=${limit}&category=${param.category}&sort=${param.sort}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">${i}</a>
                                         </li>
                                     </c:forEach>
 
                                     <c:if test="${currentPage < totalPages}">
                                         <li>
-                                            <a href="/customer/shop?page=${currentPage + 1}&limit=${limit}&category=${param.category}">
+                                            <a href="/customer/shop?page=${currentPage + 1}&limit=${limit}&category=${param.category}&sort=${param.sort}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">
                                                 <i class="fas fa-angle-right"></i>
                                             </a>
                                         </li>
