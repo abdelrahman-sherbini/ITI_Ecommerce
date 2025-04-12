@@ -85,8 +85,10 @@ const nameRegex = /^[a-zA-Z]{2,15}$/; // start with capital letter min 2 char ma
 */
 const passwordRegex =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,20}$/;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov)$/i;
 const phoneRegex = /^(01)[1250][0-9]{8}$/;
+const jobRegex = /^[a-zA-Z][a-zA-Z\s]{3,50}$/;
+const postalCodeRegex = /^\d{5}$/;
 
 let setOfInvalidElements = new Set();
 
@@ -170,9 +172,10 @@ const credit = document.getElementById("reg-credit");
 const dob = document.getElementById("reg-dob");
 
 
+
 attachValidation(fname, nameRegex, "*First name must contain only letters");
 attachValidation(lname, nameRegex, "*Last name must contain only letters");
-attachValidation(job, nameRegex, "*Job must conatin only letters");
+attachValidation(job, jobRegex, "*Job must conatin only letters");
 attachValidation(password, passwordRegex,"*Password must be 6–20 characters with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character*Password must be 6–20 characters with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character");
 attachValidation(phone, phoneRegex, "*Phone must start with 010, 011, 012, or 015 and contain 11 digits");
 attachValidation(email, emailRegex, "*Please enter a valid email address");
@@ -204,6 +207,12 @@ function notEmptyValidator(value) {
     const emailText = email.value.trim(); // Get email value
     if (!emailText) return; // Avoid unnecessary requests if empty
 
+     // check email format
+     const isFormatValid = emailRegex.test(emailText);
+     if (!isFormatValid) {
+         return;
+     }
+
     $.ajax({
         url: "email",
         method: "GET",
@@ -229,16 +238,27 @@ function notEmptyValidator(value) {
 
 // Attach event properly
 email.addEventListener("blur", function () {
-    fetchEmails();
+     
+     validateWith(emailRegex, email, "*Please enter a valid email address");
+    
+     
+     if (!setOfInvalidElements.has(email)) {
+         fetchEmails();
+     }
 });
 
 
-email.addEventListener("blur", fetchEmails);
+
 
 function fetchPhone() {
   const phoneText = phone.value.trim();
   if (!phoneText) return;
 
+  // check phone format
+  const isFormatValid = phoneRegex.test(phoneText);
+  if (!isFormatValid) {
+      return;
+  }
   $.ajax({
       url: "phone",
       method: "GET",
@@ -263,7 +283,12 @@ function fetchPhone() {
 
 // Attach event properly
 phone.addEventListener("blur", function () {
+  validateWith(phoneRegex, phone, "*Phone must start with 010, 011, 012, or 015 and contain 11 digits");
   fetchPhone();
+
+  if (!setOfInvalidElements.has(phone)) {
+    fetchPhone();
+  }
 });
 
 
@@ -273,10 +298,12 @@ phone.addEventListener("blur", function () {
 const address = document.getElementById("address-street");
 const governorate = document.getElementById("address-state");
 const city = document.getElementById("address-city");
+const postal = document.getElementById("address-postal");
 
 attachValidation(address, notEmptyValidator,"*Address cannot be empty");
 attachValidation(governorate, selectValidator, "*Please select a governorate");
 attachValidation(city, selectValidator, "*Please select a city");
+attachValidation(postal, postalCodeRegex, "*Please enter a valid Egyptian postal code (e.g., 11511).")
 
 
 
