@@ -120,7 +120,7 @@ function validateWith(validator, element, message) {
     if (errorMsg) {
       errorDiv.innerHTML = errorMsg;
       setOfInvalidElements.add(element);
-    } else {
+    } else if(errorDiv.innerHTML == message){
       errorDiv.innerHTML = "";
       errorDiv.removeAttribute("style");
       setOfInvalidElements.delete(element);
@@ -216,7 +216,7 @@ function notEmptyValidator(value) {
                 setOfInvalidElements.add(email);
                 errorElement.innerHTML = "*This email is already taken.";
                 
-            } else {
+            } else if(errorElement.innerHTML == "*This email is already taken."){
                 setOfInvalidElements.delete(email);
                 errorElement.innerHTML = "";
             }
@@ -250,7 +250,7 @@ function fetchPhone() {
           if (isInvalid) {
               setOfInvalidElements.add(phone);
               errorElement.innerHTML = "*This phone number is already taken.";
-          } else {
+          } else if(errorElement.innerHTML == "*This phone number is already taken."){
               setOfInvalidElements.delete(phone);
               errorElement.innerHTML = "";
           }
