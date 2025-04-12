@@ -239,7 +239,7 @@
                                                             <div class="u-s-m-b-30">
         
                                                                 <label class="gl-label" for="address-postal">ZIP/POSTAL CODE </label>
-        
+                                                                <div class="gl-error" id="address-postal-error"></div>
                                                                 <input class="input-text input-text--primary-style" type="text" id="address-postal" name="address-postal" placeholder="Zip/Postal Code"></div>
                                                         </div>
                                                         <label class="gl-label" style="display: block; margin-bottom: 5px;">TYPE *</label>
