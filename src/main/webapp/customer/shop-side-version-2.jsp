@@ -185,7 +185,13 @@
                                                         </a>
                                                     </div>
                                                     <div class="product-m__add-cart">
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a>
+                                                        <a class="btn--e-brand add-to-cart-btn"
+                                                           data-product-id="${product.productId}"
+                                                           data-product-name="${fn:escapeXml(product.productName)}"
+                                                           data-product-image="${fn:split(product.productImages, ',')[0]}"
+                                                           data-product-price="<fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>">
+                                                            Add to Cart
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="product-m__content">
@@ -350,6 +356,49 @@
         </div>
     </div>
     <!--====== End - Quick Look Modal ======-->
+
+
+    <!--====== Add to Cart Modal ======-->
+    <div class="modal fade" id="add-to-cart">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-radius modal-shadow">
+                <button class="btn dismiss-button fas fa-times" type="button" data-dismiss="modal"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="success u-s-m-b-30">
+                                <div class="success__text-wrap">
+                                    <i class="fas fa-check"></i>
+                                    <span>Item is added successfully!</span>
+                                </div>
+                                <div class="success__img-wrap">
+                                    <img id="add-to-cart-image" class="u-img-fluid" src="" alt="">
+                                </div>
+                                <div class="success__info-wrap">
+                                    <span id="add-to-cart-name" class="success__name"></span>
+                                    <span class="success__quantity">Quantity: 1</span>
+                                    <span id="add-to-cart-price" class="success__price"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="s-option">
+                                <span class="s-option__text">1 item (s) in your cart</span>
+                                <div class="s-option__link-box">
+                                    <a class="s-option__link btn--e-white-brand-shadow" data-dismiss="modal">CONTINUE SHOPPING</a>
+                                    <a class="s-option__link btn--e-white-brand-shadow" href="/customer/cart">VIEW CART</a>
+                                    <a class="s-option__link btn--e-brand-shadow" href="/customer/checkout">PROCEED TO CHECKOUT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Add to Cart Modal ======-->
+
+
 </div>
 <!--====== End - Main App ======-->
 
@@ -365,5 +414,10 @@
 
 <!--====== Quick Look Modal JS ======-->
 <script src="js/quick-look-modal.js"></script>
+
+
+<!--====== Add to Cart JS ======-->
+<script src="js/add-to-cart.js"></script>
+
 </body>
 </html>
