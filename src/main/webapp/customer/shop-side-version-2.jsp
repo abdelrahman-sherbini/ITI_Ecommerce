@@ -111,8 +111,9 @@
                                                                placeholder="Max"
                                                                value="${param.maxPrice}">
                                                     </div>
+
                                                     <div>
-                                                        <button class="btn btn--e-brand" type="submit">Apply</button>
+                                                        <button class="btn btn--e-brand" type="submit"> > </button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -164,7 +165,7 @@
                                         <div class="col-lg-4 col-md-6 col-sm-6">
                                             <div class="product-m">
                                                 <div class="product-m__thumb">
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp?id=${product.productId}">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/product-detail?id=${product.productId}>
                                                         <img class="aspect__img" src="${fn:split(product.productImages, ',')[0]}" alt="${product.productName}">
                                                     </a>
                                                     <div class="product-m__quick-look">
@@ -181,7 +182,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="product-m__name">
-                                                        <a href="product-detail.jsp?id=${product.productId}">${product.productName}</a>
+                                                        <a href="/customer/product-detail?id=${product.productId}">${product.productName}</a>
                                                     </div>
                                                     <div class="product-m__rating gl-rating-style"></div>
                                                     <div class="product-m__price">
