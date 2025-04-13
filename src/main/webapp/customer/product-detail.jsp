@@ -116,10 +116,6 @@
                             </div>
                             <div class="u-s-m-b-15">
                                 <div class="pd-detail__rating gl-rating-style">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                    <span class="pd-detail__review u-s-m-l-4">
-                                            <a data-click-scroll="#view-review">23 Reviews</a>
-                                        </span>
                                 </div>
                             </div>
                             <div class="u-s-m-b-15">

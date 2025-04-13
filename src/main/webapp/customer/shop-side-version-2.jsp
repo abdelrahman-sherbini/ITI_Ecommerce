@@ -169,7 +169,20 @@
                                                         <img class="aspect__img" src="${fn:split(product.productImages, ',')[0]}" alt="${product.productName}">
                                                     </a>
                                                     <div class="product-m__quick-look">
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a>
+                                                        <a class="fas fa-search quick-look-btn"
+                                                           data-toggle="modal"
+                                                           data-target="#quick-look"
+                                                           data-product-id="${product.productId}"
+                                                           data-product-name="${fn:escapeXml(product.productName)}"
+                                                           data-product-description="${fn:escapeXml(product.productDescription)}"
+                                                           data-product-price="<fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>"
+                                                           data-product-original-price="<fmt:formatNumber value="${product.productPrice}" type="currency" currencySymbol="$"/>"
+                                                           data-product-discount="${product.productDiscount}"
+                                                           data-product-stock="${product.productQunatity}"
+                                                           data-category-id="${product.categoryId}"
+                                                           data-category-name="${fn:escapeXml(categoryNames[product.categoryId])}"
+                                                           data-product-image="${fn:split(product.productImages, ',')[0]}">
+                                                        </a>
                                                     </div>
                                                     <div class="product-m__add-cart">
                                                         <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a>
@@ -247,7 +260,96 @@
     <jsp:include page="footer.jsp"/>
 
     <!--====== Modal Section ======-->
-    <!-- ... (keep existing modal code) ... -->
+    <!--====== Quick Look Modal ======-->
+    <div class="modal fade" id="quick-look">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal--shadow">
+                <button class="btn dismiss-button fas fa-times" type="button" data-dismiss="modal"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <!--====== Product Breadcrumb ======-->
+                            <div class="pd-breadcrumb u-s-m-b-30">
+                                <ul class="pd-breadcrumb__list">
+                                    <li class="has-separator">
+                                        <a href="index.jsp">Home</a>
+                                    </li>
+                                    <li class="has-separator">
+                                        <a href="/customer/shop">Shop</a>
+                                    </li>
+                                    <li class="has-separator">
+                                        <a href="#" id="modal-category-link">Category</a>
+                                    </li>
+                                    <li class="is-marked">
+                                        <a href="javascript:void(0)" id="modal-product-name-breadcrumb"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--====== End - Product Breadcrumb ======-->
+                            <!--====== Single Product Image ======-->
+                            <div class="pd u-s-m-b-30">
+                                <div class="pd-wrap">
+                                    <img id="modal-product-image" class="u-img-fluid" src="" alt="">
+                                </div>
+                            </div>
+                            <!--====== End - Single Product Image ======-->
+                        </div>
+                        <div class="col-lg-7">
+                            <!--====== Product Right Side Details ======-->
+                            <div class="pd-detail">
+                                <div>
+                                    <span class="pd-detail__name" id="modal-product-name"></span>
+                                </div>
+                                <div>
+                                    <div class="pd-detail__inline">
+                                        <span class="pd-detail__price" id="modal-product-price"></span>
+                                        <span class="pd-detail__discount" id="modal-product-discount"></span>
+                                        <del class="pd-detail__del" id="modal-product-original-price"></del>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__rating gl-rating-style">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                        <span class="pd-detail__review u-s-m-l-4">
+                                        <a href="#" id="modal-reviews-link">0 Reviews</a>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <span class="pd-detail__stock" id="modal-product-stock"></span>
+                                        <span class="pd-detail__left" id="modal-product-left"></span>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <span class="pd-detail__preview-desc" id="modal-product-description"></span>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <form class="pd-detail__form" action="/cart/add" method="post">
+                                        <input type="hidden" name="productId" id="modal-product-id">
+                                        <div class="pd-detail-inline-2">
+                                            <div class="u-s-m-b-15">
+                                                <div class="input-counter">
+                                                    <span class="input-counter__minus fas fa-minus"></span>
+                                                    <input class="input-counter__text input-counter--text-primary-style" type="text" name="quantity" value="1" data-min="1" data-max="1000">
+                                                    <span class="input-counter__plus fas fa-plus"></span>
+                                                </div>
+                                            </div>
+                                            <div class="u-s-m-b-15">
+                                                <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--====== End - Product Right Side Details ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Quick Look Modal ======-->
 </div>
 <!--====== End - Main App ======-->
 
@@ -259,5 +361,9 @@
 
 <!--====== App ======-->
 <script src="js/app.js"></script>
+
+
+<!--====== Quick Look Modal JS ======-->
+<script src="js/quick-look-modal.js"></script>
 </body>
 </html>
