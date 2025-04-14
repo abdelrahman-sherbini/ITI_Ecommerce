@@ -14,7 +14,6 @@ public class CartService {
     }
 
     public boolean addCart(Cart cart) {
-        System.out.println("addCart");
         TypedQuery<Cart> q = entityManager.createQuery("SELECT c FROM Cart c WHERE c.user = :user and c.product = :product", Cart.class);
         q.setParameter("user", cart.getUser());
         q.setParameter("product", cart.getProduct());
