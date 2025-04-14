@@ -108,7 +108,7 @@
 
                                                             <span class="table-p__name">
 
-                                                                <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
+                                                                <a href="product-detail?id=${cart.product.id}">${cart.product.name}</a></span>
 
                                                             <span class="table-p__category">
 

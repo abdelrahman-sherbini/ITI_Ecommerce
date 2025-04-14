@@ -331,7 +331,7 @@
 
                                                             <span class="o-card__name">
 
-                                                                <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
+                                                                <a href="product-detail?id=${cart.product.id}">${cart.product.name}</a></span>
 
                                                             <span class="o-card__quantity">Quantity x ${cart.quantity}</span>
 
