@@ -110,7 +110,6 @@ public class LoginServlet extends HttpServlet {
        
        if(user != null){
         boolean verify =PasswordHasher.verifyPassword(userSignInDto.getPassword(), user.getPassword());
-        System.out.println(verify);
         if(verify){
             return user;
         }else{

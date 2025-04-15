@@ -4,14 +4,15 @@ public class MailMessenger {
 
 	public static void successfullyRegister(String userName, String userEmail) {
 
-		String subject = "Welcome to shopfy - Successful Registration!";
+		String subject = "Welcome to Rawnaq - Successful Registration!";
 		String body = "Hi " + userName
 				+ ",<p>Congratulations and a warm welcome to shopfy! We are thrilled to have you as a part of our growing community. Thank you for choosing us for your online shopping needs.</p>"
-				+ "<p>Your registration was successful, and we are excited to inform you that you are now a valued member of our platform. With shopfy, you'll discover a wide selection of products and exciting deals that cater to your interests and preferences."
+				+ "<p>Your registration was successful, and we are excited to inform you that you are now a valued member of our platform. With Rawnaq, you'll discover a wide selection of products and exciting deals that cater to your interests and preferences."
 				+ "<p>Once again, welcome aboard! We look forward to serving you and making your shopping experience delightful and rewarding.</p>"
 				+ "<p>Happy shopping!</p>";
 		try {
 			Mail.sendMail(userEmail, subject, body);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,6 +57,22 @@ public class MailMessenger {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void sendresetPassword(String userEmail, String token){
+		String subject = "Reset Password";
+		String resetLink = "http://localhost:8080/customer/reset-password.jsp?token=" + token;
+
+    // Construct the email body with the reset link
+    String body = "Hi, <br><br>"
+            + "Please use the link below to reset your password:<br>"
+            + "<a href=\"" + resetLink + "\">Reset Password</a><br><br>"
+            + "If you didn't request a password reset, please ignore this email.";
+				try {
+					Mail.sendMail(userEmail, subject, body);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 	}
 
 }

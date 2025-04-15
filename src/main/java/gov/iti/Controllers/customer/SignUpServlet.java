@@ -88,8 +88,7 @@ public class SignUpServlet extends HttpServlet{
         user.setJob(userSignUpDto.getJob());
         user.setDob(userSignUpDto.getDob());
         user.setCredit(userSignUpDto.getCreditAsDouble()); 
-        System.out.println(userSignUpDto.getCredit());
-        System.out.println(user.getCredit());
+        
         if (userSignUpDto.getAddress() != null) {
             UserAddress userAddress = new UserAddress();
             userAddress.setAddress(userSignUpDto.getAddress().getAddressDescription());
