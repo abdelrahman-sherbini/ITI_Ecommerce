@@ -1,6 +1,7 @@
 package gov.iti.Controllers.customer;
 
 
+import gov.iti.Controllers.admin.OrderSSE;
 import gov.iti.Dtos.Message;
 import gov.iti.Entities.*;
 import gov.iti.Helper.EntityManagerProvider;
@@ -37,7 +38,7 @@ public class CheckOutServlet extends HttpServlet {
         if(address_I == null || address_I.isEmpty()|| Integer.parseInt(address_I) <=0){
             message = new Message("Choose a valid address!", "error", "alert-danger");
             req.getSession().setAttribute("message", message);
-            resp.sendRedirect("/customer/checkout.jsp");
+            resp.sendRedirect("/customer/checkout");
             return;
         }
         Long address_ID = Long.parseLong(address_I);
@@ -80,6 +81,7 @@ public class CheckOutServlet extends HttpServlet {
         order.setOrderedProducts(orderedProducts);
 
         if(orderService.addOrder(order)){
+            OrderSSE.broadcast(order);
 
         if(userDBService.removeAllCarts(user.getId())){
             user = userDBService.refreshUser(user);

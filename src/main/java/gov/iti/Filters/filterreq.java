@@ -1,21 +1,16 @@
 package gov.iti.Filters;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import gov.iti.Dtos.Message;
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/admin/*")
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebFilter(value = "/admin/*",asyncSupported = true)
 public class filterreq implements Filter{
      public void init(FilterConfig filterConfig)
         throws ServletException
