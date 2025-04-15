@@ -1,6 +1,7 @@
 package gov.iti.Controllers.customer;
 
 
+import gov.iti.Controllers.admin.OrderSSE;
 import gov.iti.Dtos.Message;
 import gov.iti.Entities.*;
 import gov.iti.Helper.EntityManagerProvider;
@@ -80,7 +81,7 @@ public class CheckOutServlet extends HttpServlet {
         order.setOrderedProducts(orderedProducts);
 
         if(orderService.addOrder(order)){
-//            OrderSSE.broadcast(order);
+            OrderSSE.broadcast(order);
 
         if(userDBService.removeAllCarts(user.getId())){
             user = userDBService.refreshUser(user);

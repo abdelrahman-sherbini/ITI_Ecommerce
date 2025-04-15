@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebFilter(value = "/admin/*")
+@WebFilter(value = "/admin/*",asyncSupported = true)
 public class filterreq implements Filter{
      public void init(FilterConfig filterConfig)
         throws ServletException
