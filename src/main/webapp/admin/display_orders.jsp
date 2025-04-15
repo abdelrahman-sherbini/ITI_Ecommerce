@@ -87,6 +87,6 @@
 		<%@include file="Components/modals.jsp"%>
 
 		<!-- end of modal -->
-	
+	<script src="JS/script.js"></script>
 </body>
 </html>

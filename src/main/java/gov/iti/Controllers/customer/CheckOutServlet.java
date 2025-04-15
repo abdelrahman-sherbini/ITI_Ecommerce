@@ -80,6 +80,7 @@ public class CheckOutServlet extends HttpServlet {
         order.setOrderedProducts(orderedProducts);
 
         if(orderService.addOrder(order)){
+//            OrderSSE.broadcast(order);
 
         if(userDBService.removeAllCarts(user.getId())){
             user = userDBService.refreshUser(user);
