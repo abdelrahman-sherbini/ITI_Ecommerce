@@ -58,10 +58,15 @@ public class UpdateCartServlet extends HttpServlet {
             Product product = productService.getProductById(productID);
             cart.setProduct(product);
 //            cart.setProductId(productID);
-            if(cartService.addCart(cart)){
+
+            if(!cartService.addCart(cart)){
+                resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+            }else{
+                resp.setStatus(HttpServletResponse.SC_OK);
+
+            }
                 user = userDBService.refreshUser(user);
                 req.getSession().setAttribute("LoggedUser", user);
-            }
 //            cartDao.addToCart(cart);
             
         }

@@ -19,7 +19,7 @@
     <div class="mini-product">
       <div class="mini-product__image-wrapper">
 
-        <a class="mini-product__link" href="product-detail.jsp?id=${cart.product.id}">
+        <a class="mini-product__link" href="product-detail?id=${cart.product.id}">
 
           <img class="u-img-fluid" src="images/product/${cart.product.category.name}/${cart.product.image}" alt=""></a></div>
       <div class="mini-product__info-wrapper">
@@ -30,7 +30,7 @@
 
         <span class="mini-product__name">
 
-                                                        <a href="product-detail.jsp?id=${cart.product.id}">${cart.product.name}</a></span>
+                                                        <a href="product-detail?id=${cart.product.id}">${cart.product.name}</a></span>
 
         <span class="mini-product__quantity">${cart.quantity} x</span>
 

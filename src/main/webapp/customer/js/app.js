@@ -576,15 +576,22 @@
             }).fail(function () {
                 alert("Failed to delete item. Please try again."); // Handle errors
             });
-            $.post("UpdateCartServlet", {
-                operation: "AddOrder",
-                productID: productID
-            }, function (response) {
-                $miniCartCount.text($miniCartCountval+1);
-                // Show the modal
-                $("#add-to-cart").modal("show");
-            }).fail(function () {
-                alert("Failed to delete item. Please try again."); // Handle errors
+            $.ajax({
+                url: "UpdateCartServlet",
+                type: "POST",
+                data: {
+                    operation: "AddOrder",
+                    productID: productID
+                },
+                complete: function (xhr) {
+                    if (xhr.status === 200) {
+                        $miniCartCount.text($miniCartCountval + 1);
+                    }
+                    $("#add-to-cart").modal("show");
+                },
+                error: function () {
+                    alert("Failed to add item. Please try again.");
+                }
             });
         });
     };

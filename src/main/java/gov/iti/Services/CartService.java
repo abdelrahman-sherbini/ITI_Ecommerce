@@ -2,6 +2,7 @@ package gov.iti.Services;
 
 import gov.iti.Entities.Cart;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 public class CartService {
     private EntityManager entityManager;
@@ -13,7 +14,21 @@ public class CartService {
     }
 
     public boolean addCart(Cart cart) {
+        TypedQuery<Cart> q = entityManager.createQuery("SELECT c FROM Cart c WHERE c.user = :user and c.product = :product", Cart.class);
+        q.setParameter("user", cart.getUser());
+        q.setParameter("product", cart.getProduct());
+        try {
+
+        Cart foundCart = q.getSingleResult();
+            updateCartQuantity(foundCart.getId(), cart.getQuantity() + foundCart.getQuantity() );
+            return false;
+        } catch (Exception e) {
+
         return crudService.create(cart);
+        }
+
+
+
     }
 
     public Cart getCart(Long cartItem) {

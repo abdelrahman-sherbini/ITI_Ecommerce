@@ -104,7 +104,7 @@
 
                                                 <span class="w-r__name">
 
-                                                    <a href="product-detail.jsp?id=${wishlist.product.id}">${wishlist.product.name}</a></span>
+                                                    <a href="product-detail?id=${wishlist.product.id}">${wishlist.product.name}</a></span>
 
                                                 <span class="w-r__category">
 
@@ -146,7 +146,7 @@
                                                data-id="${wishlist.product.id}"
                                                >ADD TO CART</a>
 
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail.jsp?id=${wishlist.product.id}">VIEW</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="product-detail?id=${wishlist.product.id}">VIEW</a>
 
 <%--                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">REMOVE</a></div>--%>
                                         <button type="button" class="w-r__link deleteWish btn--e-transparent-platinum-b-2">Remove</button>
