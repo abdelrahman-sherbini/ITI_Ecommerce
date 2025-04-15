@@ -14,14 +14,14 @@ public class Mail {
 	public static void sendMail(String recipientMailId, String subject, String body) {
 		 
         Properties properties = new Properties();
-        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.host", "smtp.mailersend.net");
         properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.port", "587");
 
-        String emailId = ""; 	     // admin/company mail-id
-        String password = "";		// generated password
+        String emailId = "MS_UBs2zP@test-68zxl27rkn54j905.mlsender.net"; 	     // admin/company mail-id
+        String password = "mssp.kjdORPI.ynrw7gynexo42k8e.LNKDynm";		// generated password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -46,4 +46,5 @@ public class Mail {
         }
 
     }
+
 }

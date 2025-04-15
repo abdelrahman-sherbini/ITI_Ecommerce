@@ -4,6 +4,7 @@ package gov.iti.Services;
 import gov.iti.Entities.User;
 import gov.iti.Entities.UserAuth;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 public class AuthService {
@@ -32,6 +33,21 @@ public class AuthService {
 
     public boolean update(UserAuth userAuth){
         return crudService.update(userAuth);
+    }
+
+     public UserAuth getAuthByUser(User user) {
+        try {
+            return entityManager
+                    .createQuery("SELECT ua FROM UserAuth ua WHERE ua.user = :user", UserAuth.class)
+                    .setParameter("user", user)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; 
+        }
+    }
+
+    public boolean delete(UserAuth userAuth){
+        return crudService.delete(userAuth);
     }
     
 }

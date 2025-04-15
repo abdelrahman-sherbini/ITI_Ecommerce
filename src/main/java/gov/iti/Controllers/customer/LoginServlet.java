@@ -63,10 +63,21 @@ public class LoginServlet extends HttpServlet {
                     
                     String hashValidator = HashGenerator.generateSHA256(rawValidator);
 
-                    UserAuth  authToken = new UserAuth(databaseUser, selector, hashValidator);
                     
-                    boolean flag = authService.addAuth(authToken);
-                    System.out.println(flag);
+
+                
+
+                    UserAuth existing = authService.getAuthByUser(databaseUser);
+
+                    if (existing != null) {
+                        existing.setSelector(selector);
+                        existing.setValidator(hashValidator);
+                        authService.update(existing); // merge updates
+                    } else {
+                        UserAuth newAuth = new UserAuth(databaseUser, selector, hashValidator);
+                        authService.addAuth(newAuth); // persist new
+                    }
+                    
                     
                     Cookie cookieSelector = new Cookie("selector", selector);
                     cookieSelector.setMaxAge(604800);
@@ -99,7 +110,6 @@ public class LoginServlet extends HttpServlet {
        
        if(user != null){
         boolean verify =PasswordHasher.verifyPassword(userSignInDto.getPassword(), user.getPassword());
-        System.out.println(verify);
         if(verify){
             return user;
         }else{

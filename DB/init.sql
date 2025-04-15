@@ -111,6 +111,15 @@ CREATE TABLE `admin`(
     `password` VARCHAR(50) NOT NULL,
     `phone` VARCHAR(20) NULL
 );
+
+CREATE TABLE `password_reset_tokens` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `token` VARCHAR(255) NOT NULL,
+    `user_id` BIGINT UNSIGNED NOT NULL,
+    `expiration_time` TIMESTAMP NOT NULL,
+    CONSTRAINT `fk_user_reset` FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
+);
+
 ALTER TABLE
     `admin` ADD INDEX `admin_email_index`(`email`);
 ALTER TABLE

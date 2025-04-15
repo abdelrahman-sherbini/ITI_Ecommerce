@@ -90,22 +90,66 @@
                                     <div class="l-f-o__pad-box">
                                         <h1 class="gl-h1">PASSWORD RESET</h1>
 
-                                        <span class="gl-text u-s-m-b-30">Enter your email or username below and we will send you a link to reset your password.</span>
-                                        <div class="gl-error" style="font-size: 15px;" id="reg-email-error">
-                            
-                                        </div>
-                                        <form class="l-f-o__form" id="reset-password-form" method="post" action="lostPassword">
-                                            <div class="u-s-m-b-30">
-
-                                                <label class="gl-label" for="reset-email">E-MAIL *</label>
-
-                                                <input class="input-text input-text--primary-style" type="email" id="reset-email" name="resetEmail"placeholder="Enter E-mail"></div>
-                                            <div class="u-s-m-b-30">
+                                        
+                                        
+                                            <%
+                                            String token = request.getParameter("token");
+                                        %>
+                                        
+                                        <form class="l-f-o__form" id="reset-password-form" method="post" action="resetPassword">
+                                            <div class="u-s-m-b-30" style="position: relative;">
+                                                <label class="gl-label" for="reg-password">PASSWORD *</label>
+                                                <div class="gl-error" id="reg-password-error"></div>
+                                                <div class="u-s-m-b-30" style="position: relative;">
+                                                    <input
+                                                        class="input-text input-text--primary-style"
+                                                        type="password"
+                                                        id="reg-password"
+                                                        name="password"
+                                                        placeholder="Enter Password"
+                                                        required
+                                                        style="padding-right: 40px; width: 100%;"
+                                                    />
+                                                    <img
+                                                        src="images/eyeicon.png"
+                                                        alt="Show/Hide"
+                                                        class="toggle-password"
+                                                        toggle="#reg-password"
+                                                        style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                    />
+                                                </div>
+                                                
+                                                
+                                              </div>
+                                              <div class="u-s-m-b-30" style="position: relative;">
+                                                    <label class="gl-label" for="reg-conf-password">CONFIRM PASSWORD *</label>
+                                                    <div class="gl-error" id="reg-conf-password-error"></div>
+                                                    
+                                                    <div class="u-s-m-b-30" style="position: relative;">
+                                                        <input
+                                                            class="input-text input-text--primary-style"
+                                                            type="password"
+                                                            id="reg-conf-password"
+                                                            name="reg-conf-password"
+                                                            placeholder="Enter Password"
+                                                            required
+                                                            style="padding-right: 40px; width: 100%;"
+                                                        />
+                                                        <img
+                                                            src="images/eyeicon.png"
+                                                            alt="Show/Hide"
+                                                            class="toggle-password"
+                                                            toggle="#reg-conf-password"
+                                                            style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 20px; height: 20px; cursor: pointer;"
+                                                        />
+                                                    </div>
+                                                    
+                                                  </div>
 
                                                 <button class="btn btn--e-transparent-brand-b-2" type="submit" id="reset-bttn">SUBMIT</button></div>
                                             <div class="u-s-m-b-30">
 
-                                                <a class="gl-link" href="signin.jsp">Back to Login</a></div>
+                                                
                                         </form>
                                     </div>
                                 </div>
@@ -146,7 +190,7 @@
 
     <!--====== App ======-->
     <script src="js/app.js"></script>
-    <script src="js/lost-password.js"></script>
+    <script src="js/reset-password.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--====== Noscript ======-->

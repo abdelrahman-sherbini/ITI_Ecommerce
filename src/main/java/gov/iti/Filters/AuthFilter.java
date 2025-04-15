@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = { "/customer/checkout.jsp", "/customer/CheckOutServlet", "/customer/wishlist.jsp",
         "/customer/dashboard.jsp","/customer/dash-address-add.jsp","/customer/dash-address-book.jsp","/customer/dash-address-edit.jsp",
-        "/customer/dash-address-make-default.jsp" ,"/customer/dash-edit-profile.jsp","/customer/dash-my-profile.jsp","/customer/dashboard.jsp", "/customer/dashboard", "/customer/wishlist"})
+        "/customer/dash-address-make-default.jsp" ,"/customer/dash-edit-profile.jsp","/customer/dash-my-profile.jsp","/customer/dashboard.jsp", "/customer/dashboard", "/customer/wishlist", "/customer/cart"})
 public class AuthFilter implements Filter {
 
     private EntityManager entityManager;
@@ -92,21 +92,21 @@ public class AuthFilter implements Filter {
                             httpResponse.addCookie(cookieValidator);
 
                         } else {
-                            httpResponse.sendRedirect("signin.jsp");
+                            httpResponse.sendRedirect("/customer/signin.jsp");
                             return;
                         }
                     } else {
-                        httpResponse.sendRedirect("signin.jsp");
+                        httpResponse.sendRedirect("/customer/signin.jsp");
                         return;
                     }
                 } else {
-                    httpResponse.sendRedirect("signin.jsp");
+                    httpResponse.sendRedirect("/customer/signin.jsp");
                     return;
                 }
 
             } else {
 
-                httpResponse.sendRedirect("signin.jsp");
+                httpResponse.sendRedirect("/customer/signin.jsp");
                 return;
             }
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import gov.iti.Helper.EntityManagerProvider;
 import gov.iti.Services.UserDBService;
-import gov.iti.Services.UserService;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

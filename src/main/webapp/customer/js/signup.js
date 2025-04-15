@@ -84,7 +84,7 @@ const nameRegex = /^[a-zA-Z]{2,15}$/; // start with capital letter min 2 char ma
     at least 1 special character
 */
 const passwordRegex =
-  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,20}$/;
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])^(?!.*\s)[A-Za-z\d!@#$%^&*]{6,20}$/
 const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov)$/i;
 const phoneRegex = /^(01)[1250][0-9]{8}$/;
 const jobRegex = /^[a-zA-Z][a-zA-Z\s]{3,50}$/;
@@ -135,7 +135,7 @@ function validateWith(validator, element, message) {
   
     if (isNaN(dob.getTime())) return false; // Not a valid date
   
-    // Optional: Check age (e.g., at least 13 years old)
+    
     const ageDiff = today.getFullYear() - dob.getFullYear();
     const monthDiff = today.getMonth() - dob.getMonth();
     const dayDiff = today.getDate() - dob.getDate();
@@ -176,7 +176,7 @@ const dob = document.getElementById("reg-dob");
 attachValidation(fname, nameRegex, "*First name must contain only letters");
 attachValidation(lname, nameRegex, "*Last name must contain only letters");
 attachValidation(job, jobRegex, "*Job must conatin only letters");
-attachValidation(password, passwordRegex,"*Password must be 6–20 characters with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character*Password must be 6–20 characters with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character");
+attachValidation(password, passwordRegex,"*Password must be 6–20 characters with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character");
 attachValidation(phone, phoneRegex, "*Phone must start with 010, 011, 012, or 015 and contain 11 digits");
 attachValidation(email, emailRegex, "*Please enter a valid email address");
 attachValidation(dob, dobValidator, "*must be 18 years old or above");
@@ -291,7 +291,14 @@ phone.addEventListener("blur", function () {
   }
 });
 
-
+function descriptiveAddressValidator(value) {
+  const trimmed = value.trim();
+  const wordCount = trimmed.split(/\s+/).length;
+  return wordCount >= 3 && trimmed.length >= 10;
+}
+function fullAddressValidator(value) {
+  return notEmptyValidator(value) && descriptiveAddressValidator(value);
+}
 
 
 // default address
@@ -300,7 +307,7 @@ const governorate = document.getElementById("address-state");
 const city = document.getElementById("address-city");
 const postal = document.getElementById("address-postal");
 
-attachValidation(address, notEmptyValidator,"*Address cannot be empty");
+attachValidation(address, fullAddressValidator, "*Address must be more descriptive (at least 3 words and 10 characters).");
 attachValidation(governorate, selectValidator, "*Please select a governorate");
 attachValidation(city, selectValidator, "*Please select a city");
 attachValidation(postal, postalCodeRegex, "*Please enter a valid Egyptian postal code (e.g., 11511).")
@@ -334,7 +341,38 @@ submitBttn.addEventListener("click", (e) => {
   }
 
   if (setOfInvalidElements.size !== 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Incomplete or Invalid Form',
+      text: 'Please complete all required fields and correct any invalid inputs before submitting.',
+      confirmButtonText: 'OK',
+      willOpen: () => {
+       
+        Swal.getConfirmButton().style.backgroundColor = '#ff4500';  
+        Swal.getConfirmButton().style.color = 'white';             
+        Swal.getConfirmButton().style.border = 'none';            
+        Swal.getConfirmButton().style.padding = '10px 20px';       
+        Swal.getConfirmButton().style.borderRadius = '5px';
+            
+      }
+
+    });
     return;
   }
-  form.submit();
+  Swal.fire({
+    icon: 'success',
+    title: 'Welcome aboard!',
+    text: 'Registration successful Start shopping now!',
+    confirmButtonText: 'OK',
+    willOpen: () => {
+       
+      Swal.getConfirmButton().style.backgroundColor = '#ff4500';  
+      Swal.getConfirmButton().style.color = 'white';             
+      Swal.getConfirmButton().style.border = 'none';            
+      Swal.getConfirmButton().style.padding = '10px 20px';       
+      Swal.getConfirmButton().style.borderRadius = '5px';        
+    }
+  }).then(() => {
+    form.submit(); 
+  });
 });
