@@ -37,7 +37,7 @@ public class CheckOutServlet extends HttpServlet {
         if(address_I == null || address_I.isEmpty()|| Integer.parseInt(address_I) <=0){
             message = new Message("Choose a valid address!", "error", "alert-danger");
             req.getSession().setAttribute("message", message);
-            resp.sendRedirect("/customer/checkout.jsp");
+            resp.sendRedirect("/customer/checkout");
             return;
         }
         Long address_ID = Long.parseLong(address_I);

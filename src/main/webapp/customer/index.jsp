@@ -1735,9 +1735,9 @@
 
                                         <a class="s-option__link btn--e-white-brand-shadow" data-dismiss="modal">CONTINUE SHOPPING</a>
 
-                                        <a class="s-option__link btn--e-white-brand-shadow" href="cart.jsp">VIEW CART</a>
+                                        <a class="s-option__link btn--e-white-brand-shadow" href="cart">VIEW CART</a>
 
-                                        <a class="s-option__link btn--e-brand-shadow" href="checkout.jsp">PROCEED TO CHECKOUT</a></div>
+                                        <a class="s-option__link btn--e-brand-shadow" href="checkout">PROCEED TO CHECKOUT</a></div>
                                 </div>
                             </div>
                         </div>

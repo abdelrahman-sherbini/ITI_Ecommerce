@@ -57,7 +57,7 @@
     <span class="subtotal-value"><fmt:formatNumber value="${LoggedUser.totalPrice}" type="currency" currencySymbol="$" /></span></div>
   <div class="mini-action">
 
-    <a class="mini-link btn--e-brand-b-2" href="checkout.jsp">PROCEED TO CHECKOUT</a>
+    <a class="mini-link btn--e-brand-b-2" href="checkout">PROCEED TO CHECKOUT</a>
 
     <a class="mini-link btn--e-transparent-secondary-b-2" href="cart">VIEW CART</a></div>
 </div>
