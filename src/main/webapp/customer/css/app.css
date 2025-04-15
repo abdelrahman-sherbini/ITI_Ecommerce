@@ -513,6 +513,18 @@ body {
     max-height: 40px ;}
     .gl-error:hover {
       color: #fa4400; }
+
+  
+.custom-swal-btn {
+  background-color: #ff4500; 
+  color: white; 
+  border: none; 
+}
+
+.custom-swal-btn:hover {
+  background-color: #fa4400;
+}
+
 .gl-link {
   font-size: 13px;
   font-weight: 600;

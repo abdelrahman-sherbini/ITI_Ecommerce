@@ -28,20 +28,7 @@
 
                     <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button></form>
                 <!--====== End - Search Form ======-->
-                <% 
-    if (session.getAttribute("LoggedUser") != null) { 
-        gov.iti.Entities.User loggedUser = (gov.iti.Entities.User) session.getAttribute("LoggedUser");
-        String firstName = loggedUser.getFirstName();
-        if (firstName != null && !firstName.isEmpty()) {
-            firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
-        }
-%>
-        <div class="gl-h1">
-            <span class="u-c-brand"><strong>Hello, <%= firstName %>!</strong></span>
-        </div>
-<% 
-    } 
-%>
+            
 
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation">
@@ -68,17 +55,21 @@
                                         <a href="dashboard"><i class="fas fa-user-circle u-s-m-r-6"></i>
 
                                             <span>Account</span></a></li>
-                                    <li>
+                                            <% 
+                                            Object loggedUser = session.getAttribute("LoggedUser");
+                                            boolean hide = (loggedUser != null);
+                                        %>
+                                    <li style='<%= hide ? "display: none;" : "" %>'>
 
                                         <a href="signup.jsp"><i class="fas fa-user-plus u-s-m-r-6"></i>
 
                                             <span>Signup</span></a></li>
-                                    <li>
+                                    <li style='<%= hide ? "display: none;" : "" %>'>
 
                                         <a href="signin.jsp"><i class="fas fa-lock u-s-m-r-6"></i>
 
                                             <span>Signin</span></a></li>
-                                    <li>
+                                    <li style='<%= hide ? "" : "display: none;"%>'>
 
                                         <a href="logout"><i class="fas fa-lock-open u-s-m-r-6"></i>
 

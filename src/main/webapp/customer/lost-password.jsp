@@ -91,15 +91,18 @@
                                         <h1 class="gl-h1">PASSWORD RESET</h1>
 
                                         <span class="gl-text u-s-m-b-30">Enter your email or username below and we will send you a link to reset your password.</span>
-                                        <form class="l-f-o__form">
+                                        <div class="gl-error" style="font-size: 15px;" id="reg-email-error">
+                            
+                                        </div>
+                                        <form class="l-f-o__form" id="reset-password-form" method="post" action="lostPassword">
                                             <div class="u-s-m-b-30">
 
                                                 <label class="gl-label" for="reset-email">E-MAIL *</label>
 
-                                                <input class="input-text input-text--primary-style" type="text" id="reset-email" placeholder="Enter E-mail"></div>
+                                                <input class="input-text input-text--primary-style" type="email" id="reset-email" name="resetEmail"placeholder="Enter E-mail"></div>
                                             <div class="u-s-m-b-30">
 
-                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">SUBMIT</button></div>
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit" id="reset-bttn">SUBMIT</button></div>
                                             <div class="u-s-m-b-30">
 
                                                 <a class="gl-link" href="signin.jsp">Back to Login</a></div>
@@ -143,6 +146,8 @@
 
     <!--====== App ======-->
     <script src="js/app.js"></script>
+    <script src="js/lost-password.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--====== Noscript ======-->
     <noscript>

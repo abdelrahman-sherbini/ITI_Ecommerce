@@ -92,21 +92,21 @@ public class AuthFilter implements Filter {
                             httpResponse.addCookie(cookieValidator);
 
                         } else {
-                            httpResponse.sendRedirect("signin.jsp");
+                            httpResponse.sendRedirect("/customer/signin.jsp");
                             return;
                         }
                     } else {
-                        httpResponse.sendRedirect("signin.jsp");
+                        httpResponse.sendRedirect("/customer/signin.jsp");
                         return;
                     }
                 } else {
-                    httpResponse.sendRedirect("signin.jsp");
+                    httpResponse.sendRedirect("/customer/signin.jsp");
                     return;
                 }
 
             } else {
 
-                httpResponse.sendRedirect("signin.jsp");
+                httpResponse.sendRedirect("/customer/signin.jsp");
                 return;
             }
 
