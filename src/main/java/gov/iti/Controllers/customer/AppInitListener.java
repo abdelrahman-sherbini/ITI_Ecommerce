@@ -17,7 +17,7 @@ public class AppInitListener implements ServletContextListener {
         CategoryDao categoryDao = new CategoryDao(con);
         List<Category> categories = categoryDao.getAllCategories();
         System.out.println("AppInitListener initialized, Categories: " + categories.size());
-        sce.getServletContext().setAttribute("categories", categories);
+        sce.getServletContext().setAttribute("headercategories", categories);
         System.out.println("Categories set in application scope: " + categories);
     }
 

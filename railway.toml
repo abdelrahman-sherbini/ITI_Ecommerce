@@ -1,0 +1,8 @@
+[build]
+builder = "dockerfile"
+
+[deploy]
+startCommand = ""
+
+[variables]
+# You can add your DB credentials here if needed, or through Railway UI
