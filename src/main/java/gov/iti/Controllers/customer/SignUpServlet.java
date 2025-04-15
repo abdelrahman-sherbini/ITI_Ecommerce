@@ -12,9 +12,9 @@ import gov.iti.Dtos.UserSignUp;
 import gov.iti.Entities.User;
 import gov.iti.Entities.UserAddress;
 import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Helper.MailMessenger;
 import gov.iti.Helper.PasswordHasher;
 import gov.iti.Services.UserDBService;
-import gov.iti.Services.UserService;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -41,9 +41,9 @@ public class SignUpServlet extends HttpServlet{
         UserSignUp user = new UserSignUp();
         Address defaultAddress = new Address();
         try {
-            System.out.println("Credit parameter: " + req.getParameter("credit"));
+           
             BeanUtils.populate(user, req.getParameterMap());
-            System.out.println(user.getCredit());
+            
             BeanUtils.populate(defaultAddress, req.getParameterMap());
             user.setAddress(defaultAddress);
             String dob = (String) req.getParameter("dob");
@@ -57,6 +57,7 @@ public class SignUpServlet extends HttpServlet{
                 
                
                 // send email
+                MailMessenger.successfullyRegister(databaseUser.getFirstName(), databaseUser.getEmail());
                 
                 // Redirect to home page or welcome page
                 resp.sendRedirect("index.jsp");
