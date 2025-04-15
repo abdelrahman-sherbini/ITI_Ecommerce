@@ -183,7 +183,7 @@
                                                         All Products
                                                     </a>
                                                 </li>
-                                                <c:forEach var="category" items="${applicationScope.categories}">
+                                                <c:forEach var="category" items="${applicationScope.headercategories}">
                                                     <li>
                                                         <a href="shop?category=${category.categoryId}">
                                                             <i class="${category.categoryImage} u-s-m-r-6"></i>
@@ -224,7 +224,7 @@
                                     All Products
                                 </a>
                             </li>
-                            <c:forEach var="category" items="${applicationScope.categories}">
+                            <c:forEach var="category" items="${applicationScope.headercategories}">
                                 <li>
                                     <a href="shop?category=${category.categoryId}">
                                         <c:out value="${category.categoryName}"/>
