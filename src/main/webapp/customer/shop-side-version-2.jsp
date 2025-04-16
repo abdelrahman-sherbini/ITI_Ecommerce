@@ -295,7 +295,7 @@
                             <!--====== Single Product Image ======-->
                             <div class="pd u-s-m-b-30">
                                 <div class="pd-wrap">
-                                    <img id="modal-product-image" class="u-img-fluid" src="" alt="">
+                                    <img id="modal-product-image" class="u-img-fluid" alt="">
                                 </div>
                             </div>
                             <!--====== End - Single Product Image ======-->
@@ -372,7 +372,7 @@
                                     <span>Item is added successfully!</span>
                                 </div>
                                 <div class="success__img-wrap">
-                                    <img id="add-to-cart-image" class="u-img-fluid" src="" alt="">
+                                    <img id="add-to-cart-image" class="u-img-fluid" src="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}"  alt="">
                                 </div>
                                 <div class="success__info-wrap">
                                     <span id="add-to-cart-name" class="success__name"></span>

@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.find('#modal-product-name-breadcrumb').text(productData.productName);
 
         // Update product image
+        console.log(productData.productImage);
         modal.find('#modal-product-image')
-            .attr('src', 'images/product/' + productData.productImage)
+            .attr('src', productData.productImage)
             .attr('alt', productData.productName);
     });
 });

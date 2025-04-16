@@ -74,7 +74,7 @@
                                     <c:set var="images" value="${fn:split(product.productImages, ',')}"/>
                                     <c:forEach items="${images}" var="image">
                                         <div class="pd-o-img-wrap" data-src="images/product/${image}">
-                                            <img class="u-img-fluid" src="images/product/${image}" data-zoom-image="images/product/${image}" alt="${product.productName}">
+                                            <img class="u-img-fluid" src="/customer/images/product/${category.categoryName}/${image}" data-zoom-image="/customer/images/product/${category.categoryName}/${image}" alt="${product.productName}">
                                         </div>
                                     </c:forEach>
                                 </div>
@@ -85,7 +85,7 @@
                                     <div id="pd-o-thumbnail">
                                         <c:forEach items="${images}" var="image">
                                             <div>
-                                                <img class="u-img-fluid" src="images/product/${image}" alt="${product.productName}">
+                                                <img class="u-img-fluid" src="/customer/images/product/${category.categoryName}/${image}" alt="${product.productName}">
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -264,7 +264,7 @@
                                     <div class="product-o product-o--hover-on">
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/product-detail?id=${similarProduct.productId}">
-                                                <img class="aspect__img" src="images/product/${fn:split(similarProduct.productImages, ',')[0]}" alt="${similarProduct.productName}">
+                                                <img class="aspect__img" src="/customer/images/product/${category.categoryName}/${fn:split(similarProduct.productImages, ',')[0]}" alt="${similarProduct.productName}">
                                             </a>
                                             <div class="product-o__action-wrap">
                                                 <ul class="product-o__action-list">
