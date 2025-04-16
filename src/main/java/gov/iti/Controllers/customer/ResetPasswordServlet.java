@@ -49,8 +49,7 @@ public class ResetPasswordServlet extends HttpServlet{
                 String hashedPassword =PasswordHasher.hashPassword(password);
                 user.setPassword(hashedPassword);
                 userDBService.updateUser(user);
-                em.detach(user);
-
+                em.clear();
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.getWriter().write("{\"status\": \"success\", \"message\": \"Token is valid.\"}");
             }
