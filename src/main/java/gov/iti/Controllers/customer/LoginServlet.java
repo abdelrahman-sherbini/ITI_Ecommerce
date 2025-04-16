@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             BeanUtils.populate(userSignIn, req.getParameterMap());
+            em.clear();
             User databaseUser = logIn(userSignIn);
 
             if (databaseUser != null) {
