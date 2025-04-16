@@ -1,8 +1,9 @@
 package gov.iti.Helper;
 
+import jakarta.servlet.http.HttpServlet;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import jakarta.servlet.http.HttpServlet;
 
 public class ConnectionProvider extends HttpServlet{
 	
@@ -14,7 +15,7 @@ public class ConnectionProvider extends HttpServlet{
 		try {
 			if (connection == null) {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop", "root", "root");
+				connection = DriverManager.getConnection("jdbc:mysql://ballast.proxy.rlwy.net:36472/shop", "root", "demWznPsiEtqlpOBuoVYoKvnwUfhBEcH");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

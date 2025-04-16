@@ -24,9 +24,9 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/shop"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://ballast.proxy.rlwy.net:36472/shop"/>
       <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="root"/>
+      <property name="hibernate.connection.password" value="demWznPsiEtqlpOBuoVYoKvnwUfhBEcH"/>
       <property name="hibernate.c3p0.min_size" value="5"/>
       <property name="hibernate.c3p0.max_size" value="20"/>
       <property name="hibernate.c3p0.timeout" value="300"/>
