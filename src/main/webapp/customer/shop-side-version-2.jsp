@@ -165,8 +165,8 @@
                                         <div class="col-lg-4 col-md-6 col-sm-6">
                                             <div class="product-m">
                                                 <div class="product-m__thumb">
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/product-detail?id=${product.productId}>
-                                                        <img class="aspect__img" src="${fn:split(product.productImages, ',')[0]}" alt="${product.productName}">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/product-detail?id=${product.productId}">
+                                                        <img class="aspect__img" src="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}"  alt="${product.productName}">
                                                     </a>
                                                     <div class="product-m__quick-look">
                                                         <a class="fas fa-search quick-look-btn"
@@ -181,14 +181,14 @@
                                                            data-product-stock="${product.productQunatity}"
                                                            data-category-id="${product.categoryId}"
                                                            data-category-name="${fn:escapeXml(categoryNames[product.categoryId])}"
-                                                           data-product-image="${fn:split(product.productImages, ',')[0]}">
+                                                           data-product-image="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}">
                                                         </a>
                                                     </div>
                                                     <div class="product-m__add-cart">
                                                         <a class="btn--e-brand add-to-cart-btn"
                                                            data-product-id="${product.productId}"
                                                            data-product-name="${fn:escapeXml(product.productName)}"
-                                                           data-product-image="${fn:split(product.productImages, ',')[0]}"
+                                                           data-product-image="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}"
                                                            data-product-price="<fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>">
                                                             Add to Cart
                                                         </a>
