@@ -9,18 +9,5 @@
     <listener>
         <listener-class>gov.iti.Controllers.customer.AppInitListener</listener-class> <!-- Adjust package name -->
     </listener>
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>SecureUpload</web-resource-name>
-            <url-pattern>/download</url-pattern>
-            <http-method>GET</http-method>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>tomcat</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Tomcat Security</realm-name>
-    </login-config>
+
 </web-app>
