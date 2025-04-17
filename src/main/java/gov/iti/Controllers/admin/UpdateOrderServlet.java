@@ -3,6 +3,7 @@ package gov.iti.Controllers.admin;
 
 import gov.iti.Entities.Order;
 import gov.iti.Helper.EntityManagerProvider;
+import gov.iti.Helper.MailMessenger;
 import gov.iti.Services.OrderService;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
@@ -31,7 +32,10 @@ public class UpdateOrderServlet extends HttpServlet {
 		Order order = orderService.getOrder(oid);
 		order.setStatus(status);
 		orderService.updateOrder(order);
-
+		if (status.trim().equals("Shipped") || status.trim().equals("Out For Delivery")) {
+			MailMessenger.orderShipped(order.getUser().getFirstName(), order.getUser().getEmail(),
+					String .valueOf(order.getId()), order.getDate().toString());
+		}
 		EntityManagerProvider.closeEntityManager(em);
 		response.sendRedirect("display_orders");
 	}

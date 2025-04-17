@@ -581,6 +581,7 @@
                 type: "POST",
                 data: {
                     operation: "AddOrder",
+                    quantity: 1,
                     productID: productID
                 },
                 complete: function (xhr) {

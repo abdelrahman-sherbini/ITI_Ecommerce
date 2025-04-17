@@ -72,10 +72,13 @@ public class AddOperationServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			BigDecimal price = new BigDecimal(request.getParameter("price"));
 			String description = request.getParameter("description");
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			Long discount = Long.parseLong(request.getParameter("discount"));
+			Long quantity = Long.parseLong(request.getParameter("quantity"));
+
+			Integer discount =0;
+			if(!request.getParameter("discount").isEmpty())
+			discount = Integer.parseInt(request.getParameter("discount"));
 			if (discount < 0 || discount > 100) {
-				discount = 0L;
+				discount = 0;
 			}
 			Part part = request.getPart("photo");
 			Long category_id = Long.parseLong(request.getParameter("categoryType"));
@@ -86,7 +89,7 @@ public class AddOperationServlet extends HttpServlet {
 
 			gov.iti.Entities.Category category = categoryService.getCategory(category_id);
 
-				gov.iti.Entities.Product p = new gov.iti.Entities.Product(  name, description, price, discount, quantity, part.getSubmittedFileName(), category);
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product(  name, description, price,quantity , discount, part.getSubmittedFileName(), category);
 			boolean flag = productService.addProduct(p);
 				// product image upload
 				String path = request.getServletContext().getRealPath("/") + "customer/images/product/"+category.getName() + File.separator
@@ -143,10 +146,12 @@ public class AddOperationServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			BigDecimal price = new BigDecimal(request.getParameter("price"));
 			String description = request.getParameter("description");
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			Long discount = Long.parseLong(request.getParameter("discount"));
+			Long quantity = Long.parseLong(request.getParameter("quantity"));
+			Integer discount =0;
+			if(!request.getParameter("discount").isEmpty())
+			 discount =Integer.parseInt(request.getParameter("discount"));
 			if (discount < 0 || discount > 100) {
-				discount = 0L;
+				discount = 0;
 			}
 			Part part = request.getPart("product_img");
 			Long category_id = Long.parseLong(request.getParameter("categoryType"));
@@ -158,10 +163,10 @@ public class AddOperationServlet extends HttpServlet {
 			if (part.getSubmittedFileName().isEmpty()) {
 				String image = request.getParameter("image");
 
-				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price, discount, quantity, image, category);
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price ,quantity, discount, image, category);
 				productService.updateProduct(p);
 			} else {
-				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price, discount, quantity, part.getSubmittedFileName(), category);
+				gov.iti.Entities.Product p = new gov.iti.Entities.Product( product_id, name, description, price , quantity, discount, part.getSubmittedFileName(), category);
 				productService.updateProduct(p);
 				// product image upload
 				String path = request.getServletContext().getRealPath("/") + "customer/images/product/"+category.getName() + File.separator
