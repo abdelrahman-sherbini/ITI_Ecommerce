@@ -185,13 +185,13 @@
                                                         </a>
                                                     </div>
                                                     <div class="product-m__add-cart">
-                                                        <a class="btn--e-brand add-to-cart-btn"
-                                                           data-product-id="${product.productId}"
-                                                           data-product-name="${fn:escapeXml(product.productName)}"
-                                                           data-product-image="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}"
-                                                           data-product-price="<fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>">
-                                                            Add to Cart
-                                                        </a>
+<%--                                                        <a class="btn--e-brand add-to-cart-btn"--%>
+<%--                                                           data-product-id="${product.productId}"--%>
+<%--                                                           data-product-name="${fn:escapeXml(product.productName)}"--%>
+<%--                                                           data-product-image="/customer/images/product/${categoryNames[product.categoryId]}/${product.productImages}"--%>
+<%--                                                           data-product-price="<fmt:formatNumber value="${product.getProductPriceAfterDiscount()}" type="currency" currencySymbol="$"/>">--%>
+<%--                                                            Add to Cart--%>
+<%--                                                        </a>--%>
                                                     </div>
                                                 </div>
                                                 <div class="product-m__content">
