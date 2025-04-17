@@ -129,15 +129,24 @@
                             <div class="u-s-m-b-15">
                                 <span class="pd-detail__preview-desc">${product.productDescription}</span>
                             </div>
+
                             <div class="u-s-m-b-15">
                                 <div class="pd-detail__inline">
-                                        <span class="pd-detail__click-wrap">
-                                            <i class="far fa-heart u-s-m-r-6"></i>
-                                            <a href="signin.jsp">Add to Wishlist</a>
-                                            <span class="pd-detail__click-count">(222)</span>
-                                        </span>
+                                    <span class="pd-detail__click-wrap">
+                                        <i class="far fa-heart u-s-m-r-6"></i>
+                                        <c:choose>
+                                            <c:when test="${empty LoggedUser}">
+                                                <a href="signin.jsp">Add to Wishlist</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" id="addToWishlist" data-product-id="${product.productId}">Add to Wishlist</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <span class="pd-detail__click-count" id="wishlistCount">(${wishlistCount})</span>
+                                    </span>
                                 </div>
                             </div>
+
                             <div class="u-s-m-b-15">
                                 <div class="pd-detail__inline">
                                         <span class="pd-detail__click-wrap">
@@ -157,17 +166,17 @@
                                 </ul>
                             </div>
                             <div class="u-s-m-b-15">
-                                <form class="pd-detail__form" action="/cart/add" method="post">
-                                    <input type="hidden" name="productId" value="${product.productId}">
+                                <form class="pd-detail__form" id="addToCartForm">
+                                    <input type="hidden" name="operation" value="AddOrder">
+                                    <input type="hidden" name="productID" value="${product.productId}">
                                     <div class="pd-detail-inline-2">
                                         <div class="u-s-m-b-15">
-                                            <!--====== Input Counter ======-->
                                             <div class="input-counter">
                                                 <span class="input-counter__minus fas fa-minus"></span>
-                                                <input class="input-counter__text input-counter--text-primary-style" type="text" name="quantity" value="1" data-min="1" data-max="1000">
+                                                <input class="input-counter__text input-counter--text-primary-style" type="text"
+                                                       name="quantity" value="1" data-min="1" data-max="1000">
                                                 <span class="input-counter__plus fas fa-plus"></span>
                                             </div>
-                                            <!--====== End - Input Counter ======-->
                                         </div>
                                         <div class="u-s-m-b-15">
                                             <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
@@ -326,5 +335,86 @@
 
 <!--====== App ======-->
 <script src="js/app.js"></script>
+
+<script>
+    document.getElementById('addToCartForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Check if user is logged in
+        <c:if test="${empty LoggedUser}">
+        window.location.href = "signin.jsp";
+        return;
+        </c:if>
+
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/customer/UpdateCartServlet', {
+                method: 'POST',
+                body: new URLSearchParams(formData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (response.ok) {
+                // Success - update cart count in UI if you have one
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    const current = parseInt(cartCount.textContent) || 0;
+                    cartCount.textContent = current + 1;
+                }
+
+                // Show success message
+                alert('Product added to cart!');
+            } else {
+                alert('Failed to add to cart. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('addToWishlist')?.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        const productId = this.getAttribute('data-product-id');
+
+        try {
+            const response = await fetch('/customer/UpdateWishServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    operation: 'addWish',
+                    productID: productId
+                })
+            });
+
+            if (response.ok) {
+                // Update wishlist count
+                const countElement = document.getElementById('wishlistCount');
+                const currentCount = parseInt(countElement.textContent.match(/\d+/)[0]) || 0;
+                countElement.textContent = `(${currentCount + 1})`;
+
+                // Optional: Change heart icon to solid
+                this.querySelector('i').classList.replace('far', 'fas');
+
+                alert('Added to wishlist successfully!');
+            } else {
+                alert('Failed to add to wishlist');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // alert('An error occurred');
+        }
+    });
+</script>
+
+
 </body>
 </html>
