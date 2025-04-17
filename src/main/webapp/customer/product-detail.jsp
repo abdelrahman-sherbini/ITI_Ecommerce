@@ -157,17 +157,17 @@
                                 </ul>
                             </div>
                             <div class="u-s-m-b-15">
-                                <form class="pd-detail__form" action="/cart/add" method="post">
-                                    <input type="hidden" name="productId" value="${product.productId}">
+                                <form class="pd-detail__form" id="addToCartForm">
+                                    <input type="hidden" name="operation" value="AddOrder">
+                                    <input type="hidden" name="productID" value="${product.productId}">
                                     <div class="pd-detail-inline-2">
                                         <div class="u-s-m-b-15">
-                                            <!--====== Input Counter ======-->
                                             <div class="input-counter">
                                                 <span class="input-counter__minus fas fa-minus"></span>
-                                                <input class="input-counter__text input-counter--text-primary-style" type="text" name="quantity" value="1" data-min="1" data-max="1000">
+                                                <input class="input-counter__text input-counter--text-primary-style" type="text"
+                                                       name="quantity" value="1" data-min="1" data-max="1000">
                                                 <span class="input-counter__plus fas fa-plus"></span>
                                             </div>
-                                            <!--====== End - Input Counter ======-->
                                         </div>
                                         <div class="u-s-m-b-15">
                                             <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
@@ -326,5 +326,50 @@
 
 <!--====== App ======-->
 <script src="js/app.js"></script>
+
+<script>
+    document.getElementById('addToCartForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Check if user is logged in
+        <c:if test="${empty LoggedUser}">
+        window.location.href = "signin.jsp";
+        return;
+        </c:if>
+
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/customer/UpdateCartServlet', {
+                method: 'POST',
+                body: new URLSearchParams(formData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (response.ok) {
+                // Success - update cart count in UI if you have one
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    const current = parseInt(cartCount.textContent) || 0;
+                    cartCount.textContent = current + 1;
+                }
+
+                // Show success message
+                alert('Product added to cart!');
+            } else {
+                alert('Failed to add to cart. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+</script>
+
+
+
+
 </body>
 </html>

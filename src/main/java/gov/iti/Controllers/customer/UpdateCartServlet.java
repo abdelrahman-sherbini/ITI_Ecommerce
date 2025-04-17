@@ -52,7 +52,9 @@ public class UpdateCartServlet extends HttpServlet {
 //            cartDao.updateQuantity(cartItem, quantity);
         }else if (operation.equals("AddOrder")){
             Cart cart = new Cart();
-            cart.setQuantity(1L);
+            // Inside the "AddOrder" block:
+            Long quantity = Long.parseLong(req.getParameter("quantity")); // Add this line
+            cart.setQuantity(quantity); // Replace cart.setQuantity(1L); with this
             cart.setUser(user);
             Long productID = Long.parseLong(req.getParameter("productID"));
             Product product = productService.getProductById(productID);
