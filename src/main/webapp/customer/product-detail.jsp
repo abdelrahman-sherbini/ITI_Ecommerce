@@ -129,15 +129,24 @@
                             <div class="u-s-m-b-15">
                                 <span class="pd-detail__preview-desc">${product.productDescription}</span>
                             </div>
+
                             <div class="u-s-m-b-15">
                                 <div class="pd-detail__inline">
-                                        <span class="pd-detail__click-wrap">
-                                            <i class="far fa-heart u-s-m-r-6"></i>
-                                            <a href="signin.jsp">Add to Wishlist</a>
-                                            <span class="pd-detail__click-count">(222)</span>
-                                        </span>
+                                    <span class="pd-detail__click-wrap">
+                                        <i class="far fa-heart u-s-m-r-6"></i>
+                                        <c:choose>
+                                            <c:when test="${empty LoggedUser}">
+                                                <a href="signin.jsp">Add to Wishlist</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" id="addToWishlist" data-product-id="${product.productId}">Add to Wishlist</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <span class="pd-detail__click-count" id="wishlistCount">(${wishlistCount})</span>
+                                    </span>
                                 </div>
                             </div>
+
                             <div class="u-s-m-b-15">
                                 <div class="pd-detail__inline">
                                         <span class="pd-detail__click-wrap">
@@ -368,7 +377,43 @@
     });
 </script>
 
+<script>
+    document.getElementById('addToWishlist')?.addEventListener('click', async function(e) {
+        e.preventDefault();
 
+        const productId = this.getAttribute('data-product-id');
+
+        try {
+            const response = await fetch('/customer/UpdateWishServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    operation: 'addWish',
+                    productID: productId
+                })
+            });
+
+            if (response.ok) {
+                // Update wishlist count
+                const countElement = document.getElementById('wishlistCount');
+                const currentCount = parseInt(countElement.textContent.match(/\d+/)[0]) || 0;
+                countElement.textContent = `(${currentCount + 1})`;
+
+                // Optional: Change heart icon to solid
+                this.querySelector('i').classList.replace('far', 'fas');
+
+                alert('Added to wishlist successfully!');
+            } else {
+                alert('Failed to add to wishlist');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // alert('An error occurred');
+        }
+    });
+</script>
 
 
 </body>
