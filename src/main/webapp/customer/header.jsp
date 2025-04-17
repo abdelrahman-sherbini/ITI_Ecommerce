@@ -248,7 +248,7 @@
 
                     <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop" type="button"></button>
                     <%--@elvariable id="user" type="gov.iti.Entities.User"--%>
-                    <span class="total-item-round">${LoggedUser.carts.size()}</span>
+                    <span class="total-item-round cart-count">${LoggedUser.carts.size()}</span>
 
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
@@ -267,7 +267,7 @@
 
                                 <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
 
-                                    <span class="total-item-round">${LoggedUser.carts.size()}</span></a>
+                                    <span class="total-item-round cart-count">${LoggedUser.carts.size()}</span></a>
 
                                 <!--====== Dropdown ======-->
 

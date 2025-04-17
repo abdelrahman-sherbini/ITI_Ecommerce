@@ -15,7 +15,7 @@ public class ConnectionProvider extends HttpServlet{
 		try {
 			if (connection == null) {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connection = DriverManager.getConnection("jdbc:mysql://ballast.proxy.rlwy.net:36472/shop", "root", "demWznPsiEtqlpOBuoVYoKvnwUfhBEcH");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop", "root", "root");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
