@@ -479,6 +479,29 @@ public class ProductDao {
 		return count;
 	}
 
+	public List<Product> getTopDiscountedProducts(int limit) {
+		List<Product> list = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM product WHERE discount > 0 ORDER BY discount DESC LIMIT ?";
+			PreparedStatement psmt = this.con.prepareStatement(query);
+			psmt.setInt(1, limit);
+			ResultSet rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				Product product = new Product();
+				product.setProductId(rs.getInt("product_id"));
+				product.setProductName(rs.getString("name"));
+				product.setProductPrice(rs.getBigDecimal("price"));
+				product.setProductDiscount(rs.getInt("discount"));
+				product.setProductImages(rs.getString("image"));
+				product.setCategoryId(rs.getInt("category_id"));
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 
 }

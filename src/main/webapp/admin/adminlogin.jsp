@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Login</title>
+<title>RAWNAQ - Admin Login</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style>
 label {

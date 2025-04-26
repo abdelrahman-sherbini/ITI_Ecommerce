@@ -1,3 +1,11 @@
+<%--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>--%>
+<%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
+<%--<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>--%>
+<%--<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>--%>
+
+
+
+
 <!DOCTYPE html>
 <base href="/customer/">
 <html class="no-js" lang="en">
@@ -8,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="images/favicon.png" rel="shortcut icon">
-    <title>Ludus - Electronics, Apparel, Computers, Books, DVDs & more</title>
+    <title>RAWNAQ - Beauty Meets Comfort</title>
 
     <!--====== Google Font ======-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
@@ -49,15 +57,15 @@
 
                                         <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
 
-                                        <span class="content-span-2 u-c-secondary">30% Off On Electronics</span>
+                                        <span class="content-span-2 u-c-secondary">30% Off On Armchairs</span>
 
-                                        <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                                        <span class="content-span-3 u-c-secondary">Find Armchairs on best prices, Also Discover most selling products of Living Room</span>
 
                                         <span class="content-span-4 u-c-secondary">Starting At
 
                                             <span class="u-c-brand">$1050.00</span></span>
 
-                                        <a class="shop-now-link btn--e-brand" href="shop-side-version-2.jsp">SHOP NOW</a></div>
+                                        <a class="shop-now-link btn--e-brand" href="/customer/shop">SHOP NOW</a></div>
                                 </div>
                             </div>
                         </div>
@@ -70,15 +78,15 @@
 
                                         <span class="content-span-1 u-c-white">Find Top Brands</span>
 
-                                        <span class="content-span-2 u-c-white">10% Off On Electronics</span>
+                                        <span class="content-span-2 u-c-white">10% Off On Beds</span>
 
-                                        <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
+                                        <span class="content-span-3 u-c-white">Find Beds on best prices, Also Discover most selling products of Bedroom</span>
 
                                         <span class="content-span-4 u-c-white">Starting At
 
                                             <span class="u-c-brand">$380.00</span></span>
 
-                                        <a class="shop-now-link btn--e-brand" href="shop-side-version-2.jsp">SHOP NOW</a></div>
+                                        <a class="shop-now-link btn--e-brand" href="/customer/shop">SHOP NOW</a></div>
                                 </div>
                             </div>
                         </div>
@@ -89,17 +97,16 @@
                                 <div class="col-12">
                                     <div class="slider-content slider-content--animation">
 
-                                        <span class="content-span-1 u-c-secondary">Find Top Brands</span>
+                                        <span class="content-span-1  u-c-secondary">Find Top Brands</span>
 
-                                        <span class="content-span-2 u-c-secondary">10% Off On Electronics</span>
+                                        <span class="content-span-2  u-c-secondary">15% Off On Kitchen</span>
 
-                                        <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
 
-                                        <span class="content-span-4 u-c-secondary">Starting At
+                                        <span class="content-span-4  u-c-white">Starting At
 
                                             <span class="u-c-brand">$550.00</span></span>
 
-                                        <a class="shop-now-link btn--e-brand" href="shop-side-version-2.jsp">SHOP NOW</a></div>
+                                        <a class="shop-now-link btn--e-brand" href="/customer/shop">SHOP NOW</a></div>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +125,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">SHOP BY DEALS</h1>
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">DISCOVER</h1>
 
-                                    <span class="section__span u-c-silver">BROWSE FAVOURITE DEALS</span>
+                                    <span class="section__span u-c-silver">BROWSE DIFFERENT CATEGORIES</span>
                                 </div>
                             </div>
                         </div>
@@ -135,28 +142,28 @@
                         <div class="row">
                             <div class="col-lg-5 col-md-5 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.jsp">
+                                <a class="collection" href="/customer/shop">
                                     <div class="aspect aspect--bg-grey aspect--square">
 
                                         <img class="aspect__img collection__img" src="images/collection/coll-1.jpg" alt=""></div>
                                 </a></div>
                             <div class="col-lg-7 col-md-7 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.jsp">
+                                <a class="collection" href="/customer/shop">
                                     <div class="aspect aspect--bg-grey aspect--1286-890">
 
                                         <img class="aspect__img collection__img" src="images/collection/coll-2.jpg" alt=""></div>
                                 </a></div>
                             <div class="col-lg-7 col-md-7 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.jsp">
+                                <a class="collection" href="/customer/shop">
                                     <div class="aspect aspect--bg-grey aspect--1286-890">
 
                                         <img class="aspect__img collection__img" src="images/collection/coll-3.jpg" alt=""></div>
                                 </a></div>
                             <div class="col-lg-5 col-md-5 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.jsp">
+                                <a class="collection" href="/customer/shop">
                                     <div class="aspect aspect--bg-grey aspect--square">
 
                                         <img class="aspect__img collection__img" src="images/collection/coll-4.jpg" alt=""></div>
@@ -168,12 +175,6 @@
                 <!--====== Section Content ======-->
             </div>
             <!--====== End - Section 1 ======-->
-
-            <!--====== Section 2 ======-->
-            <div class="u-s-p-b-60">
-                <jsp:include page="index-section2.jsp"/>
-            </div>
-            <!--====== End - Section 2 ======-->
 
 
             <!--====== Section 3 ======-->
@@ -206,88 +207,62 @@
                                 <div class="product-o product-o--radius product-o--hover-off u-h-100">
                                     <div class="product-o__wrap">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/shop">
 
-                                            <img class="aspect__img" src="images/product/electronic/product11.jpg" alt=""></a>
+                                            <img class="aspect__img" src="images/product/markus-office-chair.avif" alt=""></a>
                                         <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
+                                            <div class="countdown countdown--style-special" data-countdown="2025/04/27"></div>
                                         </div>
                                         <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
                                         </div>
                                     </div>
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                        <a href="shop-side-version-2.html">Office</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.jsp">DJI Phantom Drone 4k</a></span>
+                                        <a href="/customer/shop">MARKUS</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 
                                         <span class="product-o__review">(2)</span></div>
 
-                                    <span class="product-o__price">$125.00
+                                    <span class="product-o__price">EGP 9,995
 
-                                        <span class="product-o__discount">$160.00</span></span>
+                                        <span class="product-o__discount">EGP 19,995</span></span>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 u-s-m-b-30">
                                 <div class="product-o product-o--radius product-o--hover-off u-h-100">
                                     <div class="product-o__wrap">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/shop">
 
-                                            <img class="aspect__img" src="images/product/electronic/product12.jpg" alt=""></a>
+                                            <img class="aspect__img" src="images/product/lillehem-modular-corner-sofa-2-seat.avif" alt=""></a>
                                         <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
+                                            <div class="countdown countdown--style-special" data-countdown="2025/04/26"></div>
                                         </div>
                                         <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
                                         </div>
                                     </div>
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                        <a href="shop-side-version-2.html">Living Room</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.jsp">DJI Phantom Drone 2k</a></span>
+                                        <a href="product-detail.html">LILLEHEM</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 
                                         <span class="product-o__review">(2)</span></div>
 
-                                    <span class="product-o__price">$125.00
+                                    <span class="product-o__price">EGP 12,990
 
-                                        <span class="product-o__discount">$160.00</span></span>
+                                        <span class="product-o__discount">EGP 32,990</span></span>
                                 </div>
                             </div>
                         </div>
@@ -296,287 +271,6 @@
                 <!--====== End - Section Content ======-->
             </div>
             <!--====== End - Section 3 ======-->
-
-
-            <!--====== Section 4 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">NEW ARRIVALS</h1>
-
-                                    <span class="section__span u-c-silver">GET UP FOR NEW ARRIVALS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="slider-fouc">
-                            <div class="owl-carousel product-slider" data-item="4">
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product13.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Nikon DSLR 4K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product14.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Nikon DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product15.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Sony DSLR 4K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product16.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Sony DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product17.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Canon DSLR 4K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="product-o product-o--hover-on">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                                <img class="aspect__img" src="images/product/electronic/product18.jpg" alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.jsp">Canon DSLR 2K Camera</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 4 ======-->
-
 
             <!--====== Section 5 ======-->
             <div class="banner-bg">
@@ -587,7 +281,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="banner-bg__countdown">
-                                    <div class="countdown countdown--style-banner" data-countdown="2020/05/01"></div>
+                                    <div class="countdown countdown--style-banner" data-countdown="2025/05/01"></div>
                                 </div>
                                 <div class="banner-bg__wrap">
                                     <div class="banner-bg__text-1">
@@ -601,9 +295,9 @@
 
                                         <span class="u-c-white">Don't Miss!</span></div>
 
-                                    <span class="banner-bg__text-block banner-bg__text-3 u-c-secondary">Enjoy Free Shipping when you buy 2 items and above!</span>
+                                    <span class="banner-bg__text-block banner-bg__text-3 u-c-white">Enjoy Free Shipping when you buy 2 items and above!</span>
 
-                                    <a class="banner-bg__shop-now btn--e-secondary" href="shop-side-version-2.jsp">Shop Now</a>
+                                    <a class="banner-bg__shop-now btn--e-secondary" href="/customer/shop">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -642,41 +336,84 @@
                                 <div class="product-o product-o--hover-on u-h-100">
                                     <div class="product-o__wrap">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/shop">
 
-                                            <img class="aspect__img" src="images/product/electronic/product19.jpg" alt=""></a>
+                                            <img class="aspect__img" src="images/product/utmaning-gaming-desk-sit-stand-electric-black__1373896_pe960067_s5.avif" alt=""></a>
                                         <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
                                         </div>
                                     </div>
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                        <a href="shop-side-version-2.jsp">Office</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.jsp">Tablet 14inch Screen</a></span>
+                                        <a href="product-detail.jsp">UTMANING</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
                                         <span class="product-o__review">(23)</span></div>
 
-                                    <span class="product-o__price">$125.00
+                                    <span class="product-o__price">EGP 27,500
 
-                                        <span class="product-o__discount">$160.00</span></span>
+                                        <span class="product-o__discount">EGP 34,500</span></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="product-o product-o--hover-on u-h-100">
+                                    <div class="product-o__wrap">
+
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/shop">
+
+                                            <img class="aspect__img" src="images/product/landskrona-3-seat-sofa-with-chaise-longue-gunnared-light-green-wood__0825471_pe680327_s5.avif" alt=""></a>
+                                        <div class="product-o__action-wrap">
+
+                                        </div>
+                                    </div>
+
+                                    <span class="product-o__category">
+
+                                        <a href="shop-side-version-2.jsp">Living Room</a></span>
+
+                                    <span class="product-o__name">
+
+                                        <a href="product-detail.jsp">LANDSKRONA</a></span>
+                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+
+                                        <span class="product-o__review">(23)</span></div>
+
+                                    <span class="product-o__price">EGP 40,990
+
+                                        <span class="product-o__discount">EGP 50,990</span></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="product-o product-o--hover-on u-h-100">
+                                    <div class="product-o__wrap">
+
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="/customer/shop">
+
+                                            <img class="aspect__img" src="images/product/ramnefjaell-upholstered-bed-frame-klovsta-grey-white__1258179_pe927365_s5.avif" alt=""></a>
+                                        <div class="product-o__action-wrap">
+
+                                        </div>
+                                    </div>
+
+                                    <span class="product-o__category">
+
+                                        <a href="shop-side-version-2.jsp">Bed Room</a></span>
+
+                                    <span class="product-o__name">
+
+                                        <a href="product-detail.jsp">RAMNEFJÄLL</a></span>
+                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+
+                                        <span class="product-o__review">(23)</span></div>
+
+                                    <span class="product-o__price">EGP 8,995
+
+                                        <span class="product-o__discount">EGP 12,995</span></span>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
@@ -685,121 +422,26 @@
 
                                         <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
 
-                                            <img class="aspect__img" src="images/product/electronic/product20.jpg" alt=""></a>
+                                            <img class="aspect__img" src="images/product/gulliver-cot-white__1413715_pe974439_s5.avif" alt=""></a>
                                         <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
                                         </div>
                                     </div>
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
+                                        <a href="shop-side-version-2.jsp">Children Room</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.jsp">Tablet 18inch Screen</a></span>
+                                        <a href="product-detail.jsp">GULLIVER</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
                                         <span class="product-o__review">(23)</span></div>
 
-                                    <span class="product-o__price">$125.00
+                                    <span class="product-o__price">EGP 8,995
 
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                            <img class="aspect__img" src="images/product/electronic/product21.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.jsp">Tablet 13inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.jsp">
-
-                                            <img class="aspect__img" src="images/product/electronic/product22.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.jsp" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.jsp">Tablet 12inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
+                                        <span class="product-o__discount">EGP 13,995</span></span>
                                 </div>
                             </div>
                         </div>
@@ -810,305 +452,7 @@
             <!--====== End - Section 6 ======-->
 
 
-            <!--====== Section 7 ======-->
-            <div class="u-s-p-b-60">
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.jsp">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-1.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">ACCESSORIES FOR YOUR EVERYDAY</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">GET IN</span>
-
-                                                <span class="u-c-brand">TOUCH</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.jsp">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-2.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">SMARTPHONE</span>
-
-                                                <span class="u-c-brand">2019</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">NEW ARRIVALS</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.jsp">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-3.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">DSLR FOR NEW GENERATION</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-brand">GET UP TO 10% OFF</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 7 ======-->
-
-
-            <!--====== Section 8 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">SPECIAL PRODUCTS</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product23.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 15 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product24.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 13 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product25.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 15 Ram 8GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">WEEKLY PRODUCTS</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product26.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 10 Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product27.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 15 Ram 8GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product28.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 15 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="column-product">
-
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">FLASH PRODUCTS</span>
-                                    <ul class="column-product__list">
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product29.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 20 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product30.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 11 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.jsp">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product31.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.jsp">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.jsp">Razor Gear 10 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 8 ======-->
 
 
             <!--====== Section 9 ======-->
@@ -1155,216 +499,6 @@
             </div>
             <!--====== End - Section 9 ======-->
 
-
-            <!--====== Section 10 ======-->
-            <div class="u-s-p-b-60">
-
-                <!--====== Section Intro ======-->
-                <div class="section__intro u-s-m-b-46">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">LATEST FROM BLOG</h1>
-
-                                    <span class="section__span u-c-silver">START YOU DAY WITH FRESH AND LATEST NEWS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Intro ======-->
-
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.jsp">
-
-                                            <img class="aspect__img" src="images/blog/post-2.jpg" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.jsp"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.jsp">Life is an extraordinary Adventure</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.jsp">
-
-                                            <img class="aspect__img" src="images/blog/post-12.jpg" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.jsp"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.jsp">Wait till its open</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.jsp">
-
-                                            <img class="aspect__img" src="images/blog/post-5.jpg" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.jsp"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.jsp">Tell me difference between smoke and vape</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 10 ======-->
-
-
             <!--====== Section 11 ======-->
             <div class="u-s-p-b-90 u-s-m-b-30">
 
@@ -1400,10 +534,10 @@
 
                                         <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
                                         <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
+                                            <p>"I ordered a luxury sofa from RAWNAQ, and it exceeded my expectations! The delivery was fast, and the quality is outstanding. The customer service team was also very helpful when I had questions. Highly recommended!"</p>
                                         </blockquote>
 
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
+                                        <span class="testimonial__author"> Youssef Salah-Eldin -  Cairo Citadel, Egypt.</span>
                                     </div>
                                 </div>
                                 <div class="testimonial">
@@ -1414,10 +548,10 @@
 
                                         <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
                                         <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
+                                            <p>"This is my third purchase from RAWNAQ, and I am always impressed. The modern dining set I bought is stylish, durable, and worth every penny. The packaging was secure, and assembly was easy. Great job!"</p>
                                         </blockquote>
 
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
+                                        <span class="testimonial__author">Mohammed Saad - Dubai, UAE</span>
                                     </div>
                                 </div>
                                 <div class="testimonial">
@@ -1428,10 +562,9 @@
 
                                         <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
                                         <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                        </blockquote>
+                                            <p>"I was hesitant to buy furniture online, but RAWNAQ proved me wrong. The wooden coffee table I received is even more beautiful in person. The delivery was on time, and the support team was professional. Will shop here again!"</p>                                        </blockquote>
 
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
+                                        <span class="testimonial__author">Khalid Ahmed - Riyadh, Saudi Arabia </span>
                                     </div>
                                 </div>
                                 <div class="testimonial">
@@ -1442,10 +575,10 @@
 
                                         <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
                                         <blockquote class="testimonial__block-quote">
-                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
+                                            <p>"Excellent experience from start to finish! The bedroom set I ordered arrived in perfect condition, and the design matches my home perfectly. Prices are reasonable, and the checkout process was smooth. Thank you!"</p>
                                         </blockquote>
 
-                                        <span class="testimonial__author">John D. / DVNTR Inc.</span>
+                                        <span class="testimonial__author">Omar Elsayed - Cairo, Egypt</span>
                                     </div>
                                 </div>
                             </div>
@@ -1458,54 +591,7 @@
             <!--====== End - Section 11 ======-->
 
 
-            <!--====== Section 12 ======-->
-            <div class="u-s-p-b-60">
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-
-                        <!--====== Brand Slider ======-->
-                        <div class="slider-fouc">
-                            <div class="owl-carousel" id="brand-slider" data-item="5">
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b1.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b2.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b3.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b4.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b5.png" alt=""></a></div>
-                                <div class="brand-slide">
-
-                                    <a href="shop-side-version-2.jsp">
-
-                                        <img src="images/brand/b6.png" alt=""></a></div>
-                            </div>
-                        </div>
-                        <!--====== End - Brand Slider ======-->
-                    </div>
-                </div>
-                <!--====== End - Section Content ======-->
-            </div>
-            <!--====== End - Section 12 ======-->
         </div>
         <!--====== End - App Content ======-->
 

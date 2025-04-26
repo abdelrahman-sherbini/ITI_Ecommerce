@@ -22,7 +22,7 @@
 
 	<div class="container">
 		<a class="navbar-brand" href="admin.jsp"><i
-			class="fa-sharp fa-solid fa-house" style="color: #ffffff;"></i>&ensp;Shopfy</a>
+			class="fa-sharp fa-solid fa-house" style="color: #ffffff;"></i>&ensp;RAWNAQ</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -40,7 +40,7 @@
 							class="btn nav-link" data-bs-toggle="modal"
 							data-bs-target="#add-product"><i class="fa-solid fa-plus fa-xs"></i>Add Product</button></li>
 					<li class="nav-item"><a class="nav-link" aria-current="page"
-						href="admin.jsp">meow</a></li>
+						href="admin.jsp"></a></li>
 					<li class="nav-item"><a class="nav-link" aria-current="page"
 						href="LogoutServlet?user=admin"><i
 							class="fa-solid fa-user-slash fa-sm" style="color: #fafafa;"></i>&nbsp;Logout</a></li>

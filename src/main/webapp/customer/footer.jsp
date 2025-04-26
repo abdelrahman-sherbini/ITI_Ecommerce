@@ -10,13 +10,13 @@
                                 <span class="outer-footer__content-title">Contact Us</span>
                                 <div class="outer-footer__text-wrap"><i class="fas fa-home"></i>
 
-                                    <span>4247 Ashford Drive Virginia VA-20006 USA</span></div>
+                                    <span>A15 Smart village, Giza, Egypt </span></div>
                                 <div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i>
 
-                                    <span>(+0) 900 901 904</span></div>
+                                    <span>(+20) 900 901 904</span></div>
                                 <div class="outer-footer__text-wrap"><i class="far fa-envelope"></i>
 
-                                    <span>contact@domain.com</span></div>
+                                    <span>contact@rawnaq.com</span></div>
                                 <div class="outer-footer__social">
                                     <ul>
                                         <li>
@@ -135,9 +135,9 @@
                             <div class="lower-footer__content">
                                 <div class="lower-footer__copyright">
 
-                                    <span>Copyright © 2018</span>
+                                    <span>Copyright © 2025</span>
 
-                                    <a href="index.jsp">Reshop</a>
+                                    <a href="index.jsp">Rawnaq</a>
 
                                     <span>All Right Reserved</span></div>
                                 <div class="lower-footer__payment">

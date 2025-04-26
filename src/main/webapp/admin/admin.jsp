@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Page</title>
+<title>RAWNAQ - Admin Page</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style type="text/css">
 .cus-active {
