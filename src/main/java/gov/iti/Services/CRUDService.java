@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class CRUDService<T> {
 
@@ -98,6 +99,21 @@ public class CRUDService<T> {
                 entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }
+        
+    }
+
+    public T createQuery(Function<EntityManager, T> queryFunction) {
+        try {
+            entityManager.getTransaction().begin();
+            T ret =  queryFunction.apply(entityManager);
+            entityManager.getTransaction().commit();
+            return ret;
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
         }
     }
 }

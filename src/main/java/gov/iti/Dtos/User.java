@@ -167,5 +167,61 @@ public class User {
         }
     }
 
+	public static UserDTOBuilder builder() {
+		return new UserDTOBuilder();
+	}
+	public static class UserDTOBuilder {
+		private int userId;
+		private String userFirstName;
+		private String userLastName;
+		private String userEmail;
+		private String userPhone;
+		private String userGender;
+		private Timestamp registerDate;
+		private int defaultAddress;
+
+		public UserDTOBuilder withFirstName(String userFirstName) {
+			this.userFirstName = userFirstName;
+			return this;
+		}
+		public UserDTOBuilder withLastName(String userLastName) {
+			this.userLastName = userLastName;
+			return this;
+		}
+		public UserDTOBuilder withUserPhone (String userPhone) {
+			this.userPhone = userPhone;
+			return this;
+		}
+		public UserDTOBuilder withUserEmail (String userEmail) {
+			this.userEmail = userEmail;
+			return this;
+		}
+		public UserDTOBuilder withUserGender (String userGender) {
+			this.userGender = userGender;
+			return this;
+		}
+		public UserDTOBuilder withRegisterDate (Timestamp registerDate) {
+			this.registerDate = registerDate;
+			return this;
+		}
+		public UserDTOBuilder withDefaultAddress (int defaultAddress) {
+			this.defaultAddress = defaultAddress;
+			return this;
+		}
+		public User build() {
+			User user = new User();
+			user.setUserId(this.userId);
+			user.setUserFirstName(this.userFirstName);
+			user.setUserLastName(this.userLastName);
+			user.setUserName(this.userFirstName + " " + this.userLastName);
+			user.setUserEmail(this.userEmail);
+			user.setUserPhone(this.userPhone);
+			user.setUserGender(this.userGender);
+			user.setRegisterDate(this.registerDate);
+			user.setDefaultAddress(this.defaultAddress);
+			return user;
+		}
+
+	}
 	
 }
